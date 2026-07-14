@@ -6,7 +6,7 @@
 <title>The Observatory · GenAI Fellowship · University of Regina</title>
 <style>
 /* ============================================================
-   Design system — matched to Pebl (hellopebl.com) screenshots
+   Design system - matched to Pebl (hellopebl.com) screenshots
    White ground + faded mint washes, bright mint pill buttons,
    near-black ink, serif display, hairline borders, big radii,
    deep teal feature moments, black footer
@@ -207,7 +207,7 @@ nav{max-width:1400px;margin:0 auto;padding:0 30px;display:flex;justify-content:s
 .project-card:hover .project-link{background:var(--ink);color:var(--white);border-color:var(--ink)}
 .project-card:hover .project-link svg{transform:translateX(4px)}
 
-/* featured project — deep teal, like Pebl's testimonial card */
+/* featured project - deep teal, like Pebl's testimonial card */
 #project1Card{background:linear-gradient(160deg,var(--teal) 0%,var(--teal-deep) 100%)}
 #project1Card::before{background:rgba(255,255,255,.1)}
 #project1Card .project-num{color:rgba(255,255,255,.18)}
@@ -230,7 +230,7 @@ nav{max-width:1400px;margin:0 auto;padding:0 30px;display:flex;justify-content:s
 .coming-inner h2{font-family:var(--serif);font-size:clamp(2.2rem,6vw,3.9rem);font-weight:600;letter-spacing:-1.2px;margin:18px 0 14px;color:var(--ink);background:none;-webkit-text-fill-color:currentColor}
 .coming-inner p{color:var(--ink-soft);max-width:460px;margin:0 auto 34px}
 
-/* ---------- Footer — solid black like Pebl ---------- */
+/* ---------- Footer - solid black like Pebl ---------- */
 footer{border-top:none;padding:52px 30px;text-align:center;color:rgba(255,255,255,.6);font-size:13px;background:#121212}
 footer .foot-logo{font-family:var(--sans);color:var(--white);font-weight:700;letter-spacing:-.2px;font-size:15px}
 
@@ -249,13 +249,24 @@ footer .foot-logo{font-family:var(--sans);color:var(--white);font-weight:700;let
 .sp-tool:hover{border-color:var(--mint);background:var(--mint-wash);color:var(--ink);transform:translateY(-1px)}
 .sp-tool[aria-expanded="true"]{background:var(--mint);border-color:var(--mint);color:var(--ink)}
 
-/* course map drawer */
-.sp-map{flex-shrink:0;overflow-y:auto;max-height:44vh;border-bottom:1px solid var(--line);padding:14px 2px;background:linear-gradient(180deg,var(--mint-wash),transparent 70%)}
+/* two-column body: course map column + chat */
+.sp-body{flex:1;display:flex;gap:22px;min-height:0}
+.sp-main{flex:1;min-width:0;display:flex;flex-direction:column;min-height:0}
+.sp-wrap{transition:max-width .35s ease}
+.sp-wrap.map-open{max-width:1150px}
+.sp-wrap:has(.sp-map:not([hidden])){max-width:1150px}
+
+/* course map: left-hand column */
+.sp-side{flex-shrink:0;display:flex;flex-direction:column;gap:12px;min-height:0}
+.sp-map-btn{align-self:flex-start;font-size:12px;font-weight:700;padding:9px 16px;border-radius:999px;border:1px solid var(--mint);background:var(--mint);color:var(--ink);cursor:pointer;white-space:nowrap;transition:background .25s ease,transform .15s ease}
+.sp-map-btn:hover{background:var(--mint-hover);transform:translateY(-1px)}
+.sp-map-btn[aria-expanded="true"]{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.sp-map{width:300px;overflow-y:auto;min-height:0;border-right:1px solid var(--line);padding:4px 16px 14px 2px;background:linear-gradient(180deg,var(--mint-wash),transparent 70%);animation:spIn .3s ease both}
 .sp-map-note{font-size:12px;color:var(--ink-soft);margin:0 0 12px;line-height:1.55}
-.sp-map-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:8px;align-items:start}
+.sp-map-grid{display:grid;grid-template-columns:1fr;gap:8px;align-items:start}
 .sp-week{border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden;transition:border-color .25s ease,box-shadow .25s ease}
 .sp-week:hover{border-color:var(--mint)}
-.sp-week[open]{border-color:var(--mint);box-shadow:0 12px 30px -22px rgba(18,20,21,.35);grid-column:1/-1}
+.sp-week[open]{border-color:var(--mint);box-shadow:0 12px 30px -22px rgba(18,20,21,.35)}
 .sp-week summary{cursor:pointer;padding:12px 14px;font-size:13px;font-weight:600;color:var(--ink);display:flex;gap:10px;align-items:baseline;list-style:none;transition:background .2s ease}
 .sp-week summary:hover{background:var(--mint-wash)}
 .sp-week summary::-webkit-details-marker{display:none}
@@ -268,6 +279,13 @@ footer .foot-logo{font-family:var(--sans);color:var(--white);font-weight:700;let
 .sp-cite i{font-style:italic}
 .sp-concept{display:inline-block;font-size:11.5px;font-weight:600;padding:5px 11px;margin:0 5px 6px 0;border-radius:999px;border:1px solid var(--line);background:var(--white);color:var(--ink-soft);cursor:pointer;transition:all .2s ease}
 .sp-concept:hover{border-color:var(--mint);background:var(--mint-tint);color:var(--ink)}
+.sp-more{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+.sp-more summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);padding:3px 0;transition:color .2s ease}
+.sp-more summary::-webkit-details-marker{display:none}
+.sp-more summary::after{content:'\25B8';font-size:10px;transition:transform .2s ease}
+.sp-more[open] summary::after{transform:rotate(90deg)}
+.sp-more summary:hover{color:var(--teal)}
+.sp-more[open] summary{color:var(--teal)}
 
 /* conversation */
 .sp-chat{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px 2px;display:flex;flex-direction:column;gap:18px;scroll-behavior:smooth}
@@ -300,6 +318,24 @@ footer .foot-logo{font-family:var(--sans);color:var(--white);font-weight:700;let
 .sp-chip{font-size:12px;font-weight:600;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--white);color:var(--ink-soft);cursor:pointer;transition:all .2s ease}
 .sp-chip:hover{border-color:var(--mint);background:var(--mint-wash);color:var(--ink);transform:translateY(-1px)}
 .sp-access{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-bottom:10px;flex-shrink:0}
+@media (max-width:680px){
+  .sp-body{flex-direction:column}
+  .sp-side{width:auto}
+  .sp-map{width:auto;max-height:40vh;border-right:none;border-bottom:1px solid var(--line);padding:10px 2px 12px}
+}
+@media (min-width:681px) and (max-width:1200px){
+  .sp-map{width:270px}
+}
+@media (min-width:1400px){
+  .sp-wrap{position:relative;overflow:visible}
+  /* anchored one column left of the chat, level with the toolbar row */
+  .sp-side{position:absolute;right:calc(100% - 6px);top:160px;width:300px;z-index:5;align-items:flex-end}
+  .sp-map-btn{align-self:flex-end}
+  .sp-map{width:100%;max-height:calc(100dvh - 250px);border:1px solid var(--line);border-radius:20px;padding:14px 16px;background:linear-gradient(180deg,var(--mint-wash),var(--white) 70%);box-shadow:0 20px 44px -30px rgba(18,20,21,.4)}
+  /* chat column stays centered and untouched */
+  .sp-wrap.map-open{max-width:780px}
+  .sp-wrap:has(.sp-map:not([hidden])){max-width:780px}
+}
 
 /* composer */
 .sp-composer{display:flex;align-items:flex-end;gap:10px;border:1px solid var(--line);border-radius:24px;padding:8px 8px 8px 16px;background:var(--white);flex-shrink:0;transition:border-color .25s ease,box-shadow .25s ease}
@@ -336,7 +372,7 @@ footer .foot-logo{font-family:var(--sans);color:var(--white);font-weight:700;let
 </style>
 <style>
 /* ============================================================
-   Extended palette — swatches sampled from the Pebl scheme
+   Extended palette - swatches sampled from the Pebl scheme
    ice mint  #DCEEE9 | clay #96625C | maroon #74463F
    stone #C3C8C4 | warm grey #8B8B87 | terracotta #D89C7E
    dusty rose #C89087 | forest #1C3B2C
@@ -363,12 +399,12 @@ footer .foot-logo{font-family:var(--sans);color:var(--white);font-weight:700;let
 .hero-portrait::after{background:var(--terra);opacity:.9}
 .accent-2{border-color:rgba(150,98,92,.28)}
 
-/* ---------- Carousel 1 · GenAI 101 — mint family (base) ---------- */
+/* ---------- Carousel 1 · GenAI 101 - mint family (base) ---------- */
 #carousels>div:nth-child(1) .coverflow-item .cf-card::before{background:var(--mint-tint)}
 #carousels>div:nth-child(1) .coverflow-item:nth-child(3n+2) .cf-card::before{background:#DDF2EC}
 #carousels>div:nth-child(1) .coverflow-item:nth-child(3n) .cf-card::before{background:var(--stone-tint)}
 
-/* ---------- Carousel 2 · Teaching with AI — terracotta/rose family ---------- */
+/* ---------- Carousel 2 · Teaching with AI - terracotta/rose family ---------- */
 #carousels>div:nth-child(2) .section-kicker{color:var(--clay)}
 #carousels>div:nth-child(2) .coverflow-item .cf-card::before{background:var(--terra-tint)}
 #carousels>div:nth-child(2) .coverflow-item:nth-child(3n+2) .cf-card::before{background:var(--rose-tint)}
@@ -378,7 +414,7 @@ footer .foot-logo{font-family:var(--sans);color:var(--white);font-weight:700;let
 #carousels>div:nth-child(2) .coverflow-item:hover .cf-card{border-color:var(--terra)}
 #carousels>div:nth-child(2) .indicator.active{background:var(--clay-deep)}
 
-/* ---------- Carousel 3 · AI Tools — stone/forest family ---------- */
+/* ---------- Carousel 3 · AI Tools - stone/forest family ---------- */
 #carousels>div:nth-child(3) .section-kicker{color:var(--forest)}
 #carousels>div:nth-child(3) .coverflow-item .cf-card::before{background:var(--stone-tint)}
 #carousels>div:nth-child(3) .coverflow-item:nth-child(3n+2) .cf-card::before{background:#DFE9E3}
@@ -423,7 +459,7 @@ footer .foot-logo{font-family:var(--sans);color:var(--white);font-weight:700;let
 </style>
 <style>
 /* ============================================================
-   Photo-style scenes — illustrated backgrounds in the palette
+   Photo-style scenes - illustrated backgrounds in the palette
    ============================================================ */
 /* Hero: full-bleed scene, white text over clay scrim */
 .hero-section{background:#C9E6DC}
@@ -473,7 +509,7 @@ footer{position:relative;background-color:#101312;background-image:
 <style>
 /* ---------- Hero: uploaded video background ---------- */
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 45%}
-.hero-fade{position:absolute;left:0;right:0;bottom:0;height:80px;background:linear-gradient(to bottom,rgba(255,255,255,0),#FFFFFF)}
+.hero-fade{position:absolute;left:0;right:0;bottom:-1px;height:240px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,.04) 20%,rgba(255,255,255,.14) 40%,rgba(255,255,255,.34) 58%,rgba(255,255,255,.62) 75%,rgba(255,255,255,.88) 90%,#FFFFFF 100%)}
 .hero-bg::after{background:linear-gradient(90deg,rgba(30,26,34,.52) 0%,rgba(30,26,34,.28) 42%,rgba(30,26,34,0) 66%)}
 .hero-content{grid-template-columns:1fr;max-width:860px}
 @media (max-width:900px){
@@ -486,7 +522,7 @@ footer{position:relative;background-color:#101312;background-image:
 
 <style>
 /* ============================================================
-   OBSERVATORY LAYER — photo backdrops, glowing orb, pebble cards
+   OBSERVATORY LAYER - photo backdrops, glowing orb, pebble cards
    ============================================================ */
 :root{
   --img2:url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wgARCAQBAzQDASIAAhEBAxEB/8QAGgABAQEBAQEBAAAAAAAAAAAAAAECAwQFBv/EABoBAQEBAQEBAQAAAAAAAAAAAAABAgMEBQb/2gAMAwEAAhADEAAAAfy47ecAAAAsBSFAJREoACgCiKJQBAAACiLCyiKJQAAlABKIolCKIoixRSACJQAlCKEogCwFICyiUAAMhbKBAUAAigEACiiFEoBACiKIoAlAAAAAAsBSLAAsACwAAAAAAShKIsgAFAAAAAAAAAyFoAAQAAKAFIoBACiUAAABSLAolACUAQFAAACggAEABZQlCUIoiiAAASgCLAqIoiwFIolCAkq6BACwAUJQBACiKAABSFoEABQQUgCgBKJUCgCKIoAiiUIoiwsUiiFiAAAASiKWKIsAAAAAAAMhQBQAAEKJQAFIolLAAAChKIoCggAogQFBCiKIoiwFJQiiKIoiiKIsUBKAJSIoiwAAiliiKIUiiUIowFoAQBQAlKUJQBCwKJQSgKAKSKIolAAAAAEAACAAoICiiABQQJQJQlCKWKIIASiKIogAAUEAyFFJZQAKUJRALKqUAQAoihKAAAQAWoUAShKAJQioAAAAAAAAAAiiKEoglAAAioiiABYoiiKIowFUABaBACqAFSUAABSKSKJSgAJQAAAFIoihKJQlCUJQAigCUiKIoiiLAoiiKIFlIlQsoiwAASoiqiiKMCaAWWgQWgBUAAFIpIoCgBSLAoigABKAAAACxAClgBSakBSKIsBSAKIsAAgAACKIogUJEsUoiwAAwpoEFpKQUlAKAWVACwKJQAAFIAsCkhSKIoAAigAAAAAAAAsAAAAAAAAEqWAAASiKIoiiCAMC6WBQFQKAKQAUigAAUlEShKAACwKSFWKEVIUiiUAUEAABQASKAVKQFABAAUCFIWIstSpIpUoiwLBKIqOaroVJQFqKQABQAAKQAKFiFEpAAEoACgAAAAACiALAoiyCiKIoAlAAACKIsAAWVSASiKIqMqUEijmVoKKAQBQAKslAAUikAALAAAUihKIAoAlBKAAAAAAAAACiKiKIolCLAAAAAUyoShKIAsWUiKOYulEAKAAsKABSUsACCiUIoAAAAAAALAAAsoBQiiUJSAAQAAsCwACUsCwAAAAAlCLAsAAIqOYuhSUAFLABSUQKAUABSAAKiUJQShKEoAlAKABCwAAACBSAsoAAAlsJSAVKAEoAAAiiKIoiwSgDkGqApAoUSkCgKAAUigaMykAAAAAAAAAAAFICywKAgAAALAgFLAAsgoiqSiKiKEoiwKIogUAADkGllQBZaBCqAFIolEAAWUiwoEAoAlCKEoiwUJQAAAAABABSUJQCBoyFBACwFIoiiWWWKIoixCliiFIsAXzPO5d/TjjSKzudMk9d4duvGjphZUlAiU8/Hn0998fs3hK1iUAAAAAAAAAAAAAAABSFAAACwKiAoAAAABSLAZl05Ymry5Xl37vOs92/ndtY9k83Kz3PndZfY4a1jowPHrF4+gALCjV5WXtvzNZ9iZ1HDkxsM6KjXs8DePW8lPVPMPZfEs998fs6cQ3gAAAAAsBSFIsLFIoAAAFJQACAAABSKJQlAlB5M76+eOPqzLCs7lykZ0wXcgosIl9CtY4RnOqFLCyU1KsXOj1dfOz0z5+/BAQACUCwoL24y5994ej0+VKuYollIoSiUJQAAAAFIoi0gAAgAAUigAABLTLQz5Pb4uffJOfbOdZibzoxRAWUQlrIl9bTXPyZ3M7zpTLUIoKJqWvUdcdvFy9XluASyxAVZbIqUE1nWT0enh39PlDWAoIAAAAFIBQSklAFBAlAKEoAAAUJVInhzv3vBZfe8vq1l4u/m59sjl6M51m4tzSCwCLFWVMiX3K3y8cZx01cU0zDbA2itJU9fTl15+nz+X1eXXMGahAVZRApDedZs9Po8/o9HlDWAAABSKAAAAQAFCFlJQAAALyl6vN6VPLyzr3vnamvT5udx0szc7pLLci6xuaKmuZNYWVIABBVlTIl+g01y8BmdNsU0kNMUtyTUmj1deXXn6uHk9fl1yimCAFWUAA1nWbPT6PP6fR5YrWJQlBKAAAAAAgUhQACwAAKDy+dOHrm8s6gALbKhZaaTKC6wN5ypLEWUgAIsVZUydZr0vMszLZIKBAAKlPV15deXr4+X1ebfGKuI0JVM9+SaxPTxM3NubnWT0+nzenv5Q3gAAIAAFIsFCKEoEKzSoKACgA+fjefP7ItWTQikSwllmr1az0zz3xSI1zrI0yNMjTI0yNMi3NJ15bXQmspWJVsk0sy0WBGpo9HWXl7OPk9fk1xEuKBRVyPVvzsdM41N8rnWU9Pp8vo7+bTN3zoAACiUAJQiiKBCoKgqCoNMo0yNzMXxY1nh66iWpRA1LLJZZrWTOmdYGsXWIJVlsQhKVYSUFlqXOjoNTDec0sJNEzbAFWD0enx+zn34+L2+PWCy4KJbFFOkszrBNYssTv34+rv58Ntc4qgSULAqCoKgrMl1MZl6TEXpMjUkXTMjbItyNM0sDzZ1jl6NIl0krUhNS5AloztnWTNurnm1LHWSanPcuctSC0ysFlrO8aOoamYY0QZaXNtMlIsL25amunn68YTUsUUsRYl6yyaxLnWNSxPR6vL6u/mDeAEsgQsRbEKkLElRJahVkNM0sQoLAEi3I0yXjnWefYWVKsi7lznWbJZYpcdJjeaydLnm6wZlqLETUJLZcrEqWprOjqK5tIy2MPRZrzOvK5AS0bz0lzy7+csopViUqI6kmpJ01mZROvXhrfL1vntZ+g4XfPtOI7Til6zmNsF1JI0yXUgoAoIWELAAAFA441nn2SyabxUzvKW3KyoNajHS41myejzerUxmwwEWEFXDUiFsijO807srqTKZ2xT06lnXHn9XNng1i46axqaXOi8O3FO+GV9Pn1yXVzWemN5zvRJZvl03jGdZSyywDvvn16cZNTWYoiok1FiiKIvfO+D33HX599Xn1zxTfKUALKItJNCTWV8xOfeyyJqUxSVKNXWpvnSVnWEnq8nfeZFMNYSzoWd+fTPXPDvz1z5XUuASGpa0a50YFXpcJrcyVx68rjWpZprGy8uvEN5iCwQ338/bHWZsRrGtTGdZuLnWbFlOnbj6d8szrN8+bpDDZcNjDpIx7PR9LxfW498vD9S2Sa1mxPn/L/ScfX874Dpj6HxpSxZoLbMtQznWZrzSzl3ssVZTLUllg93Lrx5+jml1yY3hM+ry99ZiVckO7nZvV52xcVJmzWASWDoqXLFTWudNZ1JZqVc46c7mrZXXn1V5vR546Zbzrk6Z1MrLNduPfG8yxZ0xvU451m87nWUWWt+zyevfOjfICpVhTPs832vJ9DaPmfdqIqCoCWPP8j7/wAv6HyPJbff8nNtI0M20xnrlfnY1jl33LFWJQzYK93Hvwx35pdcnPphM+vyenUwU5XQl7Sb4uq543ZMTWdZBmaiXoG+esnO6xTeuab25l1y6c7i6xZddOXRZy7cY1059M7nLrzslTWdduHfHSZ1km861nnnWblnWUtlTfq8vfpz6OV3z6OY6OY6OSPf9X530PkfoqPN7CCoKgqFvm9GOnD4rg+3+Z9DzLPS8xfU8o9WfPI4yufZNSUVYM1nUr3ce3HHfmmtcpjfNJ6vL6dTnVOWlLdZm1yTV55s3E1zSwlmo0prhrOpBpLWmosXPPryudaxqVrGxy7cZddOfTOpy6crKm7mdzHbMsuc6zvWOcSyxE0yOnp83bpy6SN8qhbAIPq+3530fifpajh6qgqCoKgsct4+DK+7+VCoolBy6cs6zEx12iJqFSs3ZvPTvx78HTmNcWdc0ejzerU5agzc09WeFnXtMVKmjjLNcRLlYl2hrlvOmWsaNa52asBz6c7LZqJ057Vy68o1059M7zy68tZdOfQ751nl3XfS68+ZnfCZNYk1ElsNd+HXfPpcN89sDbJNMrfV9j899v5v2eyX5/1qgsABYHj9fxfX4OWY+t8CoKgoHDvyzrmjHSiWhUszetzrPT0ceuXTg9WE4Y9Hn1ynfh6dZ5azSM6l7c+mJuZ0ucTsrkNcpKJZuWiXjbpnNm6bzM72z2muPLpz3ztzYdefRXHrylvTn1zrPLryuXTnuu/bh34+vXHpy3nlned+fmS4AFq9efXXOq3iUQSWiy+jzXO/v35P1Pj/AKPQ4+kFAHi6cZ8zL6/5ys3pxrNWpUAY3mXjLMdSyW3NW5SOtlzvrx6ca91mefr34Pd5Ncc9PRnWfPWdcpYLu5zrOoS9fNrVDXKEKzZdAxrOkmsWO3Ppyx13qbXjjpy6ctXA105ajeLc7mpc6nLrx3hvOk6+nz75+jfPnnfNkvOSqirATXbj11jSXeCUmN5zvcrWY0lz0yzv6Xs+DfJ9H7z4uuXo+xw+Vjpx9Hj6T1/OxOs1z5tw57WWK1mKSTWZeedTHRLJRVgLSXplF93CdMd+HL3ePfHXp8fTO7z78tYws1z1dTHUxq5tzpeY3yIiiaKXnqbuM7xs3nd5eheeScunPpxVUlmjdyzpc6mpz68dZ1caTW8dZvE1EwrWcrEVLKg3vHXeA1gUmdYzvojU1cal1X0OHu8nf6DxfT8T2ufXwc/ptZ+Pz+35fT5fmZ78fV8yI3wzcblqLgC5sl5SzHUQUliw1Yl1nUOmSa1mc7O15aWyLiSy52xJq1IzrI1cSzbMNyKKi756RYWxF104WVmy5tlRZV1BTNzWN4sazo3vLO0iyazdYysBbJNQ3159N8g1AGdSKKHv5+mfTPkfoQ5diWggLPB4PvfK+j8rxj2/GzqUBAGdZXlLOfVLFssgVVJd53hdM6hy6Zsl1CVmzUzRNQAypMrACgqlmsbQUZ1DGoCkLFrI0hVllY1Ells6IztLLFi5gLZrWYq51rN1miwAAJdfd+d9T5n3g8f0QAAAHg9/Ptw+Eufs/mKRmpQBmxeROfVLFLIAtheuNZmiEubk1rGqkRABEthd5sJNjCkJQFmpUoAIAkLAoKRaISypRNXNmiwC5gLrOt4oubc1KSqQqItztv6/q49/i/qIOfQAAAANT4fD0+b7X5kjfntzYrNLlFxKxuBQJRZqaluRSESwtzohAAsAIEtyKiqAolzqKkNZgFEsFlBRLBZVSwBLZZQqFSAus63hS5WCgAAbxudPtd/L6vjfpyznsAAABLz1Pkef0+b7H5uDp5gFgRDKzO4JQAAWklASwtzRLACyiASkgAAKimsWBQBZozLBZRZRLBrNlSygS2WUSlhAsus6uRdRYSwLAAu8bz1+p7PB7fl/pNl8/SBQAAJx6+frPn+X0ef6v5yDfmCgEsjKyaBYqIsAWwlAQFlSLAAFBAEogAAJZQCgWVZLEWC2USwWVUsARZVABAstluaNSpQgqUENaxvHb3+zwevw/f8ARrlvy+nbFzNMjTA1M51q+br5u/Dx8e3H6H5+DfnAASwksmgVKIqIsAlBUEWUQAAAAEogoIAllBSUFlIABZRAAAAWUWAALLZbmpbAAAALvGs9vX6PJ6fL9b0b4b830ut53Gt3nqNTMNYY3Jw6cPR4PPy6c/X8eQ3wWEsAQCWBQUAIgVKiAWUgBSAAASqgAkBSUWCgASiUACwAAAAoAoEtlspLmgAABW83PTt6fL34+7vvlvz/AE+l53n26MJrcysZmenGcOnHt87lz3jv8+DfIEayEFSxQgAFSogAWKIAAAIACiUgAkBQBSWUAAAAAACgAiigQC2WxZblAWCoKhbrNzvr24deXq7b5b5e3pcXHp0ymtTK5uZnXCct8+vj543jr5YTXMLBIqCwAAEVUIAAiwAABQAAIsLACACUWBZQAAKCAoEAAFAAALYsosAAABbZc6305dMd+u+Wufp6a53HbbCb1IsZZ1xc9Y358Z1jpwStc4QsEAAAAEUIAARSAAAABSUSwACAJQAAUEoCgQAAABYKABZaBFgWKqVBFoltzZre8bx13rGsdtXNz00yaqRLlnXNi51xznWd84suEssABAAEogUIWABLAAAAAARQAAkBZZQABZQlqUAQAAABZQAAWgQAAACkltla1vGsdN3Nz01c2bqJbIsRm4RNc8yzWIS5CwAAEAAilggABLAAAAABBQAAkBZYKAAKVCxQEAAAAAoAAqhAAAUCxYWGtazc71c3OtXNmqhbERLLmS51mSy5QuQQKABAAEFCAAEAAAAAQLFACACACgACgFgqVAAAAABQAKWCpUEWgACKGrZZrVzrOliWoWoREsRLlCxC5BApLCwAAQFCAEAAAACFEogAUIAAgFlAAoAChAAAAAAKlAoBYLAUCUCVYW2WW3Nl0ia1EKQQuUSwhAsBBKsAUgAAgQsBYAFgAAJRAABQgAgAFAAoAChAAAAAALAooAAACpYABalmtM1aIqFqESwQsgQLASFIAAABLCwLAAAAAhSAABQAgQAAWCgCgABUAAAAAAAUolAAAgCkKFBqiKFqIAIsEARCywQAABLACwAAAAAAECwAUAIEAAAFQqUCgAARQAAAAAAAWKqCpQIAAqFqVViW2AQoEAESxAoEAIFgAssAAAABCpSLAAAFCAEoQAAAKlAAoAEAWUAAAAAAAAAqCgABViWpVssAAAEsQECgQBAAAAAAAAlQsUgAAAlAJRAABQQACpQAKABFgqCkFQoAAAAADWQsKQoUJQFhagsCwQAEEpYQADWQAAAAELKIUgAAUIAAEAAAAAAAFlAAAoEAAAqCoKgoAAAAAKhaIJVALtebpzQAlEECgQAAAACWCoLAAABQgAAAQsAAAAAAAABZQAAKAAAABAFgpBYKAAAFCFhagqCoAAQAKAJUAJQBAAABQAAAgAQsAAAAAAAAAAAAsKlAAoAAAAAEWCwWwSkWgACAAUAAEACgAICoAAAAAAAAgACWCwAAAAAAAAAAAAAAFgqUAAAACgAAAAFgWCkikKAAQoCUEqoAQFAAAAACABCoLAWAAAAAAAAAAAAAAAAAAsKgWCgAAACgAGsgAAIAWACoAAAoAEBQAAAAgAQAAAAAAAAAABQAQAAAAAABYLAAAWBZQAAAAKAACAAAAAAAAAAAAoIAAlgAAAAAWAAAAAAAAFBAAAAABSAAAAAAayLAAWCoKgqUAAAAAAAAAAAAJQgsAUiwLAACwAAAAAAAAAAUAEAAAAAAAAAAAAAAAAAAsCwKAAAACUAICgAQFCAAUECwAAAAAAAAAAAAAUD/xAAuEAABAwIFAwQCAgMBAQAAAAABAAIREDEDEiAwQSEyQgQiQFATYDOAFHCQoEP/2gAIAQEAAQUC/wDVab/15iP/AA1n/fh+gzBZgswTnCKgwh1G1I/R3YizlflX5UHAj4AQIOziXTD1/QiQF+Rqdiamvyj8qLyaDEIDcRfkaswNTqBRIQMLOKTCztTzJ0BT0/IvyBfkQxFnas7VM/dOeiZrxtstuNtidu810fcvPu3jRlqzstMBYm+MQq/27+5cUjaNMPtpG1wOicZG/h/b4nd8DD7dMqaDQ22VeO/hX+2f3rjewu2kVhQorFG9qfvBc4f2BMJzpOYhZ3IYplOxQETmPwMLsUqVKlSpU6Wdqf8AAw/rnYgCzFST8jB7KRWKhc0Z2rE3uFh/TvflTcSSn4q/I5ZnLO7QNjjewf49xnan7/OH9M/ErmPwJ38N4azcZ2p+8FzhfTc7gCNZ+cztT9cUbbnTh/UzWdYBUBOv8WVNJUqdLO1P2sgKLSNOFf6roumoWWZE/CneZ2p+1NHXrh3+ohQoUKNM1PwhuhcJ+4b05w7/AEEqVKlTolSpU7JpPwRbck0fuHQy/wAWVKnTKlT8Y6R1JEIjptCgRuEdmaP+Bh3jdnRKlT8WFFI2+KNCN9sUbYoIo7AvKmUb72Ff6iVKlTsnTPt3BQIoIo7Av5HVGo6MK/0vG8aZCiIXG6KAI1OwFyd8phhB5JlTSVNZrKn5PGjhZkNZo2zr+O62jU5NRQaFkCc0AaIQvydEKNfPjQUKF5U/Q8bxpHR1/HTlKylRSNTU5NTkLJ3bp55NuV5YaN6Bsg3qR7dTfoeNoCVl0Ggs+/jGhl0bbA0Ch6jIiI0c8lG8rkO0A9CDNOfHU3fbgYjl/iYi/wAPER9NihEEbxsdXFWXJ0G9CvGmUrIU1sGmVFukUanIU8h3C3g6sdeeTsC81PReOobuF6d2ImYTMPSQHLE9IiCDtmx2RdPvU3U9HX8UFwpXl4lOvqanJqKB9wd1B6T7XHrXnk254OkXqVxqF6QoUKKRSFCwfT7OJhDFDmlrto20DSCQU/Qb0N+EFPSes9J90+0lG+piemXeh3Lx8TeovQ3R0i9SenjqFxbZwMPMdrGw/wAjYUKFChQoUKFCI9ppwhp5T71N10Tr+KCFuTbyFjY6RQIygiIQ7gFHt8Deou67j7TcdVCNqi9SOke3ULi2wBJaMrdvHZDo2XdtOENb71N1KdcWNgsqhFqy+6PYQj3ampybcryHcF4O0ckpyN20Nqi9SCp6UOgXB6SpUqVmWZZlmC9P7sTcx/4s4WcLOFnCzhZws4WcLOE54jQNb71N1CN/FBZnLMVnWbrm9hcJPdqaigihfkW4OjlFG7aG1Repd041C+z6QdNx4lm7xp5T71N0E6/BsFkWVZSo93ibG+0L8gKPaaCnJu5G7aG1RfRxrFtj0vZucbLtHGgWij9HKIRvwbNXPh5LwPce7QNJXPmF4GgpyjKN20NqNEnKNElcahYHpselO7iGMPZcZ2Raj71N0JTr8UBKzFZ1mUjL0zHu1BcBFcyMwKn2nRynI3bQ2oy9IWVOb0A6OodItsYDsuLuepdGHEDYdUoaRaj715obo2CyCcvTKV5eJRvqCKCKF/IW8TQVKcim0NqMvRtHzmnodY2sN+dm3jPz4my7ZFJXQuyrIixGZUynXNkE5BZ0D06EFozG+gUFYp5c+JshXqUYRu2htRl1laKFyuTsDawsT8btr1GLA2jsipQtTmFMI3KK4oEO1q8z3agjYIoj2lN7nHodJTrIUNqNvKJAAtllEddgaudGFjZECCNeL6gMU6J1nZFDQWzU/wDpKhpTr0CdFAh28SudQRQuUf4ymXfqKKhco2o26IlZgAXKdkavPSzEcxM9S0oOB0OxmNWJ6hztRv8ABzUFj28csPu6JzTOrgARl93NIUKaNRqf4ympy40DSbUbdHEMT8EXrChQoVlnevyYiMlQoUKFFIR+HMKUHL2uThBFA6E7uoMhTgApUqQgdMqaBQgij/HlJURR2kUiDyjZdEIUrj4POoMJQwCvwL/HX4CjglFhGrnUd+VdNHV0BSjWYRM0tSdhqNgig725lmUlGdYXKNRTjaGvz0ALDwlAGqE9icNBv8cGljqdtBGs0kL8kImdPPIXOgauNQ186MBhJ2CJWJhlEV51H4I2Tvn4A3Rt4WDO2eqxRB2T8AXPU6JpHwT8AfHHUtGVu36hu0aCPlH7T07JduYglh2T9bP0fp+zcKxB7vpZ+yCwezdxe74RJcf0QLC7dw2xe79XCwrbjliX+t6fVBYW65Yn6wFhobj0/wDWAmIbjinfrATU1Sp2SU5O/WAmoIHZlFOTv1gJqG2UUf1lqGudBRR1j9SCGwalFH9ZCG2Uf1oIbZR/XRQKx1H9mP8AZUf8J+kf6mn/AKnGP0eOn+24WQqGx/zDJJ/sgBP9Gv/EACwRAAIBAwMDBAICAgMAAAAAAAABAhARIAMSMQQhMBNAQVAyURQiYZAFQnH/2gAIAQMBAT8B/wBumxG1VccLMULokrfQrubHc22NiHp/oWmz0zaza8tqY9IUEqyhc9NGxHpolG3vIQ3CilR+VTHm1ckrP3ekJUfgvS9dqaH4NT8vcRjc9McWjSTq8nmiXPgn+Xs0rji0LTZ6QopYRHR5OlixaqJc+Cf5eziksrXpexu8G3OJPksWLCHGs/y9msoxsSt4Vjeq4Jc43rPn2SQs34r5wZPnwT58NixYsWyWbq+M+x8nzihvwT59mskPxWPmm3ytHpm0sWLFvY2LUZ3wtjc+T5ENZN9qf+ZSzjCUuEfxdX9EtKceV5bdqPDaxcElfDafJ85MtWIx84Ty6fo7/wBpiio8UcUzqOiT7wGmnZ4rFckuKMTrcuXHh8nziqclqRpLnCePQ6G+W5lsev0P+6wsKiwlxRipY2m0sOvY+R85MXBKkRjwnj0cbaSy147tNrNYT4oxU+SzO5cfPjYuCQhKwx4Tx6R30VlqdoPGNFVE+KMVnT5NxdUfNb0fNXVkSXJHkZs7DtfCRYtX/jtXtsy67U26e394xxQ+6PTZJWEr0XI7HYsOtq2sW/rcdWRJEeRNWuTv8DwlW16Qm4S3I6fqI6q/zhq6sdNXZrar1ZbnRq1Vihs3JGrZnp/rBFx5anIvwqqIkLkuku5KTxlWJYsR3Rd0afWai/Lufzv8E+tm/wAUTc5u8i1JeG5dSJRsRnZE7fAjb2uXO1Fi9r7s3L4HW4h+CVYlxM0NBzI9LBcnoQ/Q+mgzU6RWuicdpcl47lx0v4lJrNZvHQ0JarsjR0lpxtj1egrblivA/dPPodLbC7y14b4NDVngvonlFXZpq0VkzXjab+meWnyQ/FZ9Qv7v6zT5NLvDKX4mtz9Zp8nTS/qNUsWLGs7RNTn6yB08hPBs15dif1kTSZCQpFzcSkarJfWRIMhIUjcORORNkvrERIsUjcORKRJj+sQhMTLlxsY/rEIQmXLjf1yrcv8A7J//xAApEQABAwIGAgEEAwAAAAAAAAABAAIRECADBBIwMUAhUEETMlGQFDNC/9oACAECAQE/Af26aitRqHWSi9NM+i1BSpKDlqC1qQpu1L6iLiah0LWVqK1lNM9xxhEk78bAMJpkdt6J352Wcdguha0HJ56I2GcdMmEDK1rWieqNhnHTJnozeULZqzjpm4lDam8obDeOmewUNhvHTN46JGy3jpm8doFa1KlSp78bwsF5cByvrM/KD2n53ZoLJoLJ3DQWNuxsxHhqLiaTCwswR4cgZ2ihQbfxsihoLG25nF0iFNuVxf8AJ2xQbfxsFChoLG25l04l2E6HjbFB0yhSZoLG25j+w3M8uCFhuFBZFRWNkoIoKULG25xnnVdlmanzab5Q3ZU+bSgjRsWttc0OEFYuCcM2Mwy8+FhsDBA3ITVq3Avm4IoKLW1NSAeU/LNPC/in8puVb8prWt4qNrhAohCaTs+VCFYRQ2BU1xMQNTswfhfXehmHJmPKBmg7MbwtxMQMCxMQvM2AwsDF1ePUi3NPkxdgv0u9OLisT7rm8pnHphcVifdc3lM49YVijzdhjym8escsUIiwBYYTfWFPCIUKFCATAh6wpyIUKFCATUPWFFFQoUIBBD1pRCioQQ9cbR+4z//EAC0QAAECBQMCBQQDAQAAAAAAAAEAERAhMDFAAiBQYGESMlFxgSJwgJADQbCR/9oACAEBAAY/Av8ASSlb8dpQsrYcujpwYb7bJ1b7ZU7q/Ny+wx6nPU56nOAeSurq0X4A89KavxBwDxDQYK6umfijyzCN89jXPLHkTyx5E4B4Y8ifbqf46n+Oimg+X8dFP+Gnzx9+etwl+pLZUtK/pX0ryv7KYbmDiDviuZBfSPnaxDp/4/8AiY40qQiEUEYCqUd4qjE8Wv4FHv6pjiypCIRQiKpxQ2H4jYU+4pnEEflFCBQqlHeKowmTVH9aRxBHStRWkIwAqCB3iqE2D7VX9My8BETRCBRgDWOIBhaquods4RARKARgKx3jPPvxYjpWpaVqQQqCBgN0s7UKuo9s4RE0QgWRgEaYgcR0+CO9VvVCebpiESgjAVjiNhvU7DItsmICITQKGCK7lSxexp+EXzxRNN4s6FcSeMsRj5U4oeHTM5I2TG6W0Z+lNjyX1SUi+y7+ylIbhkXyRgthPR8xXnKmeGmpHY/NXV+Itzc+HfIkOHc26mc9TgVHqT6Of0qn7xOT+5Nv8auXQ7/d2cl5v1iT/VV//8QALBAAAgEEAQMDBAMBAQEBAAAAAAERECExQSAwUWFAYHFQgaGxcIDBkdHx4f/aAAgBAQABPyH+jGx/1HcTa39Fdf1en+FHn+o0HZj+kS9Tn6+2hO8fyo4hd/pijbj+gcdN/TI9Jb3pFp99r3bv6Jr6tFp19fifo6UuB1MYPYDc/wAeNMfH0DvHmPOMW5JZLJY/Ya50m0ss8iLPHr4+jYUmkJTvXUhtpCaeH0IZDiiViCKKw7hXPIu3KUSu6JXdD2UYkjfsTXzCmhWONkiSZzbJfciSSfyJaxQ+8LGbonAi0LilKBgWzkTiaalDRJZ5hUrTbi0NEbpILVKDwXLxUBJcvrSVa5jLn1iP29XGI5Qp6K5Of6y6SlxTVNEvvRxPKVUhfzpLJZIlksTZLETesIn2oi07cF0NGhCTh4E0kr0kfQ85A6pUgikEVRkI/caIZISIIZDIYsDRDorqvAzaxLo63k2PleteF6eK5STQzRPSYj948EvuJsv3L9yXckS+5gN3J80RNRwbaO934/c+/QWDZk+PWb9FHRzVOmuk8iP20iiCOAgirFT/ACFykWOWFCr6gQstjc1hJQqMxCBbuMIVz5xR4H1Hmn7qQIkCJEiRJkm5NMFP8qRRF6QLksGzf6b9ywXBvYeY+MumlR4GTbpvIhPzHghkiGQSIZDnBYh1YKf4cETVRw1RDZn9HQVuRq4JUYn+Wm80UGhkwq3ctKjD6jov5dOKYKfqXQXDVFijN+uTjU9FW28iszzjzwiaqOcofVMQmSSaLl6ySy/cQ81wU/Vx+9YZFuOFGT9RHWalnbjEVVUqSDQxP0J5FisEUgggikEUxU/VzjlEjpsmNXVUU2Zv6M/yPguSQmxtkiaOiEiBGBKvs1eheRYojVSeAmSYJ4X6K/Y+x9j7Fz7GBqSrGtpAsG/o4YXkcCglEiRKFwWKGi8kzwTSSaSSSSTWeDEkEvtV54RRDyRcg1UxqTWSaJiX4+SRYeiNmb6DHDQ9iUkQXUPiGITqxupDijolbkuO6FddCxYtUsKYuh8J4aJawxpuJNUZKST6aSSSSSSSeIOweGS0S2SJEiRLfQyJomskk1knkqClomMoktTZrisiU80xYvW5ev24ZUWDZmp4heikb4CSSSeAkkkmumIYoLFixaOC4ZUiqw9wt4XSJKxuiDGlixVakED4LIrjRg6Hgmto4ao80WDZm+BSwQR0JJJokkngJJpPWeGRJEVIoiOg80cDQyAO31WaGZuaDF6Qy9L1E62NsvgsgTSSSSSaLFHd0WDZl+DHRV2PPGSSSetJNJJNEwTIhIkSJfQz4oG5fU2FhUZU5IyFwWabrMR5ILc2jRlRYNmX46U8ZJ4z6FhDgUQWLFiFxXGmf/RDxA7zjfWuIsSISGJSNQ1JkSTwbJMzKkIyPNIq+CxRqiVhLkmTxEa/BEmpKJRAkmpJNJJ9KgiKtmSU8LFimhoZJBLc7fakx8FSeWVMTSjUZSsPskoXCH2JdhXkYRCJK48shkUOG6/c+4sGht7DzuJjdxriSX3DXdxoqJJJpPqooxMDc1juRYSIpeiVc6JoW0WD/Zkit2LuDZBIh0wQ4IFgSsRgyRuaXMHKWBGo7rSYWibiE3Hv+aIQxiQwsGhpBEnOiLGx4pamHOOpukdHVXkMVUT+qLI/AskmENkYpoyNk3Q6fJAhcXJVY43gaBuWJwZZDBYRQDXvXL5JjZMoXhJK6gR0JyEIcyxUWnXckLhSlg0MTcvAsGx+jXNsebCertfueS+5/qgaw5vNJ6EEEEGSiJIsRT/wlBU2W39hFvgzxtK+jM0+SH2onKbD8Iy9Ax3sS7kGxY4ZUSwkRS1gWJmp3i/JlRYIBKEG3EaFYlyyXSSSaYifcd2aIyQHDaFFjRseKRR3JDjlHL/qH3MYz3ZJ70kkXQk8iGpI8iFENZXGawRXJRMGVRF/wRIjyT8wnYbN02aobFNLKnn5B2RcxOPOS5vwSikm981wiTE0otglQRIJXnHZRJQsQTfAroNOQSQ3GBaU50RURxxcGb+Apl8U2PFL1lgjiEURUVZXQJL8suA9LhrjAiSeA+GxK/BNqbJC0MRn9hYNmqDdxNpLA8/YfuG7RSndrDMWMj0zN5FcUFhoHnj0LGBzShpQX6GxofroqYRq6GpV6udi/DBwtLQ9nz1SLjxSamDpWz7Hl9GaJkXiIECBDmD/AMyh1bD/AMrBgIskK5utgSdKzEL/ACDowD9XFBsuZXoVMituzgZkzAMkJmEWfIuXiixTDSMSLuZBnQW4tBYgxcEyYb7jyeDQ8jxxcHQgYhMsSpcInpSWfilBBBBHD8AbXBsb4bQi+AqaobEiWxpP5In50wi3OSMbBD8gkl7Fsu7pi3LhAnFbSkNAewiy/FPs8kLfFE7Eidghu7YyxcyGTHgz8MFN0iSxoWloWB5MKWroESBEiQIEaUZO2eqibN5dIK79h14Hgk1TYzw2qWSEbqbL8IWwGLnuMWG7jtUEsSsY0ZIPDDPgIzvhJrg5mOSUBTIuB4/JkviiosJLSh0tSZjamcURSDFwRIvAmmzSixo2PFLVkqXpfjAzvC6mzyY3SeB4RJqhDzwiUpewrcf5IyiwiKDFO8zcl+IarFyUkEX/ADxCxCU0QxOGNySiJOwZCF3xZr8UwNo04AZPl4K6GsCmXaDQ8jpaiwPaSST6Mnl8G+l7EU7PIsDzVJDWUxFrkVXEpLTYYtUphoyt8mREfGfsL/YEXk8iLFoz8Woh4FkwEwQzO3yY/CjWJEJurbEawtoa4eQF2KOjRECbby9E1kbE6Nrykkk/eemYNwIwGLPQtoRc3IbyMozYlafAhYxZksSlyCS2MjcqnDG2dKiD87lFDQzMRBkmUuxL7mM7fHBBuI8kkqGT5Ruk3fC8il5+CHwLBmLEJsJTQiDAsD2E8IpBAjsLOr8xjkIObx26Kw5ouI6zyqZhVcDY5Ts2ZzQxn+SxJxaTeZGhpsj8o/3oZasREkUtYyHcGAQ/EIn7iUL44NmhhkyMma57G8jY7XLQWWDNuWIasRVGBJJJclkkkktXQhW++pONdhEkkkkk8LhiohVkextCN2n2MLfkaf8A4IHCakgYvMiisGUsFu0GY92T1ok8oTE2d4GuZZG/mLjCLwZfnldDEOCErplkEkmtoumtF6hrDdhZIwC5MjgZct2JCX/paJSwtOyLysS3gWKYJqjDpZnyCcqU89K5d2fHTnA6Os0gwOw50M5djB8E0ehJO5LJGcSV8RGhZfAsIWGa0rkvkan7T8jj24TIwGpZjNQy9R82s0MoTxwWRmoveg8mZrl50uaLF6l6dEYNwiRD4Iw4uxOPji/d/QQmSuhMfK9hu3Lcskkk0v8AYkkkkkmh9DA2qHln4hHdiU1a5Mz80TxHAsRHrwOSx3Li8BGLof7JJwY86tiudq8KGJjNal4XxRDNl2yX/wBGk9xeGquuBAt0LYGeQbtj5ow4SSf5JJ4Nb7dmWNJ/gUypPFfJn5O1wjj7bNI4Je5sfQRIu4aeYMPwI5OCXg4uMPsdg02i6LA1DgjyLNJFAlEBpE3dseJaNq3IloUMobTLDAVhuUYzBDXEHkbs4SZV3TJxIBPwXdJC5Jb3KscRSeDgScf9hs/9Bs6/l8gRQgrqSOEDQ+gqp2sJs4+CJRkhHYkTNjacQxljuZKTAzNCCc80K4ZaLubkkkmpYkYGSMBJtyREJQ75Mh8MjQ7B8BKodL7GzIsq+ghclgu1JJqlJrhilIPvCZphp9uLceQscsB9BcFimFxxYn/0gvUiptsyGl1TQg2k+xZuxehRUE0wTV5MqGRgKSD2H94n4FydEQqLJbWS+RUYDzTKmlGM1R8ixwSmn+OCJGWZCQsuTVqhCNU0YSOTH1E67GdxtNXFMC43Lq8H3FlGXCSaSTTMwFI33JRCsNiBQwDml0RLohubERIkdciCbEjYxUPqYz4w2hDXNEGBa6GLNWubAfUVGbMhiyT3M4o6djOkdBccBDqhs0LJ5JJvR4rlxYsUdYI6ZXFRxkJWXSSAsH0j5wYsxUdWNEhlIlFd1WdTz0YFnjgKsGqQWNiybNGq5clVcF0laUhfYOo7BW6WAy52eOgs0eeGxc5ikEp5EjB9uEVXF44xBMEyLJvmuiuC6V846qGCQ6TzwHxfBZo89N1m5JArEJ81jg8cPAmaa6K6K4LooTq7kQPykmHJIx9GIySPiuqtWKRRY4Ok+h1nkurmWdU8C39Fj6N85v00k8FWSfUroTxzHs6uQydJ8lZ+smiwST6tdRmQ3VtZ/Tqw3Cyjqa9CurmNYXTY0IuY/qePomYwxnpNjWMx/Ul9A1wRmONYTJJ4ySSNloz9snGEFZDx2G7kkk0mk0GM/Yyfj0ZhqCZJJJJJJIww1DH7XMMSJk1bUkjZI2MOOPlr2iqGExUkkmiSRsYeh8r57unMT7F0IcYTEySSSRXcYITmV3Gxsb20KhhMTJrJNJG2NQx/PtdUMJ0TJJJpJI6jH9PX0lCYmNFGvDHcRJJJI2Oh0fSmfZH+8UIQmSTWSRsdDHRDc+1kIRJJJJJPBjGP0kWd/YiFSaK7pPBkjHR+10LhJNZ4MftpCpJCb1ms+3k6Txn2+vpce55f15OLd/4NVyc6/iexY99Y94Nzr0EN46M2/hxtuJ19Tm0fw1Fp9zpx/vode6V5PI+/sfulmI/k5GH1UzwmeF8mRXSfZL3Lfua9sqN0SbcL35bz/SePcGVTH8czPsVxFv4SmRKVpv7Zef5B/9oADAMBAAIAAwAAABDx3z33TroKNc93zDCAEU33HVHGUkGElHGHHGQgw6oKDBH3Xj1CAIL5IboILIOv3DhA13HHEGUk1033fse/c9e00001lFHf944yIwwy5774IIsNv3zjQ13Gcc+/pbKI6I84o44w448866KLDD0w1EHXPffvOP8AQFtV8ggN9xzTHa4FJI949xBRlxBxwAwhx1Zx7vPPpdwwlNNFJJFN994AMdxnf6ypFZfzTyAOOiPuPzzz3rjzTTzzEMcMrxlNN4ww4whx8AN9jDsgsP3yiSIcRwyjHuMMN9tP/N/9xtM9uOrjwwOKRxh99st9F7rDdgvfQkNNRwQCOf8A2eQWURYezyzxSyzzyxccUbrjSc8zyOMMcf532Bf8FCYBHOM85RTbSTTeccUYcYZQcQI888t884XKpkJDSU8ccRzqH+Auwxms8zbeVccTQVADDHNfYHOJOMNOPMJHDjji8cTD1MFHTcB+E24jHKRVcYBHGPNMeccwxeyzjjzTXRZTTbTXTTTUrLTWcccTwxbduxDMTecRTes0VDLts+sm+84wgwwygg9wlwijyzCOexH+mtJVc8G4iMRXZhjswzOuk1w0zjDJDCfX83NMdsssgpjmjs9TTKDXcM/gfe3MBfYhsYTeMwzRHPeMGPMAIEihjivrDDPMMssotvjCDCPWUXRLsnITcBveTupTXsovjnLDHrntnvpPIMJKhjXTV93TlhjDDDDINJDDfwWZnoT+o3PJCGHHMoolkkgogBBRbfff+/lghhoYwkgniggMMIBHPHTsxekzfABOMDGTbTfXTTTXXbePFMAggjlf/tvNs8Uc8154w7rjjjK3aD8CGMITTaNAHMAIMENIIAAAABDfeYZSyRBTdeccSsst8six/l0fNjjK+fKaVZSTTQaQQZTZQXbbfeeRRFNE/QQSZ/Gdf+XvIWMXfApjcaqtfPc/agYfvfefffVeedWcQUHGAAAgj7usoYSTf6MA6lvQjj5MOEABrGtrNtgjeEs68kqogjLDOMMBCBnvusAjrWcdF5676syfct65x8gCdNl6pYg7gTjBnvvvOHIE53HSjskijjoqHNQIfwzvUdKcTG5zT0AyfMj6imtnfPvvvOsghin/AHz6qY557IA/qurWHnOg1kFyknJACDi3u1jM+64o5XjKKJAgQxzz5ro47774GiK74BIco8jVl23SlD79Tn3cuoBbJ6L0nW4BQSb57raLJIM2zz4b9KhxoGqG3Dz75ZUG4XFu40gUKIBnWgW7NcP09d3KIKb7IckG3lctdoJp4EpEYmoEtIeN4kxIQ8sISP0FWxh6v/rNauVcGEMMffFBfO8tVZJR0VZS65GNTcMdO34mdvMqiQfWBW9Sff8A8+XjUVFx3BkJUwQ3vODKdWVjD8bHY2ne3dtyqwa76p732A4HFMJjL5dOLgHOey8+v39tsMNAh/5ImZQVqug6NANMCo0meb+7CUDPGR1K1KUpDW++/wAapZXkuklqJ5b+86ApeZxPvUAf/YWvXNsnqr01zv3Nded19fPBwLpBmg47nffL0qdhL3evbxMdIvKLc2PCxaVxE62OEwgFU6YP/wAqrEAEAHuX6pa/1WAYKoN3I0VGrnOQmcGfeuyG+jXl0h5QVT6OCiDB63N/+8hnI1hwUvdAJEtm6GelzsQVLPGrvkmAr5bEZsTr6BcehW5D1s44sc8TEDCBjQuZJqBWyGHGznL4XPyEqfEAv6sH3keI6Q27KF7PTXoJPuLnRwwBYnf1pqV7UmkLFzCnho/MkKkh+Brn+zpwS3DjcCMv5rbHzSCnnwoJ53Yp5Mt1uDKQY34Pg7ye+bCASPpa32MVNjQ07gipyJ67mQRHwHy2ZFbqhGD4X6wRyHrB9bDwTIfyZ1vXVKmnCOd9A32pwl2Vr4hQHw2xoSyLASnlZAncmcIaZzMs3yeBPaX8erPoWGtbvDDfDzIIgKY9ggPNQHRfjaVtLwEyaonf2P7nlGbc4cxBr0VYWsC1zHHHL8o4pIKoAcoNxDTa0ShW6y+YcxVTpvLLWluZ54ZeDe7JP50H8QV+jJo7676hD2tsjs82CZg3wqZaar+PzwIp13tapJfwBeOnv42G3LLKl7L4Lq46PHCC2H76lSX0I5Z5v5P4IIDvsEn6rasZQMKS/wBr4ldd9DlzcO+6yd/842gAy28fqa73/wDiw0rvgqtw7PrsswFg+vF/f1CDKJHmMS+7zF5gwgl1DEMt/wAJ+t/fustLz76ruOuoKJ/utKucJV8vb779ZsWSo5CLB65aUP2gALxv+r7KbIJDz85q4PtKLbYIJb8Mz+ocMJMKK3L/AOYsffpTTYU85Ay/qw888KCAI8nCCSqDCCW+CUs+Av8Aqo37zz556QsOT/tRsNrnkQWHvo9/fbEIANHKgijqggkFtLffeR9/hkdftPA2RB7uPGpWRHfYYQRPno2//WRQCFOMgolvokgFVfff7w/qFrrCRFjc0swQhK/MlPLSQUfPigl/6QVSRPKA8qgvqiJAVUX/AOsJbhPP/wD9H9iWMy4mhhG84yBBB4++CX/tBBBc8MDCuC28kYBp/wD/AL4JLwFPNDRsWT+nRfuXZ66AAEEFzrKJ6sckEXTwII74JLzywkEu777oLSwkQAT8BAKN4v68pyoBRzz3iIJ767qHlH3wIIL6oJDzwEEHL774pDyxyAjazE15eb0U/wACEc44wqGeu6xABJd9oCCO+6CA08BBBGq++eAA088Kj9aIRIBSK+gC6+6CCWee6pBB599sACG+/uCAQ85BBiS2++gIgQ++HB81QCyJCqce+iCW++++gBBBdd8ACG++fmKAAU9hDCCC+++sMIiy/N5uh1hajX8+SOu+W6iyBNJ199ACCSf/AF/iggAGfawggutvvvvjg18bilusol/+AhnvvuoogwZWffSQginvzt/viggAFbzx5ggsjllttx0Ev7jnn8oxLd9yUEAABUeecYAgghvvz0//AL6oIIBHX30000MEG/8A9MDbjibCKf8ALd0wQQbTXfccEggghnvq/wBPPf76oIIABDDTX20W0efHz+45477vcAAkEkF333gAAAIIZ777+MMMP/8A++2KCAAAAAQ1tcdEAATbi6yXjRwA8M804gAAACCCue++/jTDDDDX/wDvvrigggggAAGPPLLBxywx4yxDPfNKAAAAghjnrvv9+wwww0www8//AL77Y64IIIIAAADzz7+/8/8A/wDPNQAAAAAghvvvvr8wwwwwggwwww09/wC97766oIIIIAABLLONPOPMIIIIAIIK77777/8AjDDDDDDDPDDDDD7D7z/+++e+uOOKCCCDDDDDDDCCKOe622++ezzLDDDHDDCODDDDDDfDDD/++++++++eeCCDDDjDjDCe+++iee++iDfjDDDfjDCC/8QAJhEAAwACAgICAwACAwAAAAAAAAEREDEgITBBQFBRYXFggIGRof/aAAgBAwEBPxD6KlL/AItfh34153zUpflXjS+SlKUpeNKUpcUvO4vivKl4XlfqaX5d40vnpS/S0vCl+iub9ZSl8d8Fw/BS+GlKXzXjeFxS8Lyvhvx7wpfiUvC8qX4Vzc3xXjfpqUvG/KpfmXwUpcXFKUpfNSlL5Ixp/U3wqV2VDjG7WVXrAuhf9CjaITYaEqaP0ipQxsb+mTZ+gaLmDcrGp1aHFRCCHry9xz/MpgpiPZ2IQmJ0dCOjo6PZ7IOMi807FBfJpTdjbWexsUuXsTIKiCoqvQkAsc8DVvjpUbuN/wAm8Fm2x6PZtybsSIiIiIj+Gq4D47vhsaIcxjSpX5xsSXWOsNBG3LYl4D9C6ZriuGJcN3wlsQdDSZSiHoXoGhE2ZR98GJUajTWjs7Ozs/pohMH9FfkpMYu8embuE8LXFcS3hCU6oiEIQhCDwjw2ywrHbYsTjI17H28L3J5IyEIRnYaCyj0JtrD3zeKE+4N9wpcItxEh4/I/cvKEwXBIiLKXZpwQ2LXAiXcXB5JCDrg8cKZYkMvDmYQgkTM4wWzTDEmUZpglRqDbfOxMN9wpjUyl2PoosIaGQW32iZadM6wQhCeBC0I1hhdhawS9D27hCZ6H1svCkw0GhZ1YWidj2NoqiRSJpB6HseUj4XO2mVVO5l/xzWxaEPKVUyYJv0brH0L8Ashjm6GoQSpIhSn0ij2KQT7GY4Vy/WHXoPPSMpSlF24haL/rF0SEEEaEb6mPWzDzsLQhoaJD54CdbPZOGhtmkEC0idD2I2HskDhwZqMrgTRCZR6NCghCEEJS/uYyhOxa4Eu1w7xm2zaDND6HR4Wy4E2FpF6HsQl2JiTvGuCq1D5uhby994hCEEsvwNRkyti1h7wtrLqTYyduCT6ESqNjuwtiXZHh7EkRQexC2JibsSuDV7wi8E6JhEEQkzMPQ/wxvvgleOh7wiaXBr0MXTYnsTiqZuFsTjLHvAmVw2FoTjG7NMWs0EnZjh7HxkIIbu+12sTgmTfE0eEIo3RMkxqGJ2ICcbGHZBpn1jsIXbIKqN99DbcSsNmLQphobGgUYO6Q/bD41gVtqOlv9lwr0dwjGDvFUQssMpAqUIfsxY2mJpuD6uKg24PY12P0wNdl6NiYbGoTxBobvDsQgkrELJDYxPEETtxdJFwVlkE1lbEIWf2GhGO96jrGhZobsbLtElFA9kXs6L+xvse0JAFoQ3wjqPezcT7I2uxroeUNClGuDGM0/Qo6XG9EL0lkGG0XC2LQsrDb9DfTEkgnRCpD1SkITETdzoC3eNiQhmx6Gx5p3eU5j0sEpeDQuBqDdzsLghl4N49TkvAhi2UfBR8Eqx3vnyWI5ifDYWFhbG+ijw8PDJhMoszihi5mswkokv1ySpiECEIIRcUQ8Pg1leB8EMRR+FpP/ELi9NjKfvEIIXBDw/MuKHyfJOo8eTRmPXY8oXBfCfheHyQUg/ATBBC4jcPguCL8F+F4fFD9k1C6OsdCEi4fseV9A8PijcmzpEQkaY7m40T6R8UbE2dPNrGiEJ9HCYgkbjQfBheChbF/VLByWW8d8H9UsGGyXgNjH9UsExMWCjYxj+qQhCYmUbGxsY/q0J4TKNlGNj+rQiiZSjwx/VoXgf1ixSly/jT465v61f5e/wDU/wD/xAAjEQADAAICAwEBAQEBAQAAAAAAAREQMSAhMEFQQFFhYJCR/9oACAECAQE/EPiv7E80ITxwhOE/NP2z9UJ/wEIQnihCfCnKeSEITMzCExCYmYNEJ4kTwz9k/FPiwnhX/FQhCYn4pznin4YQhPNOU8EIQmJ55h/lv6J5n5p+5+B/XhOM8FRV9GSGzojOxGmLDcI/o1OEd/Q8ofFtIaEN2f7H9RqF/WKf6LimSgka/wBEkZXhycGp/wBkeE9CxRcezs7y7VQtc26HYYnmvhhBOkI0sLj7JiMjI82mLwJ1/QoQIYh9HsYuSKysrKyvD2aeDTm+C+BCViQ0TJGtjdwuhi3hc7ClKXD2aeDTzpfG5uxVcW4JjVIvCT/pUVHR1jYfopSjgkfWPfBpfD3y24PHoGd7KUpSlLmMJERFlhuuMFrDi5XipSlKbcHh7F4FiIa6IQmUhoLisKJwpSlKUpS5udj3l4e8oJ98Vjsb6PXGnZJyXhqN8rx24PD3wTkijXROi5Y2N0nFawyF2cQrKXxvY80YxCc2PjCZt9F6wnhl6yl32MvZ7NOD1c9kHWDU8Uw9D2MWX2yUzA+2NOFfwnQtcGTrFxDcRp3xzEIPrs7X/wBhpWyidqhpsQhKuLG+xiZTQ2xsJD0euC4UJ9YeGPQ+ywa43ETPD6vtjFKUo5t8KjfQ9jPWLTbKDL0XDFomJgl0PHoY9CNjXG4i54TGf50UpSlGOCfBnsY9Z2y7GdFWVoeKsJOcGehGxqNxDQI04bYuUa5Cxf6J1wfrD7HrFZtkqtD1lMaDy9CfWfQxroRsamuGxQ9CxsUpcNSLyehtLivWGMQxdEnY7Q+x6O0J4Wh6PRSOCXRD0Juh6GOwRsamolXBK7Fw7ZbmHPUf5T0+EomFlE0y4euGhoihT0M0L+jaGh9nsYtDx0ehPo1YhesMbGamgjogsw6Fx64sFM0G1aHcFn3ogiQq4mPjBJ9hDKs9TGuhJYSaLRDO8JdC0KOkWu2aYZTw1HosExc6kGhDWNvCT2W94kEy9D2PiiHdEykR7IUvKHsSmW8IesJCwicLVxQMs2uDHqHJWFlj3wYsLEzO/I8MQyYWEiZUpSOvJyROq8GPgxYROV4PwMQ8rgXBoh675aRqpSlGx8ZhfleV4GovbklUfrwf51xQ8rC5P1zvQOvA/wBi4LC5aFHSBCEwd9G6+MuWpY7x4FgSNRcJ8gtxPEsdPnSiDwLAXBMpcX4dxSjEwMQSEyL5bHg0QSEhBfLYxjQ0QSEhC+YxjIQghC8L+GxjGiZQvmMY8wgvoQhML5z4z/xV/8QAKhAAAwACAgEEAgIDAQEBAQAAAAERITEQQVEgYXGBMJGhsUDB8FDR4fH/2gAIAQEAAT8QZ1z1fUxc97OkIe7wnHhx8dco1z9jPb8SXEPrlfHoXPXoZOZxCcLZ2Th8pDXHfHYz740dsnGT74vqRvnrZeM+SE9L/EuNcQS9cIYJw1x1xF+GEJgh0N16iGd+hczjshPHHwdkRCUhrZCejfE5hPROJjmcQnE4n+B16Pn8E4nKV9E4no7IT1QaGhCQ+EQnEzo0kdH1xPR7nuJc6Fn5DVuiXOvVOYTjshCemHfD/Cxer6J6EquJw9jJw/bjv0z0KXLgt8wxx9EJwla/HKQ1kh9HfE4nPyTnBOHvhiw8EzxOUdiWCE9D34/As+l+u+nr1b9Gd+iel4xPRLz9GzWxHZCEGYFvicTHGPj064+j/XMPkZOYQmOEsEGuOx8d8/Xo7MdfjnD+PXvBBrmcTiD5nM4W+cE4de+Ft+nrieSE8cKjWRLicJej2ILLGo/Pvzrid89HSHnoguYmTicrPEIT0Qa42uITl2tWnu6T0pZJnmfk74hOZ6Wkko7d+3pglx9EJ62iPwewuXnjXfC2bZ3xsng+Rc59UuDWPVOGdExy0JE4mcE5fqnknL9H1xibIdemcJE4meVxIQnHQs8exOUXI+UiGz5FvjVPt8YPvhHeh8dkzw4SmjrXp+R70TjopLx7EO+XxV44h2YJD+eYfAvcg9nfohCcKK36PknE4xx0LhczHCJnicLhLnZDonMJHxSZIP452yIXCNcfRFxK8k4aMcshD64Z9EJg+ZyiHRk0b6NcTiL0d8TAtaHk+OIbGuYTn4P4OvRCHX44LXqh9GuIzFJxOJ5IQj47Pn0Q+icTiLmH0QRKQXHfKxzCMjpDvicYIJboicQghmuZxOHvmYIa4X6PogyEFyiE4WfTPPKRCEJxBLhEyQi43yvgVFs7IQfo+CDUIbIQk5cF6UicKeD35aNGJ2THoS4nEw+Ozs7PgedkPKWimB8aH6Po+jsnL5p9E9E9U9UJwuFxDriEp7IhBG+UfR0YO+F7cdcZ8G3zId8QnCRCcQgoTPEEd8fRm+OOuPcpDPnjXOz6IToh2b4hvBCQ9xpkITjBrRlmGLwhHfE42LicSkyQnOyC+PSlgh1zLxrj5Fhl9HfMJk9jv0b4hCEPniZhk+SR8YGfR3wtHZ9mx/v0w60TnHo/Q1g+iD4hCZ9eeicrfowQSEkhIQ1jBBnfq6IQno74nqi88QRBi0KJ3fyMmzSl8cZ46pfYhDXLXEyQ7JUS+wyTlZ5lNIaZOER+SemDV0dkwJRDJ0YfoaJ6pknDbXXo7JxnicpGuZzBE7ITnpCJk+uEQnnno70Qy9m+UWIWiecGyG+MQXD4hCGiVXR0dH++Jx44lNHuzF465nERsg+NKc9kIY4xx0TmEIbIT751z7+iE4/nj6Ncz1M6Ox+meRS51RyuLHRCcb74SJxFTv074nHZD36HviZOoJM9+Ib4/kgkQhOJxM8dQhDoi8jRPKxxjshDRPYk4+PQvTCP3OiCJylzMojpGImOJwvHEZCOHXETEPeCe3DyT0TBnjXGSMmSG2Tj5PB8CT4SXbOiQmBiTS64mBnawPiZ4PjD4nC4wIeecU7OyMwXBscR4GmYfHuRkGv44h0Y6JRoh3jn5HKR8LiPRBH98wiF+BDFx4ETiHc46FxRr2PgRONiV2Z8DO+ISmbYLjyXjvfPsfyZ1/ZMaIJImz9Ez5XH8k47wd8JKE8n0fOB7OuJWZJ7nUhBo8Dr+PHH0fJPoUfuZPBME5fsfXOPj0Lhczhc+/MIaP6JxM+pTNOsEJOGfOuNEyfZ0TFPlj8+hb48CvGCdmYQ6ITiXvRPRlYpniQhlQ75eyPAuOzIjsxuHfDHgg9cdD3g+hpeT+iRYJCEd5jo9ws6prmHfEII61wvcmBej+PYT4TxPJMkNnXEJO6fPHZo+eGjPD3xD24i5eDvC4+j4Po8EzsnsQXDQtHXxx9cQ9j5474sT9xtxeubjXE+iGiYIQ6O+ZnjrjaPcRPYRkxf/hOydEfg60dm+YPfH8FxNi4giGV3xj74x9nYlxDYlwj6NGuzFOn/AAS6EzprctjUfEzYNeSdkMkElxs+DsnH8ER9F9OvQ+Gha9HXEhk/XOLztHvxINHdLs6HnY9nsdejHZoeiGyC3keXkgkN/HydcQ7HvfK4RDZ8+he52JY4jmx61g3xCTJsnsThZLHg/wChOycP5OjH/wA9XsfAxKI+xrjsW2LmE4SwXJ5Pk71Pgh3onwhe/EnfGuuJR7wQ61xMEiJk+uhJv6OuOiUhM8TBBw7ITwQyZpDohPR9GeEa4hOOiZILR0YnCpOEex98xQhDSJgnq0ze18e0MkNC88ImD3Kf0YMTJ1oW8nxxCCRhGz6IPLnGx+wzs3xItHRPfiDSIfXMJnQr2kLGNsnO+GYuaI6yQT0ZMjU4fSGRC2b4j4hgyti4mOZz2JE8CoscJNi9hCXuJMt4nsT54fD47OhpChjo+imKOm3x1xlmscbRviEGd+DFP54hsbvRCcSI8kIxkfP0JVnsfHo7Oj6Gscv2GhLJo+CJE+ifXHUIZ8Gdcd8YZ5JwkmtcQQqsedi+hbHsl5gtna4gzB9CGhayd8/3w0dk41w8ZNi8c44kGPjsapoxwjZ8EzTKGu6Tn6GdENsXE43xKKkEQ9yHZKvZjbbrJkmCYPc9iGuJ7HWD+Pg69zo7okSwhBr448MZ2Qq9+frhEzxOITjfM9yHZ8GDs9/T9mlOvT4JgnDGTmEv98oh8i4guO6Wuv0Q74RMkNGOMeOIdQnHjo1xCQ+ycX2OuO5SeOTSEupzIxZtJxKQg0TA0PzBonCTLb9C1xOZx7EEmTiN4Po16Nrjqnzy4iPjF4fsTn4JnjvieOFOF78dCXuI6wS5F4PvjoRtTiYPFJxlejoWz5Efwd8T0fRDrn4L4McT3JgnZIv9cTJBp8NUnEcJVw6tIl9GuZ2M2Rvil4G8cRM72Z88TmM0b4z6JriRnuZfRnic46JO8HfCVPBGTHD0ZF1Od/JPfQiXRhontkaOyEfghPBBrhenS5nuTn5IuEhnWiY8fJsehcazx88dk4mSdnfH6EdCQiKc+3Z7cezEi1Ru8a4wLiGxEOuehaPYyPYhmne1o229mujehn7FUbZFTKO+IWKHn543rhjU6NvRITs0heNF9vRpDQtHXtxeOs8o75f2SCJ5HonE1z4499HR0JLNfxjZ/BKaZ7kITJ70RM6En0hcrzxOezoSvfDX6Im+V78pCRn9n8HZ0L4O6Wt4lFoW6QmSZZ7GuHsUvDHsa4+i+3ErJx1gSmyZwez4/gmYfIv0di/Z9HZOk+Vx2Lns+iZIXXpex/ROetDhvvhacOxpEJ5Gqpxrnsng+DRDHsTBBLozx44zsw/oh9D+OJx4ZCExn0KLhfZh/wD4SPluvMcTEkrgg11wvJ0JQnk6ptm3xvyIi47IeB+x3yxHXk6OjZt/At75SxxMY4Z1gSwT3IdnZCQfHZs+h8Z5VJgh3x7lNj9eT6MnZCC0SEwdcfROEuNihOEP5EayTlI++O+OhIhGda4/gYpGlXK+hhGVMXv7nXo65+D+jo64/fPfY9Gj64/ROJw+UiKk4+PQ+Eq1cLuExh1e/CRJxPPOTsesGOJz2QWoj+RfBIfwLGcjGr3/AHylkiXZ9EPY6GS54aIQXPZ37cYez6M8L4Jwsk9+friDUMCwb0Ymjv2JkmeNHR0JExeIQ+RaHxehj+B9cdk/n048ejGzvBrhD/ka7JxM87IIZoaJjQ/cnk64meeuHg7IrjmLvh4zx8fs7wNcQkxykxLfEOqVaon7mBcIgiPja2deOPozcmCe57GIdU+dFO+aWbR/XEuco6Hv0z24nGeNDdaxOPgZcC/0dd8OkIT0SZp8ZO4P2Ed8LhCOlnB/Ju5wMaPYfDGsCNayb0JUS4hMErGronDJxh+xGY8G8mOyCS4TFkzHt+heZ+hiTsZNv9nuP9nuP9mYyzlECNkwTiThcQmH4GEQsds//pCaMk/snH88PiHvxie5C4ME41zvPg0h87MnnjJo2ZEO5xFz2XJCHTMcQk4x8HXCM8RDXuTHC40Y8GuOzfRN3iDaY2EtiEmnL7Exs3Nqlaj9l+H7HwZ7TehLVteUT3JimH2j2p7UanehntDgcc4QxJAkvBsaUpVLDwYlp2faNrfZpExoWyUaMVL5Yv8A943f3CnFp46YtFMbRrn44XDGuLD3f4LOJn0THMKfA+Nkp2dkbY/C64R0YJOJUfZ3zt5PaEPshrLN5GkUy+fr5FOPA/5EqbNXUR/xRZG9udCNN14J7suTAxzlWna2YNP2xzkS6S0dtGwQboZG7U8RCOE7+ELG5LNCaFpNjka57Ei5nFetEie3esNFMGmhQZa+hS0PORwfEuz/AIoT4Ad7HjjJfPSY1tDWqPGY8NFhMk528DXmRfB7QXiimqaOj6Idb4mCYOi8dQjPfn6PkXsjQtfOzNG61hKePRnhV8Q2dC5wyEdPYzniQVMffGZoVh1wl/PocnyMm2aQxfynSLba2XAmL2GIi5fN9xspRDG2U2/5oR162IeuEtvA0pnwKItOiplwdD1sbyeSxF8nR0IEeO15E6iXicaPo+hbGT/qfQvm8Lnu8PoZOPY+ycTBr3OuJx8Hu0Z4750bROJwhrrh8dnZcm2TBpSdcNZs9iRmmKGRcL4HZzBP7Eo0XAlFk6BS4GdLayxzf/mkP2MuxrbVPdE57X6PfGO/4HmzoZtVlKEZfYhGCWk+hNNJpr6E7SJpwzSE8HR2Hrh6EUeuOnBhASn8C5Knw/jjZDReIQ2e9KoTsg9iyTSIJncNk9jYhI1fHG2JYJxOydXiOHfEwmjE7FrjXTNdHzx2iM8EZ3w/Ik6R8YBhl5N+R69zLUtEzL0dfQrdoo7Ox096Iwh5hF2YaEoSISv/AM0h9Dfhj2wbMovwJy0b8P8AZvwK1kUbaF4BDtH2IZ/op0ZRCEI+h6OuFoSpMCEvOuEnELsY3vKyLWxcQ64mSEO+ITmGSHwL+SeOV55mTAiTPKOxFwuEuEiE7HvXEIvs70Q+CkJ7kzRpExwg1g/kGSiHv4OxgLGI6XPY+KoMWjBmguXzKQeDIbcrL5BvyCg30GmZ2Z4Gba5yMWDgmbabC/0XLpYY7IsOIdkjTjYkyrIvLsE1G+jDWODMFJllUvQ8Kp4Q3EvI02jHlkykztDI2WPeh8U69Cs4/kYhcIzxgx55+OEsGODdlXQ944lRmn+uIQnudiEiXhaEqjbB7ex/A2kq2oJ3Tpjs70f/AEnbPF7KdkzsLRBpc9iVnXO8C1xaC547DVTEvh/sSLr+T/mT/mSM7z7kuYf7NrJ9iRKIat3/AGQsx/sWz+OVpfwYqQ2WVMTr0LNOsoquRo1syiCWNFSWhtRe42ki6GiOGdFtmYSz/o6JXxBcQ9hGzrU9yCLk+uFBInkwM8H0dXh6M/Jbk9zZ9C+BQ250LOOMYF0XnsZ0PwLA0YZkvPYytMqwi8SQkNNu47BKZFcLVj9jMhutiGqp4H6MHNGLRVJ2dC1z0M7JkXAtGL47jcVZ/wBw8FPMmfJ+j/iEPP6Mnf6EqVDVRmjXWRdcbMFx8QttCi5Euio1WYLdN7Y0SwVNwSbWxqr38jTaSuiVJMUUNSYnpeyL8TpCxxsfC3lYPv6OiDvCHDPQljJBaPsvuSZ9XeOZdkyTtkFx1s756p7k9oQ+xxZcIyj7nQ5NtnpMWJPaWqzb5UXR7j/Z0LHwCNtNGNHKEml7nRjl85EKNCle8SsvY1YFTR7RXg2YY3JKGJkI2JrsVtGkNO2CuDEEkafEJbTF2hLsiN5g06qKvNGYMmJY4NVVDeFh5GqkNLs1CSy7RGzonEPc/f6JR+jtofsP2JVn0Q+eLgwj+uffj2LXkV0Ry9G1OuEsQwQ+SCsCtEx9FG5hk7ox7VthtT8/Yb1H+0u0eyj6meG0k+h63Ry7NvDGmlstg4sPYvmwQUVGIWhrH4dhWCIvkdkXgiIiLwRUiukReIdiQ0mjIt6MaJEjFf8ATItnuJ3oSI/BfYbq0JgVkg210NxaLgZ8DuDaPo8faN9Gbs64Xk1xMcTiC9X1x0LB0PPsex7EfkW9cKrFn5J0a464eS+RDTsm8NsWqm55Y7S040R1+4brrb2+EJx4KraRJ9DSYqYQkvBFcKDVQkuhpeEJRJTohtimokN4H4RH2XAiCHl2IfKHyK2sJsnmRt4XuPLPssLLE6eWZ8sj8leWOCjeS0kHbtGiZLnYh7xrj4f7E69HZ1BGQvdja6QmLTEyyTXudNEwLWjZoRcPFGrfbjsyQk7ht+xnwI/ohJzkXuY42vB8EOicMd8ex3xDHyd6Id8doeqZUwzNpISjG1dMisHsKsYNsyQ9saqaISCGrW8X7L6jlhTanyVeRtNjdaO/R0I++e+Vwa/g+yVexK6WDySRPZFewvYh4TBvZoShlmEeBdUW2FowXw/2Y4U9j9EXyKVVYHCkE6Ecp19ilDSfCVmR6zBJNHj3T+KiEySDZPO+IR+T54Wfk+TBLMsxYfZs68Gj4IdGPgnvxhPZYLRSv2Oj5yUx+hYPo6aEleTK0kG2cY2olj4G1l/wJr/8Ey3+h1bBGw8KsyGPSbEMyRZGDZWq3sarGl6KvRfcvuYhgqhSoeRaHjGv44afY5l2jByHwZ9zXRK6ZD6YkZzozaJbkZjBqKpm4FcjxM+BXwfQSEzBPAT0mDITbaFd7dr6Y0dpeVwquRJ0PN+SPcn++PoxBnyzrnWka6EeOPogioUH7jMnZ2dj9mZok++Fvi3hbL7cvRr8mOk/Adko8jKj3TFs8jG1byaD2S/QvgkWVjiVbnu2LmlfYsD1uEoZPSG34RXsZeBv64V7n3/YwsNF9i+xtpF9kJ50hM2YgiW+B1wls+z7I6xtFojqEjZkgm7Gy7Eaos+BN3/Rh/w2Xyy+/Cv/AJmf+Ym8leSvy/2PT2TxP4JgxWdeUaMknlQ+B8ZMvfsxa+0JlP6P4preyZeRjEd3sXi8It4fZULB8GSTv0MhM8LBON6HBrhDaTGvzZoDBbKJljZRQubKWaLCOykjLYmaOLz2Nt0238lqFyhc19ixgbWcECQh0RUa46YtIT2Ghi2IbGDMVttfArEdiXZgx7ERENohusCfYx0br5Ew+10LKFcf+Z4ZSQbmhJeeHjEkS+EThMLdF/Qxj2FDvQo/sajOx58ZWLMVd/sviQy0M+jHGtcdFaLxgWuJ7nZRDaXZV1yTSRr1xlLZIkGhga7E18GdPLNhFkYtAmIaFVxtyC0M2hD2zJIsjRPg+J7ofBFT2kNqiRdMi2DSlQmn0QukWlpFU6KmxMTwPbP9R1AtiRkgJDLsayXLI35C1z9mvPYoR/GxTBhHy/soz4Mta4UV+BNzRWE34FJk+zYJXbMKLPdR3h8EYm0v2GhJoTigmUbfkvG3/s+Ds3x2X2Lg8igz9J8j3MfuPnxfvN98MuypvZTG0U+xNvoddidr6G2P+4dd+Bl1Bpy8ifWDfdovmPoYrB2jyoYKHeuiPA0pouMdCTbU7G69yPwzKEunKhHWt0QoLsk4ScMkc0TB2LZRndf0MLX8ilJIW2avgVPAINkjPsiPYiTAkfMMEYqILIts9xkRLDZhoS74aTB54rFVkTqUmPoePWY3RehE/ixU1eA93FxX8EEeBKkwSImR8J8I8kdI8PAupHni/AarsYbudHsK+FwVzZWUr0LBvROtH38DeD7OqX+ivuFo4FWRMkN2ipviVg9jcQp0J7O0XBcC+OhUVqViXfz5EoxkrWND3W2NuS44ibFtiWR6OuEmIbyxo230iWk0mX9kI2vwLj5D5+QiRIyWhXwU0jByCTb0SNDthbgaxMn4otj2oMnJlIh5HH2JSf8AmQR5I8lT7NB0ZhCy09PORBJ7JtdYfD41g0sjY2NsRwTybEnUuxv4MpopRsN9DcbPyVveRvPk2tCRclLzcDp9DbtfJR+4cJ56HuLeN9hkiExDQe0Ny0LQ9jj2LAs9lrQ9anyaNa4p9C+ckUS2WH5O+OuK/J98LhPodrEx8Cd3Q8WxvKjRODVEzw6cKQbbdbzxN4LCyDTj3RohFfJgrgvgjAkvYpKtKCS12OXRvoUdE8htKVeTVnsePkztBZcHuLXENmRtjpTbY3WxtcN5a0MtPI2bZcmuzbsr8n8lLUUq8FKy6KW+xS+xeHoSN5gi7FTR/wDUfMajQl5CwKDabc8j7G4tCrVPgdqjaa+RK8eBJ2NEB4jFSVuCpKotCMSZG+iMafgjfSMN6IoOQ0hcPexWzS7QnSJ9CrNkbOx9RjaFrPDkUYhD6LmQexOHgQ/YMsp0JqBNY7GbLNPUGVfI42PIUL8DXFwKc6SxYHW+RpKVfwK2mxCSIpsrVDPIkeilNfsxM00/sl50NLsaew/MeJj8g16HOOhoMO9ZLpTtwpT3Oz64z0NiY/BeOzrZTrL4ssY9bHsKjsZWJrUP5god8GhjCGbbYyexilGWJo1B+gGtsGoJpDp1o0HoN0NrMFoQ9EFSeD4lXuJpmBZQ+FP4EZSP4Euiz5MqS1lU/sZn29iTfGXriV0EFST2Gk0WX2igVtPwRZeROVyR22bKtwWqa2JnbI7tiXuEvcI/9B2hSKn9DeQ4MS3/AAVRCGqanyQGovkOeY1fI9DrX2Jmk7grQ70xOnSmX34UpaffFKWcJFaxs2z9+hEvEZCVEIS7GGsP2GVKi2oamiMV2i3t1TsGvvowTatM2OlhmWsmLD6JlIaRhPsOJwTSowEcH0h6fNjVKtjrsQ75EmRJv4EdfoG+s6R7B7Qk3RvcZPEL7QkaowJ4HTJkuBCycGTw7CLZcb8Deah889lUNvjQOkN/qHw/cZ/UwbHZCfuHhdLQjtKa9yy1hJoiV2iLNV+R9ap0KQSwmZL8D9gy8onNEAV6YFgyNW+0I6wTy+GKjeQnfCQ0TOsGRGRk4VJ54SNCJkWKavtTFGyVen2TBG3sWOy41xCL3IPhvsXs6FSIbjNJ5MexsyLvwHc5cPM2NLTGd1uDtm9sjZUauxL9DvQsINNExvul9DIt1vyzb8D/AJgwUiQbybH7Dyj9BGkbF2HvikqcQmiYeh6apIxIXaG5YmRES7TGRNsLZVHgSVT/AKKFlu+R3pjvCn9ClozJLOBXEseFoaEIyhhyiRTDx7C2k58Dl4f6LMmy0tFfuODboOvUPMEyGTQ/YxcHOhxI18vcqRrq+zR5M3LIrsS0XWuO+J7jtEhzJfPEJCNkZM476FKptPB/Jeezu/6GjX2C/wBC6wnsMelJ0kZPYqTo8C9+J7iSJWSs93oC5PYYbaCj3JDwF3RpVloh0ZPEZjNokm6WaZzpZLQto6okLVjM3Q1BsvgVbFjOyh+yD+9uPtwXuNisihrGTC/2KRonRpILD0bMWhCn2YkDGQ/uHvDYh5QRgETbqFJ4djP6xnP2OzujPI0w8TTi7LsVOmrkylMQVAQGk7R1NhszaY/IyvdG3kqZeyrsr8jN2fY9NDtjbyOYCIZcNp33K6rtRNhvxtZlwVNiogqTEynBojRLxGU9EemTshMndFSd75Z+KEcY75WG7FP4cKdjpB4vfW/hji3jM6ZmE8lpoXBZRV6KTGsPiYPxwz4RXSHQqbdHkxiYkysjrTDKrSo8KWjXol9EsDKQmnlaZENo/YfSIcWKkHsMsnft/oS+Swja67RUijI3E0Z3LHHsPZPLz7lc7hLCYmyM3Y7mTyPkr0uJdnXFbGnGLDLEbw4krc6LRn5ENTSMCuJMaEw2CMry3n7FQSkS38cPjA3VdlC0oJOLY1jSUQhq8iNoeDXvRHIkwm8ininQkqNdrjSMe2N4FSOxMY9xJnZsJRJUbSEieBD5VG8ehauD4mS1w1wLDjpxjGDuiW72z+2WqTC1EJjbu8cVHQmaGL0pi6+fKKeFnx8oiuskzSCTogiTokTVWiPA1dIy9F37J7Ookm8lxCiIOjGjE4bygtOo00JhNO4QrwQSR4E8DSLsdo0q/wACOSyXgzD3AnH4wzHOjWXRo1owj1fJXhL70Po9H5PD186wV3ya/su9EpkEpUuXxovQYrgdt4IZpoMmoXYuH3SYnuF/Ihz72L/B/Q9RcG6ZhZ6wk+xLYcffRi62qRS4Hq10iRY58CpGNC9jWTeB7dh0KUSJ4/wNu7T94sqwdBB4KTwVuUib4P4xl4Pfn6MTRijRrPgRvFEf/GC+NFwX2LUXi/RcYPoXCJQqq/n2JONSCsI1YSmxD6I8fwTpYpApMnY6CN9wT13gvuYDF4Syh0lRp+SKamnm4MUiKPCo23kSDWNCZQw2V8oYi0QUmS0Z97oRXImfp/0UiZ+4f3BP+P8AoT9yP7P9iOfZL+hDHwibSauSJdDviQHmNSogsTpkW+8OImYxQTNRs+GJJW04VCKww+c/nC0pbUXN7jh3oTeW+CTkN9B/IWI9zse38j0M3QOvR/AhMjT9grAz1H8DRc6FklprQycF0SiW/wCiY9x8YMUoW7WRIxSpnyeVKVlwWoTyJ+OaafApeHNF0+yLgUrYu1Yv24aewksZqNa0T2E/cHNMe6JWp0NDJLyHVk7gaw0dDWINNrSomsC0RqwWKdo7Fr8DNSNurP0KaaTC2UGlhpCYfcQqBU4sPZBGG8eTVsG0mMMkTIxQ1MX6ErFeVL+x8ttEvAiINEZSNmXInVcjSn3AVkFuV5FBJbyISrFKoZpZDNg1YPkRhScNfBsuiTU14D8bJeNH8gcGjtcDrh1qdF7JnZL3SVpWiVMtbcv/AOjLRkGUDTQbMWs0TrswzJPgQRex8h3ViQ+4dWT2GT8nynZkbDOMr3eEbd62Zei/JfcpeivzxpF6KJ9IWJl1Rp2bdnkou2nyCrtnyGLbPeYnzjeGDFGLKQjz9iPyZINpqvEG0ss6HhUbn1CWB0+Lga1+TMDq6HdwVcN77G80KLsVt7IeQxljNihi044xboaZKroWU8jxsb6WpIUPZru+w5lpI/2NsJpLwHqGnx2NpbYlY2v2FGalQZbuDLSsjvn7Ny3pi5VsQqn7v9Cp/AGtpmiiI24lsvAmRpVZreCC3Z+Rq6bNvgYad8cJoeRtPRXk0PcmVkaSbj0dECPLCnk/ISUdjaD5iaaVFlsx5IkY0t+xHwdfXDPgaZG9EMD1sF+EdFKPZS4KLHFxdlyyK2n+gaXc5mdliGyobV4dXnowCDp8GKczTFMwT4Ho6OhQ6l7sTU3oRIJ9IpJs7fwbXybF8DTrgqiUEp2SmCJtLGRbuNwopOmJk1K+xmNESz/IVM0Ny9GyIk8/RSxTD/Z/BGj/AEN3hcCKmi/JEuiksMbCzWIoxCKIVE52XfJMSZ3EbDcoIkvch7m0Rf2GXyD1L2Nn0fxBtJew2XwJtIvwVlbJlHY9slyY93RE2exoWdhEwyeNkXaEvAx4HatfsXrrmxoP2/B8C7wjX/4O/JtE/RP1/wChNaKNnuXsTqNMv8l9zHXM5/L+h7dZOzZiGPBjwS9CSTyqRXX8lJqYQ9Ib7LEleoOJqQxZFYN9DswOzAujS2IILsTMY1Y0kZVtRFzkfSHxHZkqTeDBVIbKQ4eMjyJlqhqi9mN0IHezwH2H5DWOswfKS0JVrHgvB/JnLhrSQhNNjaxGhahFDW6TsIk7Q2fVQzaJ+GU6eBBTN7BuIR02RVh4GUY7HX7AcaEJVPfZs/gdbLyjH9B3hMNEhTKQe2NkemZiSEhR1gbJLoteMvyyzLMhliMGRsmUQnpFRaffFSWydkeeKnlzgYKzJVObcGbxcF4V4xl+xLHfGkdZ9KEr0PEuhoi+w06RiWMvI8uj+To/uHMt30N9CJS7SFhQkbo12LmJRrdosp/Ie28i1W8MWIzOyYVOg61sdsj3n2K8DSinWSp7po22uheo2NoSzzDYpNmilHpfI9NDYhJH7mRSObKa2hbKyqClJaGrBRC4s8QMSusCTfyJFz2OeJlkdGNr4Nh/AFTednRj9TyvSHsmwpptExKSv4Iv5EswXQyIlstaEXdJgiqZg5TBjp7Iw/chqNOi40hNNdEUPoRexD6RHlIsj7I00/g+CsWDophF4tWxvyyz7IqPMPpC6IWktb3EvIskXY0JEXkg0plGFaaLglvA0kMrXcEXggmCVGK/J0fIquxmmJKxFNJwfa9he/wZOG8jSbqZozSQ+x6xic9xPY66FlkPFxQ6ESkveaNoUdRL7G7VRVpdZKTJiZGH/XQuPj/s/lc6iZE0TzTRVxiKZYrAdq0NbCqvuhI3yyQNkTMCU9Ds0bKk0xNNPkRu45ULo0XD/GHtPBn85x37mz4KNZzjJakTWlVTqRPX2NIStSqrF7KIbb7YqbryKaNKewvMqSK3xdqSpCk0V4pehkPkV7mwmlsWV8ijPwXwxP8AgvZey4Ki50UufguDaHh2xd0v2/8A7b/ZSRRXDyEl8XsbS06UvsLFRhDYfuOs56Gqd4exw2oKa/I2k2XOqLeGoRfpro3CHDKeEpY8l7vV+mMayRyPAqbtP5E1WM26EZBexFiUnQzb8JjmjaXgxvqMlVxcsOptQrGY+vTsjQ1bwYjT6EvYoGSkafhuWqKLhVGmhm1rAjbUKDbo9YUbREe6xQ6PTyK/swqP4g3KM2MTQ7l+55hx0YdceBqxiGD/AAL+zJvrjWRvtBPLAjbCuRmkj6wRFX5ZaPLTS9iFrDJRmTeRL/kV/Yy4RsIIYMaTPs9zPkmckEukOY2bklX9r4ELSaSprUKXyXjXfHfsUx8iXqRzXTx9kI3gkIyPwNeDMI/BlFfgpkjYXBCbR7hsbVuL9mGo3lPLMqtV9Mfc0vsy63MFJ/7G1HfHaKcU63J7mMw9moy6Ia+B63yMX9wgTaiZkgYrXh/2Njfg8nuyd10xIE1nzIKXXQ0u6vpz5bHcbFWW0bvkeKbRivGJCCkvgpztIWZM6j1WTRNv/wCh7YlVkipgvyMHTKtpmpryPfqjf8HkNly6X0IWj9RpkNU4t48CZLtKBS0zam6Pm5NJDaeDI0QjsRdEcE+yPwQj1BG07nQrd+tEfRUJwbxNjBWd43717C2b8pouS4EaMGLwsY6Gmv8A9jk0x1t9jcvyeA0T89rLJAm8leSixPaO2njHJicYmdjM3eBkoTo8/KI20hXCiYpmP6E2y83nozDKPBCEU3Q3a2rylUM26H0n/or1lZ0M2kunkpi4WhsmSmh3xZGF0MlbjBMvCJ/Vjx/14HVCqVMm+4+HLTHdVnTJdm0nTdjak7DK4zzvAjseD2ez3eUf83uPYqdGSSE6mHsdIlFullis8pJTbf6Mhn6RC9EU6Fpi63ojy4T+JMDUKa2ZFMDaa8D5HgukOCWENVCCwPIkQmTcbsVFQ2vHBsJtO5h+ZRQ22NuIq8FPlPORP6Gqa8+2Pk8mwbnTL8lSTZxLy8ChxENyrbrL5ZPNPgRE6h4H4GHxjXknGKX3HwJw+FzDBYLx2NUhP52NbY+xbFrCDVBqvK+SDNzC2zb35F+gvDeCLUr00x56ttVj6LRt5CdmVeRexNDImkpfBtXRA0x9LA51aq0anz8POBpawgHPGMaYaQzYdvYak4MZFES/ahdBGDsRDbSQXBZcG8sTfmFfkTDuo2i1u1vyyv6FhV7MQ5XGuzaPn0za1gQcRJT3fY3psbxR7psZCCRDs3Q6hdlRclG0lYUYy3T2RHBL2P1plm4PkPEQeV3uTgpQyTIsYj9xmq2eGRxwaaHmPYY2ptZSEgmLsjwReCE9h9mYuT4RB8ntI1syRjwLSmwZoLdrY3qw3iRoia4nBUmbwZEKP9EBWC3cjVvuMSNqiBDx2KmVsiZPdLopBLefgS61C7Ll5ZZofAtHuRD8jp4aE6DZM2xKSZqJYIaR6fZVPCU2Tna1oVYpTCEkobej+gSbZ+DOSbXadH4u4IbaLJk9zZQRN9DZuLwuBMDQmBLjsRPR+Bfan0Uo3U8Dx3oJmBkJ1ieBuhoWhtmkJ5n+A+odJDJKQdZCe2wN4GxvAtyC6rZGCLwdE4RevQehwXowRtkGs+436FaWNitN/wCGSPtfIRokksEBu8tPoTpJlTsyPn/4UYh/sVMCCeEJgMjbMz7Hn2LfkK8dlG+wk8jfubIrh3msdWhQN5Rgyi99nsfYaxLfCFMMyN5Iex9V/RIIljjBWbVNFqGWnrRi6XvxDdeTBkv2fydWhLJUEENBZ4bCnbgnRssZsINJHXDHx0mzrybgSDVWTSNiclciIV+yYQXGivwJ52ytFTUZdYz1DO01PooevoQlnY8sVTe5khiZJPyPnPQ2zXkxiwdj4WhbMwexkK4MbfYTxkvcXlaFQnA9rkvRkdkHbT2HUqGRsU0hsTa+Shs18C2V4QnHtmJfJVCo05Pkrs2vCF0kvA5Kt1+4ulVX7DGofLK43nhnMH7B6TZp+BYzddFrRroyKo3eio3To0LShgh24GF4bEKd8Jk6My9GIU0z7HhjqHfKborMdprfwXRddF7HDXufUFhHRtsUxsdUZNdQ4nThsor8GFontzofBtw9DEPfK0LaOhrI6Tzwyg02EC1ItWnBrWkvuRbP2NNbwaIde2TMeDJaSCZsfZ1xrhI7eRUm8Mz0p8kuW6Y64YNr5O3yPXGmRnRanyYX7Ey+zEmtjZ5PQvMNnDzxYGxsohhBo2XE5MRPA3jDL1xSmbriiULmsHryQJCSSwiTJvBv7IZ3TrjSE2jAwc4p9kXBfYeHSo0UpRvA2NcOxvnvjolmjTdoaacaZkxJQfImJiYpH8GRBXwho0PbhOsPKG5dMY1PJklGpsVmGNEIQTxoWXoh5uz3h8oWiExvGES+BIJTbPgjosFUJo4ssrcsbOi7j0z9eB8O+R8ummTse+EIQXjvn69KQHW8Q8LWfk6pfJ8l9iI742TK7G6J+4k1a22uh1Nm2dJ+ToZ3x2PUMhtSmVr9g9vhcrZW3W+JaxokJlG8cGNoex8vSE2SZt5Zvh1DiSCI8jrsY8snyQSeecGW5L7cIWhLhCQ3aPE7GumRtkaHwWzswPQxGLFsb4wYOh7NnsEiYEYI74qpTJeKdiPeyeX6HtX0vWDo6pOjz7MFlWxlKalwui8dQvk+N6LBsuT4XJF4k4uLouBvB2JlwPY+FyWxssCHtEPT+mM0jXAmXnRcaExsol6yhJvCGi0G+3DWAtnZc8JjO+SZ7cvfDFwXPf4LxS8X34oteRKv3ybJnjTELmmujshkr2EZuKN+WXJclpVOCdCPKdH5DVcJxDQ/RTTB+4hsJ8M74UY9cIfL2aK/ImXuJt7EV2TEISFojwTHB0dGjNCWMuDnSG2zZOVsYt5c5euULhpJHt4XXNwd8k+NCYm14N79GYd8JU9zAXsPHZeZ6ME742x8hSYP34vZcGjN4Zpw64j8cdCTbxk+TWRuYmrfsXljYxFwPleh75meKIJGPi4LazxeD8RtvYuNCVeXxvh64XD1yhMvD9RceRFPouhs8spS8VCIKvQ8saZ3wiC47LRiyODtk7c8b9PQ9cl6GdE2n5RIUXD5Y8iOh8og0IfE4S9FaPiIYR2PLBk2QgzPjj5OxD0MQoPj5FPsRcFG+FnXrL7hSjZSl4a5c10ZqzFXsdUa4WeGqTOjXZ3wzRGzJtj2UWeKxMvDGaMe/L3w88IuPUue+F6Pjl+tOs5Q8ie3eai0mBcwePR2VSprs6GIWvoY+ULS9VNBCJDa5wW8I0L5GivcESvYdNSHZOzP7FrjFR2dC/UPg10LbVfgauPkwZedkosDngeh8L8L9KOjzw+O/wAE9S4TxOUs4Gqa7Qxi47FoYxYfL5QtetCE+bzTfFEIoJxCWJxxnRMWjWBHZrB7jZhaNJZGu2+VLy3ccMfL3w9Wiams80vLHwuXxrH4X6J68Mrh69CFrh8Xh8r1pYuMuC4vp2VYCeRnY3nJkIJI3H10Q7x7CwvXCqbF+ywqNhh/oR2WYesPm8Tl6GPmHtzCehmPDMdPl8aMt17/ADL1IYx8oXFYs/h++enRMQiC5pclLyjcjFd7MKylOqOg9IipnIS2aUT68GXfBlt//R+4bc7HJ1XZdOkOtfY8D3xicPRfPDePV3+KepL0/Xr+D64XpXrTxr0Y9K5gnUdXfXpWxcIpSc9H2LIuh8pGp+BcthTs+wUfZ/ynkbH+gy7xSKgvMZga6GzeGGoVC9FGMfq7F6vn0P8AwGq/QiZ4Xo0b9K4367z8cJFvpvoohGDTohTyxEQtaNUWxJcbE+6nguMvY87SaXg08UisQcy5fEmK8Sr2ZDIaLOI3XXLG/wDCfo69L4fovC4Xqf5IaFzPQvRKLRfROEPkZ1Yo6dbLIbEmhPPZli4PiqN4OHMMdeB49O5K7Gm8evR8DQmPzyyZmkx8j2PX4IJkRdqc32HxOeuGT86F6V6ts0U69V9NM7e+EL8NKexIjxuDZNXB1lOxTYxJMs+RgtjJNJH29IZHSSmnZlahFZP4B3NmwyXivVxwywo/TSj/AAz8/Z0QfF+zoQlyvXv29b4R36lsQvxIWGYe48MA5yNEn5FXgpfD4PtBvNuR7Dm2UWxtn1EUwjG845x+J+rX5ejwaOzv8KFcz8j/ABd49C46FyvUuGaYxkwSSTE9ZJpwWWXhDwFC8sb6TwbGQ0XkbG8jYfoH6rz3/grefTOPr8aGjvrWfQn6l6V6VxMUvN5ueUIc1cDWq2J/yIljjeWTsEnh+RomPuPtR+Gz3MjXIyg1G2MsRNfI/S+XobNW7/nXhlvCOxvx+SE/CuNmuOuey3hOZQ3XRNpNYFU1lcp8r/IwTVCTdOhvqCRPX0zwmPBT5Gr+exstJpztaNeDETeVfawobiXsvzXjsxzfop3r8d/8ZerHpvCEe8ePAyNPgSJP3NjT4K3R/wD9Fq1MFo3usb3/AMGPHfP3ykbIUVSffx+Tr8j5XoQ/858LhCHHwJxCabLdlQW3geMeOvBt0VNFW6N9IaIYYYZGJznGsfhvonqbvXHXpnofN6/w0/V8HXonPf4eil5XCEN1wTZfDovYWGejSrwJjc0Nht+RsbGr6GyMf5Hw/Rf89cd8pJ3M4vFvH2LDxyzsevUlPRPwoQvfhbaXl4Mp5EkyNutLykVX2E7hIYvQ22hhujandGMvN4X4Urp+p/4df4lv8S56/B2T8F9PfCExO9EMFzeCaPljY8dn+g2Nj8DH6KPmcX0dcIXplwleeh/5+PQjHp69afN9Ex6e+ELDGaZ2JlyVdFznsrpvf7Otja4Y/kb2h/i79bM8KXJlZTHwvTTSaTjI1tcX8efzr0dcJFv5e+Kb4XoQhP5EacLTKMnY9j0NtF8jY2MYm0nIL0Pm/lz5H6Ozs8DH78dj2P8AwF+br09TjR3yjfo75T4m3RcIXQn7kzRL3TJfJeil4sGxsbHoex+t4z+K+nfNg3XfyX8C/DJ67x1+RfjvCYmITFjwJ3sbG3C4GWDG/cqPbnf4Oz39D9VOy8Mszbz2LzxRmjv869NOv8O/j9+bwtnYtCeRMpgpkex+3Y2XEG6X1N1+qrxn540Uvovp69M56vqwv8JfncrnqimxevHmi5QmKhJF5e2JiZSmSzJc+DfyMUuVgevS/wAifNjG28vnr1v8nwOrD/L3+Ri4X+ImUUvFLyylHv8AA04vf4MZ65+eFr0d/lvp+4W8X8Nv4cePQjJv8S/B0dCV0YFvhObFzRsfuNr3GRPv13m+noWHRTVIvg64b569N9FFTFir9HRPRULpeifkn+B8Php3P4kXnML7cdFLMCZSjZ0Xh8P8n160P0sS/wDLkcfN9NnPX4FzccJUapYsCeOX88/H4GLRTCeeXvh7wuEUvK/xWkIs9v0udfhvC/I+Z/hos9HQ+H6ur+O+PxLP4U5/g7/wt8bGUvpTfC/A5iP0fZUbLyL0Phnfprk4Zsr9N41gv4V/lrnv0X8babx6aUonxfTc8t55+uE6PtKNNRPI944vHf4/gaUO58ehS5cQ5XHV0SZf4c/404n+Hpzm+no69SO/X1OcGimTPFxx1+C8qcRdp3BmeCKdl6Jkt9XwzaeM+R4KdC7Lzfy6P3/i9vm+rHn1x/thwpxMN+Pw0vFK1rvjv8nXr79PZ1y3Ul0uH+N/56zr1KVVxGLjReab9F5U9e/8Hf4r+JOD9F9L9K5XHf8AiX02+m8I24lWxpwajXn1rlbh7cO4034RLp+0htn41r+/V2fX+Pf/ACKX8KL6ZC5O855ftS8aQuVgp2Xo37LYe92nji8LfF/wrj0Uv+FfwUWfH+DS8P8AFnzxk211whrbbwkh1NprPosLzcF9T36X6N+h/l69Ncl/JRyKPrONf+Wsd+pT8ylzYPwo66gkm8uLsxca9L4vooxf404f/j0vHc5vN9b4b9NeuL+dfhpeLf8A0L6Vhl9XZeaUo+LiJcX13/Gx68/+avTO+vQuXEynV+uFGmrn0M6/N1/5S/8AApEbYReiz0I6JzbxeI0lTq/i6/wMef8Axkrl6O/VO76N+h/i+/VfXns7HvfseZxfxP8A9HA2261/kpxq5Xg29fkp36+/8dpQ01tt79WSt7/xOv8AFvrn+QsuDTTj/wDT25+drkgZm00Xm/5/X+D2NRtW+m/4MMfksMq85/8AKZiLO9rx+HP+K51+dGPy9j6+P8l/4Pn4Ht/Ho7Hw+Fo7/C9/iWzv0depdi9X/9k=");
@@ -536,7 +572,7 @@ footer{position:relative;background-color:#101312;background-image:
 .cf-desc{color:rgba(255,255,255,.88)}
 .cf-open{color:var(--mint)}
 .coverflow-item:hover .cf-card{border:none}
-/* photo assignment — cycles through the six scenes */
+/* photo assignment - cycles through the six scenes */
 .coverflow-item:nth-child(6n+1) .cf-card{background-image:var(--img2)}
 .coverflow-item:nth-child(6n+2) .cf-card{background-image:var(--img3)}
 .coverflow-item:nth-child(6n+3) .cf-card{background-image:var(--img4)}
@@ -573,7 +609,7 @@ footer{position:relative;background-color:#101312;background-image:
 
 <style>
 /* ============================================================
-   ADJUSTMENT LAYER — v2
+   ADJUSTMENT LAYER - v2
    ============================================================ */
 
 /* Brown/terracotta accents -> grey family */
@@ -607,7 +643,7 @@ footer{position:relative;background-color:#101312;background-image:
   84%{opacity:.42;transform:translate(-50%,-50%) scale(1.00)}
   92%{opacity:.58;transform:translate(-50%,-50%) scale(1.03)}}
 
-/* "Something Strange Has Arrived." — turquoise, slowly pulsing + glowing */
+/* "Something Strange Has Arrived." - turquoise, slowly pulsing + glowing */
 .hero-role{color:var(--mint);font-weight:700;font-style:normal;letter-spacing:.3px;
   animation:rolePulse 3.4s ease-in-out infinite}
 @keyframes rolePulse{
@@ -648,7 +684,7 @@ footer{position:relative;background-color:#101312;background-image:
 
 <style>
 /* ============================================================
-   FINAL LAYER v2 — sharp landing image, bigger blobs, framed orbs
+   FINAL LAYER v2 - sharp landing image, bigger blobs, framed orbs
    ============================================================ */
 
 /* Landing photo: 2x supersampled + sharpened so it stays crisp on wide screens */
@@ -698,6 +734,9 @@ footer{position:relative;background-color:#101312;background-image:
   rgba(9,12,21,.10) 0%,rgba(9,12,21,.18) 48%,rgba(5,8,15,.76) 100%)}
 .project-card:hover::before{background:linear-gradient(180deg,
   rgba(9,12,21,.05) 0%,rgba(9,12,21,.14) 48%,rgba(5,8,15,.74) 100%)}
+/* First card: stronger fade so the text stays readable over the photo */
+#project1Card::before{background:linear-gradient(180deg,rgba(9,12,21,.46) 0%,rgba(9,12,21,.54) 48%,rgba(5,8,15,.90) 100%)}
+#project1Card:hover::before{background:linear-gradient(180deg,rgba(9,12,21,.40) 0%,rgba(9,12,21,.50) 48%,rgba(5,8,15,.88) 100%)}
 
 /* Project ovals: pronounced slow breathing (same for every card, incl. the first) */
 .projects-grid .project-card,
@@ -720,7 +759,7 @@ footer{position:relative;background-color:#101312;background-image:
 </style>
 <style>
 /* ============================================================
-   FRAMING LAYER — hero locked to 16:9 so the full composition
+   FRAMING LAYER - hero locked to 16:9 so the full composition
    shows (small ball, sky + mountains) instead of window-cropping
    ============================================================ */
 .hero-section{min-height:0;height:auto;aspect-ratio:16/9;padding:90px 30px 70px}
@@ -739,7 +778,7 @@ footer{position:relative;background-color:#101312;background-image:
 </style>
 <style>
 /* ============================================================
-   CONTENT LAYER — About page, Contact form, "How" modal
+   CONTENT LAYER - About page, Contact form, "How" modal
    ============================================================ */
 .about-wrap{min-height:100vh;padding:150px 30px 90px;background:linear-gradient(180deg,var(--white) 0%,var(--mint-wash) 60%,var(--mint-tint) 100%)}
 .about-inner{max-width:780px;margin:0 auto}
@@ -804,7 +843,7 @@ footer{position:relative;background-color:#101312;background-image:
   <nav>
     <button class="logo" data-nav="home" aria-label="Go to home">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20C16.4 20 20 16.4 20 12C20 7.6 16.4 4 12 4C7.6 4 4 7.6 4 12C4 16.4 7.6 20 12 20M12 2C18.5 2 22 6.5 22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2M14.3 16.2L12 10L9.7 16.2L7 11.3L11.3 7L16.2 9.7L14.3 16.2M8.8 17L12 8L15.2 17L20 12L15.2 7L12 15L8.8 7L4 12L8.8 17Z"/></svg>
-      <span>The Observatory<small>University of Regina</small></span>
+      <span>The Observatory<small>Dr. Megan Perram</small></span>
     </button>
     <ul class="nav-menu" id="navMenu">
       <li><button data-nav="home" class="active">Home</button></li>
@@ -848,7 +887,7 @@ footer{position:relative;background-color:#101312;background-image:
       <div class="section-header reveal">
         <div class="section-kicker">Featured Learning Areas</div>
         <h2 class="section-title">Dissect the Strangeness</h2>
-        <p class="section-subtitle">Two interactive guides for building fluency with generative AI in higher education. Rotate each carousel, then select a card to open it — everything expands right here on the page.</p>
+        <p class="section-subtitle">Two interactive guides for building fluency with generative AI in higher education. Rotate each carousel, then select a card to open it; everything expands right here on the page.</p>
       </div>
       <div id="carousels"></div>
     </div>
@@ -867,15 +906,15 @@ footer{position:relative;background-color:#101312;background-image:
       </div>
       <div class="projects-grid">
         <button class="project-card" data-nav="tutor" id="project1Card">
-          <span class="project-num">01</span>
+          
           <span class="project-tag">Inquiry-Based Learning</span>
           <span class="project-name">A Socratic Study Partner for Your Course</span>
           <span class="project-desc">A dialogue-first study companion for ENGL 110: Digital Literature &amp; New Media. It never hands over answers; it asks the next good question.</span>
           <span class="project-link">Open the study partner <svg viewBox="0 0 24 24"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></svg></span>
         </button>
-        <div class="project-card soon"><span class="project-num">02</span><span class="project-tag">Assessment</span><span class="project-name">AI-Resilient Assignment Design Studio</span><span class="project-desc"></span><span class="soon-badge">Coming Soon</span></div>
-        <div class="project-card soon"><span class="project-num">03</span><span class="project-tag">Feedback</span><span class="project-name">Formative Feedback Companion</span><span class="project-desc"></span><span class="soon-badge">Coming Soon</span></div>
-        <div class="project-card soon"><span class="project-num">04</span><span class="project-tag">Literacy</span><span class="project-name">Critical AI Literacy Modules</span><span class="project-desc"></span><span class="soon-badge">Coming Soon</span></div>
+        <div class="project-card soon"><span class="project-tag">Writing</span><span class="project-name">The Three-Story Thesis Companion</span><span class="project-desc"></span><span class="soon-badge">Coming Soon</span></div>
+        <div class="project-card soon"><span class="project-tag">Game-Based Learning</span><span class="project-name">Building Table-Top Games for Learning</span><span class="project-desc"></span><span class="soon-badge">Coming Soon</span></div>
+        <div class="project-card soon"><span class="project-tag">Interactive Fiction</span><span class="project-name">Hypertext, GenAI and Choice-Based Learning</span><span class="project-desc"></span><span class="soon-badge">Coming Soon</span></div>
       </div>
     </div>
   </div>
@@ -889,7 +928,7 @@ footer{position:relative;background-color:#101312;background-image:
   <div class="about-inner">
     <div class="section-kicker">Contact</div>
     <h2 class="about-title">Get in Touch</h2>
-    <p class="about-lede">Questions about the fellowship, workshops, or collaborating? Send a note below &mdash; it opens in your email app, addressed to <a href="mailto:mpv239@uregina.ca">mpv239@uregina.ca</a>.</p>
+    <p class="about-lede">Questions about the fellowship, workshops, or collaborating? Send a note below; it opens in your email app, addressed to <a href="mailto:mpv239@uregina.ca">mpv239@uregina.ca</a>.</p>
     <div class="contact-form">
       <div class="cf-row">
         <label for="ctName">Name</label>
@@ -931,13 +970,13 @@ footer{position:relative;background-color:#101312;background-image:
     </ul>
 
     <h3>Teaching</h3>
-    <p>I design and teach undergraduate and graduate courses including Storytelling and Video Games, Digital Literature and New Media, Literature and Social Media, the Narrative Worldbuilding of Taylor Swift, and Reading the Pathologized Body &mdash; while advancing an active scholarly agenda and supporting equity-focused, inclusive learning environments.</p>
+    <p>I design and teach undergraduate and graduate courses including Storytelling and Video Games, Digital Literature and New Media, Literature and Social Media, the Narrative Worldbuilding of Taylor Swift, and Reading the Pathologized Body, while advancing an active scholarly agenda and supporting equity-focused, inclusive learning environments.</p>
 
     <h3>Policy Background</h3>
     <p>As a former Senior Policy Analyst in the Alberta Ministry of Mental Health and Addiction, I contributed to the development of forthcoming drug policy legislation called Compassionate Intervention. I am also a former Strategic Initiatives Advisor at the University of Alberta. I am proud to be qualified in the Government of Canada Emerging Talent Pool stemming from the Recruitment of Policy Leaders program, which recognizes expertise and dedication in driving innovative policy solutions.</p>
 
     <h3>The GenAI Teaching Fellowship</h3>
-    <p>I am one of two inaugural GenAI Teaching Fellows at the University of Regina &mdash; a one-year appointment through the Provost&rsquo;s Office for faculty members to lead innovation in teaching, learning, and pedagogy through responsible use of generative AI.</p>
+    <p>I am one of two inaugural GenAI Teaching Fellows at the University of Regina: a one-year appointment through the Provost&rsquo;s Office for faculty members to lead innovation in teaching, learning, and pedagogy through responsible use of generative AI.</p>
     <p>Fellows retain their faculty appointment while serving as campus leaders in exploring and guiding the responsible use of GenAI in teaching and learning, and serve as associates of the Centre for Teaching and Learning. The role involves designing and delivering workshops and presentations that take up both the creative potential and the possible negative impacts of GenAI; consulting with faculty exploring GenAI applications in their courses, such as alternate assessment; developing and sharing resources like guides, templates, and case studies for GenAI-enhanced pedagogy; and contributing to institutional guidelines and frameworks for GenAI use in education.</p>
     <div class="about-actions">
       <button class="cta-button" data-nav="contact">Get in Touch</button>
@@ -957,41 +996,47 @@ footer{position:relative;background-color:#101312;background-image:
         <p class="sp-sub">One question at a time.</p>
       </div>
       <div class="sp-tools" role="toolbar" aria-label="Session tools">
-        <button class="sp-tool" id="spMapBtn" aria-expanded="false" aria-controls="spMap">Course map</button>
-        <button class="sp-tool" id="spExamBtn">Exam practice</button>
+        <button class="sp-tool" id="spExamBtn">Exam Practice</button>
         <button class="sp-tool" id="spSummaryBtn">Summary</button>
         <button class="sp-tool" id="spResetBtn">Restart</button>
       </div>
     </div>
 
-    <div class="sp-map" id="spMap" hidden>
-      <p class="sp-map-note">Everything the partner knows comes from the course plan and slides. Open a week, or tap a concept to bring it into the conversation.</p>
-      <div class="sp-map-grid" id="spMapInner"></div>
+    <div class="sp-body">
+      <aside class="sp-side">
+        <button class="sp-map-btn" id="spMapBtn" aria-expanded="false" aria-controls="spMap">Course Map</button>
+        <div class="sp-map" id="spMap" hidden aria-label="Course map">
+          <p class="sp-map-note">Tap a week, then tap a concept to pull it into the conversation.</p>
+          <div class="sp-map-grid" id="spMapInner"></div>
+        </div>
+      </aside>
+
+      <div class="sp-main">
+        <div class="sp-chat" id="spChat" role="log" aria-live="polite" aria-label="Conversation with the study partner"></div>
+
+        <div class="sp-starters" id="spStarters"></div>
+
+        <div class="sp-access">
+          <span class="sp-row-label" id="spAccessLabel">Reading preferences</span>
+          <button class="sp-chip" data-say="simpler" aria-describedby="spAccessLabel">Simpler</button>
+          <button class="sp-chip" data-say="spell it out" aria-describedby="spAccessLabel">Spell it out</button>
+          <button class="sp-chip" data-say="read-aloud mode" aria-describedby="spAccessLabel">Read-aloud mode</button>
+        </div>
+
+        <form class="sp-composer" id="spForm">
+          <label class="sr-only" for="spInput">Message the study partner</label>
+          <textarea id="spInput" rows="1" placeholder="Share your current thinking, even if it is rough..."></textarea>
+          <button class="sp-send" id="spSend" type="submit">Send<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+        </form>
+        <p class="sp-hint">Enter to send. Shift plus Enter for a new line. Type /exam to practice or /summary for a recap.</p>
+      </div>
     </div>
-
-    <div class="sp-chat" id="spChat" role="log" aria-live="polite" aria-label="Conversation with the study partner"></div>
-
-    <div class="sp-starters" id="spStarters"></div>
-
-    <div class="sp-access">
-      <span class="sp-row-label" id="spAccessLabel">Reading preferences</span>
-      <button class="sp-chip" data-say="simpler" aria-describedby="spAccessLabel">Simpler</button>
-      <button class="sp-chip" data-say="spell it out" aria-describedby="spAccessLabel">Spell it out</button>
-      <button class="sp-chip" data-say="read-aloud mode" aria-describedby="spAccessLabel">Read-aloud mode</button>
-    </div>
-
-    <form class="sp-composer" id="spForm">
-      <label class="sr-only" for="spInput">Message the study partner</label>
-      <textarea id="spInput" rows="1" placeholder="Share your current thinking, even if it is rough..."></textarea>
-      <button class="sp-send" id="spSend" type="submit">Send<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
-    </form>
-    <p class="sp-hint">Enter to send. Shift plus Enter for a new line. Type /exam to practice or /summary for a recap.</p>
   </div>
 </section>
 </main>
 
 <footer>
-  <span class="foot-logo">GenAI Fellowship</span> · University of Regina · Thoughtful, research-informed uses of generative AI in higher education
+  <span class="foot-logo">Dr. Megan Perram</span> · The Observatory GenAI Fellowship
   <div class="foot-how"><button class="how-btn" id="howBtn">How did I make this site?</button></div>
 </footer>
 
@@ -1001,7 +1046,7 @@ footer{position:relative;background-color:#101312;background-image:
     <button class="how-close" data-close-how aria-label="Close">&times;</button>
     <div class="section-kicker">Behind the Scenes</div>
     <h3 id="howTitle">How did I make this site?</h3>
-    <p>This site was designed and built in conversation with <strong>Claude</strong>, Anthropic&rsquo;s AI assistant &mdash; from the layout and organic shapes to the breathing animations and the flickering orb. It felt fitting that a site about teaching with generative AI should be made with it, thoughtfully and iteratively.</p>
+    <p>This site was designed and built in conversation with <strong>Claude</strong>, Anthropic&rsquo;s AI assistant, from the layout and organic shapes to the breathing animations and the flickering orb. It felt fitting that a site about teaching with generative AI should be made with it, thoughtfully and iteratively.</p>
     <h4>Image Citations</h4>
     <ul class="cite-list">
       <li>Lisa Prazhak. &ldquo;AI-generated image.&rdquo; <em>Pinterest</em>, Pinterest, <a href="https://ca.pinterest.com/pin/453737731213540096/" target="_blank" rel="noopener">ca.pinterest.com/pin/453737731213540096</a>. Accessed 8 July 2026.</li>
@@ -1060,10 +1105,10 @@ const svg = p => `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><p
 const CAROUSELS = [
 { id:'c1', kicker:'Carousel 01', title:'GenAI 101', subtitle:'A beginner-friendly interactive guide to what generative AI is, how it works, and where it breaks.', cards:[
  {icon:I.spark, cat:'Foundations', title:'What is Generative AI?', desc:'From prediction machines to creative collaborators.', body:`
-  <p class="lede">Generative AI refers to systems that produce new content — text, images, audio, code — by learning statistical patterns from enormous amounts of existing material.</p>
-  <p>Unlike a search engine, which retrieves documents that already exist, a generative model <em>composes</em> its output token by token. That's why it can draft an email in the style of Jane Austen — and also why it can confidently invent a citation that doesn't exist.</p>
+  <p class="lede">Generative AI refers to systems that produce new content (text, images, audio, code) by learning statistical patterns from enormous amounts of existing material.</p>
+  <p>Unlike a search engine, which retrieves documents that already exist, a generative model <em>composes</em> its output token by token. That's why it can draft an email in the style of Jane Austen, and also why it can confidently invent a citation that doesn't exist.</p>
   <h4>The mental model that helps</h4>
-  <p>Think of it as an extraordinarily well-read improviser: it has absorbed patterns from most of the public internet, and when you prompt it, it improvises a plausible continuation. "Plausible" is the key word — plausibility and truth are not the same thing.</p>
+  <p>Think of it as an extraordinarily well-read improviser: it has absorbed patterns from most of the public internet, and when you prompt it, it improvises a plausible continuation. "Plausible" is the key word: plausibility and truth are not the same thing.</p>
   <h4>Why it matters for teaching</h4>
   <ul><li>Students already use these tools; the question is whether they use them thoughtfully.</li><li>Generative output is fluent by design, which makes weak reasoning harder to spot.</li><li>Understanding <em>generation vs. retrieval</em> is the single most useful concept for a first-time user.</li></ul>
   <div class="callout"><strong>Try this:</strong> Ask an AI the same question three times in new chats. The variations you see are the generative process made visible.</div>`},
@@ -1074,7 +1119,7 @@ const CAROUSELS = [
   <ul><li><em>Tokens:</em> the model reads and writes in fragments of words, not whole ideas.</li><li><em>Training:</em> billions of examples tune the model's internal weights so its predictions match human-written text.</li><li><em>Sampling:</em> a dash of controlled randomness is why the same prompt yields different answers.</li></ul>
   <h4>Classroom translation</h4>
   <p>When students grasp that an LLM is predicting rather than knowing, hallucinations stop being mysterious and start being expected. That reframing is the foundation of critical use.</p>
-  <div class="callout"><strong>Discussion starter:</strong> "If a model only predicts the next word, why does it feel like it understands?" — a wonderful bridge to Turing's Imitation Game.</div>`},
+  <div class="callout"><strong>Discussion starter:</strong> "If a model only predicts the next word, why does it feel like it understands?" A wonderful bridge to Turing's Imitation Game.</div>`},
  {icon:I.prompt, cat:'Practice', title:'Prompt Engineering', desc:'Getting dramatically better results by asking better.', body:`
   <p class="lede">Prompting is the craft of giving a model enough context, constraints, and examples that its "plausible continuation" is also the useful one.</p>
   <h4>The four levers</h4>
@@ -1082,27 +1127,27 @@ const CAROUSELS = [
   <div class="duo"><div class="bad"><h5>Weak prompt</h5><p>"Explain hypertext."</p></div><div class="good"><h5>Strong prompt</h5><p>"I'm a first-year student who just read Rettberg's chapter on hypertext fiction. Quiz me with one question at a time about lexia, links, and nonlinearity, and correct my misconceptions gently."</p></div></div>
   <h4>Why teach it</h4>
   <p>Prompting well is really <em>thinking well in public</em>: specifying an audience, a purpose, and success criteria. Those are writing skills wearing a new costume.</p>
-  <div class="callout"><strong>Assignment idea:</strong> Have students submit their full prompt history alongside the output — the prompts often reveal more learning than the product.</div>`},
+  <div class="callout"><strong>Assignment idea:</strong> Have students submit their full prompt history alongside the output; the prompts often reveal more learning than the product.</div>`},
  {icon:I.ghost, cat:'Limitations', title:'Hallucinations', desc:'Why fluent, confident, and wrong go together.', body:`
-  <p class="lede">A hallucination is output that is fluent and confident but factually false — an invented quotation, a fake DOI, a plausible-sounding study that doesn't exist.</p>
+  <p class="lede">A hallucination is output that is fluent and confident but factually false: an invented quotation, a fake DOI, a plausible-sounding study that doesn't exist.</p>
   <h4>Why they happen</h4>
-  <p>The model is optimized to continue text plausibly, not to verify claims. When the training data is thin — niche scholarship, recent events, precise citations — the model fills gaps with pattern-shaped fiction.</p>
+  <p>The model is optimized to continue text plausibly, not to verify claims. When the training data is thin (niche scholarship, recent events, precise citations), the model fills gaps with pattern-shaped fiction.</p>
   <h4>High-risk zones</h4>
   <ul><li>Bibliographies and page numbers</li><li>Quotations "from" real authors</li><li>Numbers, dates, and statistics</li><li>Anything hyper-specific to your own course</li></ul>
   <div class="callout"><strong>Teaching move:</strong> Deliberately generate a hallucinated bibliography with your class and have students verify each entry in the library catalogue. Nothing builds source-checking habits faster.</div>
-  <p>Hallucination isn't a bug to apologize for — it's the clearest window into how these systems actually work, and a gift for teaching information literacy.</p>`},
- {icon:I.window, cat:'Foundations', title:'Context Windows', desc:'The model\u2019s working memory — and what falls out of it.', body:`
+  <p>Hallucination isn't a bug to apologize for; it's the clearest window into how these systems actually work, and a gift for teaching information literacy.</p>`},
+ {icon:I.window, cat:'Foundations', title:'Context Windows', desc:'The model\u2019s working memory, and what falls out of it.', body:`
   <p class="lede">The context window is everything a model can "see" at once: your instructions, the conversation so far, and any documents you've pasted in. Outside that window, nothing exists.</p>
   <div class="diagram"><svg viewBox="0 0 620 110" role="img" aria-label="A window sliding over a long conversation; early text falls outside it"><g font-family="Inter,sans-serif" font-size="12"><rect x="10" y="40" width="600" height="34" rx="6" fill="none" stroke="#DADAD5"/><rect x="250" y="34" width="360" height="46" rx="8" fill="rgba(124,224,203,.3)" stroke="#2E6B76"/><text x="40" y="61" fill="#9AA5AE">earlier conversation…</text><text x="430" y="61" fill="#121415" text-anchor="middle">what the model can see now</text><text x="430" y="98" fill="#2E6B76" text-anchor="middle" font-size="11">the context window</text><text x="120" y="98" fill="#9AA5AE" text-anchor="middle" font-size="11">forgotten</text></g></svg></div>
   <h4>Practical consequences</h4>
-  <ul><li>Very long chats "forget" their beginnings — instructions can silently expire.</li><li>Pasting a source document grounds the model far better than hoping it "knows" the text.</li><li>Where you place information matters: key instructions belong up front, and repeated when it counts.</li></ul>
+  <ul><li>Very long chats "forget" their beginnings; instructions can silently expire.</li><li>Pasting a source document grounds the model far better than hoping it "knows" the text.</li><li>Where you place information matters: key instructions belong up front, and repeated when it counts.</li></ul>
   <div class="callout"><strong>Rule of thumb:</strong> If the model needs to know it, it has to be in the window. This is exactly why the Socratic Tutor project embeds the entire ENGL 110 course plan in every conversation.</div>`},
  {icon:I.ethics, cat:'Responsibility', title:'AI Ethics', desc:'Bias, labour, environment, and academic values.', body:`
-  <p class="lede">Ethical questions aren't an appendix to AI literacy — they're the syllabus.</p>
+  <p class="lede">Ethical questions aren't an appendix to AI literacy; they're the syllabus.</p>
   <h4>Four conversations worth having</h4>
-  <ul><li><em>Bias:</em> models inherit and can amplify the biases of their training data — in whose voice does "neutral" writing speak?</li><li><em>Labour &amp; authorship:</em> training data includes creative work used without consent; what do we owe the writers and artists in the corpus?</li><li><em>Environment:</em> training and serving large models consumes significant energy and water.</li><li><em>Access:</em> paid tiers create uneven playing fields between students.</li></ul>
+  <ul><li><em>Bias:</em> models inherit and can amplify the biases of their training data: in whose voice does "neutral" writing speak?</li><li><em>Labour &amp; authorship:</em> training data includes creative work used without consent; what do we owe the writers and artists in the corpus?</li><li><em>Environment:</em> training and serving large models consumes significant energy and water.</li><li><em>Access:</em> paid tiers create uneven playing fields between students.</li></ul>
   <h4>In the classroom</h4>
-  <p>These aren't reasons to ban the technology — they're reasons to teach it critically. An ethics-forward framing turns AI from a policing problem into an object of genuine scholarly inquiry.</p>
+  <p>These aren't reasons to ban the technology; they're reasons to teach it critically. An ethics-forward framing turns AI from a policing problem into an object of genuine scholarly inquiry.</p>
   <div class="callout"><strong>Seminar prompt:</strong> "Who is present in a model's training data, and who is missing? How would you find out?"</div>`},
  {icon:I.lock, cat:'Responsibility', title:'Privacy', desc:'What you share, where it goes, and safer habits.', body:`
   <p class="lede">Anything typed into a consumer AI tool may be retained, reviewed, or used to improve the service, depending on the provider and your settings.</p>
@@ -1110,8 +1155,8 @@ const CAROUSELS = [
   <ul><li>Never paste student names, grades, IDs, or identifiable student writing without consent.</li><li>Prefer institutionally approved tools where agreements govern data handling.</li><li>Check for "do not train on my data" settings and use them.</li><li>Treat prompts like emails: assume they could be read by someone else.</li></ul>
   <h4>For students</h4>
   <p>Privacy literacy is part of AI literacy. Students should know that a chatbot conversation is not a private notebook, and that uploading a classmate's work is sharing someone else's data.</p>
-  <div class="callout"><strong>Policy note:</strong> Canadian institutions also carry obligations under provincial privacy legislation — when in doubt, consult your university's information management office.</div>`},
- {icon:I.scale, cat:'Judgment', title:'Strengths vs Limitations', desc:'Knowing when to reach for AI — and when not to.', body:`
+  <div class="callout"><strong>Policy note:</strong> Canadian institutions also carry obligations under provincial privacy legislation; when in doubt, consult your university's information management office.</div>`},
+ {icon:I.scale, cat:'Judgment', title:'Strengths vs Limitations', desc:'Knowing when to reach for AI, and when not to.', body:`
   <p class="lede">The fastest route to good judgment is a clear map of what these systems do brilliantly and where they quietly fail.</p>
   <div class="duo"><div class="good"><h5>Reliably strong</h5><ul><li>Drafting, rephrasing, summarizing</li><li>Brainstorming and outlining</li><li>Explaining concepts at any level</li><li>Transforming formats (notes → table)</li><li>Patient, judgment-free practice dialogue</li></ul></div><div class="bad"><h5>Reliably shaky</h5><ul><li>Precise citations and quotations</li><li>Recent or hyper-local information</li><li>Arithmetic and counting</li><li>Original argument grounded in <em>your</em> sources</li><li>Knowing what it doesn't know</li></ul></div></div>
   <h4>The instructor's heuristic</h4>
@@ -1126,30 +1171,30 @@ const CAROUSELS = [
 ]},
 { id:'c2', kicker:'Carousel 02', title:'Teaching with AI', subtitle:'Pedagogy-first strategies for bringing generative AI into course design, assessment, and classroom culture.', cards:[
  {icon:I.pencil, cat:'Course Design', title:'Designing AI-Enhanced Assignments', desc:'Assignments that get better, not easier, with AI in the room.', body:`
-  <p class="lede">The strongest AI-era assignments don't try to be AI-proof — they make the human thinking visible and valuable.</p>
+  <p class="lede">The strongest AI-era assignments don't try to be AI-proof; they make the human thinking visible and valuable.</p>
   <h4>Design patterns that work</h4>
   <ul><li><em>Process-visible:</em> require drafts, prompt logs, or annotated revisions alongside the product.</li><li><em>Locally grounded:</em> anchor tasks in class discussion, local texts, or personal experience the model can't access.</li><li><em>AI-as-object:</em> have students critique, fact-check, or improve an AI-generated draft.</li><li><em>Oral companion:</em> pair written work with a five-minute conversation about the choices made.</li></ul>
   <h4>A worked example</h4>
-  <p>Instead of "Write 1000 words on hypertext fiction," try: "Generate an AI summary of Rettberg's hypertext chapter, then write 800 words identifying what the summary flattens, misses, or gets wrong — citing specific passages."</p>
-  <div class="callout"><strong>The litmus test:</strong> if an assignment can be completed without any evidence of the student's own thinking, the problem predates AI — the tool just exposed it.</div>`},
+  <p>Instead of "Write 1000 words on hypertext fiction," try: "Generate an AI summary of Rettberg's hypertext chapter, then write 800 words identifying what the summary flattens, misses, or gets wrong, citing specific passages."</p>
+  <div class="callout"><strong>The litmus test:</strong> if an assignment can be completed without any evidence of the student's own thinking, the problem predates AI; the tool just exposed it.</div>`},
  {icon:I.partner, cat:'Pedagogy', title:'AI as a Learning Partner', desc:'From answer machine to thinking companion.', body:`
-  <p class="lede">The pedagogically interesting use of AI isn't getting answers — it's having a tireless, judgment-free partner for rehearsing understanding.</p>
+  <p class="lede">The pedagogically interesting use of AI isn't getting answers; it's having a tireless, judgment-free partner for rehearsing understanding.</p>
   <h4>Partner patterns</h4>
   <ul><li><em>Socratic tutor:</em> the AI only asks questions, scaffolding the student toward their own answer (see Project 01).</li><li><em>Explain-it-back:</em> the student teaches a concept to the AI, which plays a curious novice.</li><li><em>Devil's advocate:</em> the AI argues the opposing position to stress-test a thesis.</li><li><em>Simulated audience:</em> "Respond to my draft as a skeptical peer reviewer."</li></ul>
   <h4>Why it works</h4>
-  <p>These patterns exploit what LLMs are genuinely good at — endless patience, instant role-play, adaptive dialogue — while keeping the intellectual work with the student. The AI holds the space; the student does the thinking.</p>
+  <p>These patterns exploit what LLMs are genuinely good at (endless patience, instant role-play, adaptive dialogue) while keeping the intellectual work with the student. The AI holds the space; the student does the thinking.</p>
   <div class="callout"><strong>Key framing for students:</strong> "If the AI did the interesting part, you chose the wrong way to use it."</div>`},
  {icon:I.integrity, cat:'Policy', title:'Academic Integrity', desc:'Honest work in the age of fluent machines.', body:`
   <p class="lede">Integrity conversations go better when they start from purpose ("here's why this work matters for your learning") rather than surveillance.</p>
   <h4>What the evidence suggests</h4>
-  <ul><li>AI-detection tools are unreliable and produce false positives that fall hardest on multilingual writers — they cannot carry your policy alone.</li><li>Clear, assignment-level guidance ("AI permitted for brainstorming, not drafting") outperforms blanket bans.</li><li>Disclosure norms — a short "how I used AI" statement — normalize honesty instead of driving use underground.</li></ul>
+  <ul><li>AI-detection tools are unreliable and produce false positives that fall hardest on multilingual writers; they cannot carry your policy alone.</li><li>Clear, assignment-level guidance ("AI permitted for brainstorming, not drafting") outperforms blanket bans.</li><li>Disclosure norms - a short "how I used AI" statement - normalize honesty instead of driving use underground.</li></ul>
   <h4>A three-tier vocabulary</h4>
   <p>Give every assignment one of three labels: <em>AI-free</em> (in-class, foundational skills), <em>AI-assisted</em> (permitted with disclosure), or <em>AI-integrated</em> (the tool is part of the task). Ambiguity is where most violations begin.</p>
-  <div class="callout"><strong>Remember:</strong> in courses like ENGL 110, in-class writing already anchors assessment — a structural safeguard that predates and outlasts any detector.</div>`},
+  <div class="callout"><strong>Remember:</strong> in courses like ENGL 110, in-class writing already anchors assessment, a structural safeguard that predates and outlasts any detector.</div>`},
  {icon:I.lens, cat:'Literacy', title:'Critical AI Literacy', desc:'Reading machine text the way we read any text.', body:`
-  <p class="lede">Critical AI literacy treats model output as a text to be interrogated — with an author-function, a politics, and blind spots — not as an oracle.</p>
+  <p class="lede">Critical AI literacy treats model output as a text to be interrogated, with an author-function, a politics, and blind spots, not as an oracle.</p>
   <h4>Core moves to teach</h4>
-  <ul><li><em>Provenance:</em> where might this claim have come from? Can it be verified?</li><li><em>Perspective:</em> whose voice does this "neutral" prose adopt? Who is absent?</li><li><em>Pattern:</em> what does the model do when it doesn't know — hedge, invent, generalize?</li><li><em>Power:</em> who built the tool, who profits, and who bears its costs?</li></ul>
+  <ul><li><em>Provenance:</em> where might this claim have come from? Can it be verified?</li><li><em>Perspective:</em> whose voice does this "neutral" prose adopt? Who is absent?</li><li><em>Pattern:</em> what does the model do when it doesn't know - hedge, invent, generalize?</li><li><em>Power:</em> who built the tool, who profits, and who bears its costs?</li></ul>
   <h4>Natural fit with the humanities</h4>
   <p>English classrooms have been doing this for a century under other names: close reading, rhetorical analysis, ideology critique. Critical AI literacy is those skills pointed at a new genre of text.</p>
   <div class="callout"><strong>Exercise:</strong> Give students one AI answer and one encyclopedia entry on the same topic, unlabelled. Ask them to identify which is which and defend the attribution with textual evidence.</div>`},
@@ -1158,26 +1203,26 @@ const CAROUSELS = [
   <h4>Shifts worth making</h4>
   <ul><li><em>Weight the process:</em> proposals, drafts, and revision memos carry marks, not just the final essay.</li><li><em>Assess in dialogue:</em> brief oral defenses or in-class writing verify that understanding lives in the student.</li><li><em>Grade the judgment:</em> when AI use is permitted, evaluate the student's prompts, selections, and edits.</li><li><em>Design for specificity:</em> reward engagement with the actual class conversation and assigned texts.</li></ul>
   <h4>Structure already helps</h4>
-  <p>Course designs that mix take-home and in-class components — like ENGL 110's in-class essay plus final exam requirement — distribute evidence of learning across contexts no tool can span.</p>
+  <p>Course designs that mix take-home and in-class components, like ENGL 110's in-class essay plus final exam requirement, distribute evidence of learning across contexts no tool can span.</p>
   <div class="callout"><strong>Reframe:</strong> the question isn't "did a machine write this?" but "what can this student demonstrably do?"</div>`},
  {icon:I.policy, cat:'Policy', title:'Classroom Policies', desc:'Writing an AI policy students actually read.', body:`
-  <p class="lede">The best AI policies are short, specific, assignment-level, and explained — not a paragraph of legal boilerplate on page nine of the syllabus.</p>
+  <p class="lede">The best AI policies are short, specific, assignment-level, and explained, not a paragraph of legal boilerplate on page nine of the syllabus.</p>
   <h4>Anatomy of a usable policy</h4>
   <ul><li><em>Rationale first:</em> one sentence on why the rules serve their learning.</li><li><em>Per-assignment labels:</em> AI-free / AI-assisted / AI-integrated, stated on each brief.</li><li><em>Disclosure format:</em> exactly what an acknowledgment should look like.</li><li><em>A door, not a wall:</em> "unsure if a use is okay? Ask me before, not after."</li></ul>
   <h4>Co-create where you can</h4>
-  <p>Spending twenty minutes in week one drafting norms with students converts policy from imposed rule to shared agreement — and surfaces the tools they're actually using.</p>
+  <p>Spending twenty minutes in week one drafting norms with students converts policy from imposed rule to shared agreement, and surfaces the tools they're actually using.</p>
   <div class="callout"><strong>Template line:</strong> "In this course, AI tools are [permitted for X / not permitted for Y] because [learning goal]. When you use them, disclose [format]. When unsure, ask."</div>`},
  {icon:I.engage, cat:'Pedagogy', title:'Student Engagement', desc:'Using AI to widen participation, not replace it.', body:`
-  <p class="lede">Used well, AI can lower the barriers that keep students silent — rehearsal space, instant examples, judgment-free questions at 2 a.m.</p>
+  <p class="lede">Used well, AI can lower the barriers that keep students silent: rehearsal space, instant examples, judgment-free questions at 2 a.m.</p>
   <h4>Engagement patterns</h4>
-  <ul><li><em>Warm-up dialogues:</em> students interview an AI about the week's concept before class, arriving with questions instead of blank pages.</li><li><em>Live critique:</em> project an AI answer and dismantle it together — collective expertise beats the machine, visibly.</li><li><em>Choice amplifier:</em> AI helps students prototype ambitious formats (a Twine game, a podcast script) they'd otherwise abandon.</li><li><em>Accessibility ally:</em> rephrasing dense readings, generating practice questions, supporting multilingual learners.</li></ul>
+  <ul><li><em>Warm-up dialogues:</em> students interview an AI about the week's concept before class, arriving with questions instead of blank pages.</li><li><em>Live critique:</em> project an AI answer and dismantle it together - collective expertise beats the machine, visibly.</li><li><em>Choice amplifier:</em> AI helps students prototype ambitious formats (a Twine game, a podcast script) they'd otherwise abandon.</li><li><em>Accessibility ally:</em> rephrasing dense readings, generating practice questions, supporting multilingual learners.</li></ul>
   <div class="callout"><strong>Watch for:</strong> engagement collapsing into outsourcing. The tell is a student who can submit but can't discuss. Design discussion back in.</div>`},
  {icon:I.responsible, cat:'Responsibility', title:'Responsible Use', desc:'Habits and guardrails for instructors and students alike.', body:`
-  <p class="lede">Responsible use is a practice, not a policy — a set of habits that keep humans accountable for what machines help produce.</p>
+  <p class="lede">Responsible use is a practice, not a policy: a set of habits that keep humans accountable for what machines help produce.</p>
   <h4>For instructors</h4>
   <ul><li>Never delegate grades or high-stakes judgments to a model.</li><li>Verify anything AI-drafted before it reaches students.</li><li>Model disclosure: tell students when and how you used AI.</li><li>Protect student data absolutely (see Privacy in GenAI 101).</li></ul>
   <h4>For students</h4>
-  <ul><li>You own every word you submit — "the AI said so" is not a citation.</li><li>Disclose use honestly in the course's required format.</li><li>Use AI to understand more, not to engage less.</li></ul>
+  <ul><li>You own every word you submit; "the AI said so" is not a citation.</li><li>Disclose use honestly in the course's required format.</li><li>Use AI to understand more, not to engage less.</li></ul>
   <div class="callout"><strong>One-line ethos:</strong> AI can assist the work; it cannot absorb the responsibility.</div>`}
 ]}
 ];
@@ -1358,83 +1403,110 @@ const Tutor = (() => {
       '\n\nFULL COURSE PLAN, WEEK BY WEEK:\n\n' + weeks;
   };
 
-  const SYSTEM = () => `You are a Socratic study partner for ${COURSE.code}: ${COURSE.title}, a humanities and writing course at Campion College, University of Regina, taught by ${CONFIG.instructor} (${COURSE.schedule}). You are embedded in a study interface on the instructor's GenAI Fellowship website. Your job is to help the student THINK, not to think for them. You ask; you do not answer.
+  const SYSTEM = () => `# Socratic Tutor — System Prompt
 
-PEDAGOGICAL BASIS (do not deviate):
-- Inquiry-based Socratic dialogue: guide the student from the limits of their current knowledge toward their own conclusions through iterative questioning.
-- Prioritize hesitant, quiet, or struggling students: they benefit most. Adjust warmth and pacing to draw them in.
-- Success means the student can reason WITHOUT you. Engagement alone is not the goal; engagement without independent reasoning is a failure state.
+## Module 1 — Role & pedagogical basis
+You are Socratic Tutor for ${COURSE.code}: ${COURSE.title}, an English and creative writing (digital literature and new media) course at the first-year undergraduate level, taught by ${CONFIG.instructor} at ${COURSE.college} (${COURSE.schedule}). You are embedded in a study interface on the instructor's GenAI Fellowship website. Your job is to help the student THINK, not to think for them. You ask; you do not answer.
+Course materials. The COURSE KNOWLEDGE BASE at the end of this prompt is distilled directly from my complete course materials. Treat it as your authoritative source for course content, and ground your questioning in it. It may include any of the following, which I customize per course:
+- Key terms
+- Course reading list
+- Instructor's personal notes
+- Slide deck content
+- Assignments
+- Any other materials I choose to add
+A note on the citations in this prompt. Throughout the modules below you will see names in parentheses — e.g., (Kampylis), (Blasco & Charisi), (Getachew; Lee et al.). These are my own private notes recording how each instruction is informed by the research literature. Disregard them entirely — they are not content, not instructions, and must never be mentioned to the student.
+Pedagogical basis (do not deviate):
+- Inquiry-based, Socratic dialogue. Guide the student from the limits of their current knowledge toward their own conclusions through iterative questioning. (Kampylis)
+- Prioritize low-engagement / lower-baseline students: they benefit most; adjust warmth and pacing to draw them in. (Getachew; Lee et al.)
+- Success = the student can reason WITHOUT you. Engagement alone is not the goal. (Blasco & Charisi: engagement did not, by itself, improve learning.)
 
-CORE INTERACTION RULES:
-1. Never give the answer and never write or rewrite the student's prose. Respond with a question that advances their reasoning exactly ONE step.
-2. Open every session by asking the student to state their current thesis or understanding, so you can locate the edge of what they know before building.
-3. Keep replies SHORT: normally one focused question, with at most two or three short sentences before it. Never dump information; excessive information smothers learner-driven thought.
-4. The student does the synthesis. You may surface a tension between two ideas, weeks, or sources, but the student must resolve it themselves.
+## Module 2 — Core interaction rules & the question engine
+Rules:
+1. Never give the answer or write/rewrite the student's prose. Respond with a question that advances their reasoning exactly ONE step.
+2. Open every session by asking the student to state their current thesis/understanding, so you can locate the edge of what they know before building.
+3. Keep replies SHORT — normally ONE focused question. Never dump information. (Goda et al.: avoid "excessive information rather than facilitating learner-driven thought.")
+4. Require the student to do the synthesis; you may surface a tension between two ideas or sources, but the student must resolve it. (Counters Koroye & Sikpi's synthesis deficit.)
+Question engine. Rotate deliberately through the six Socratic types; do not repeat the same type twice in a row. Track which you have used this session:
+- Clarification — "What do you mean by X? Can you give a counter-example?"
+- Assumption-testing — "What are you assuming here? How could you verify it?"
+- Rationale / evidence — "How do you know that? What is your strongest evidence?"
+- Alternative views — "How would someone who disagrees read this? Why?"
+- Implication / consequence — "If that holds, what follows? What breaks?"
+- Questioning the question — "Why is this the right question to be asking?"
 
-QUESTION ENGINE: rotate deliberately through the six Socratic question types. Never use the same type twice in a row. Silently track which types you have used this session:
-(a) CLARIFICATION: What do you mean by X? Can you give a counter-example?
-(b) ASSUMPTION-TESTING: What are you assuming here? How could you verify it?
-(c) RATIONALE AND EVIDENCE: How do you know that? What is your strongest evidence from the text?
-(d) ALTERNATIVE VIEWS: How would someone who disagrees read this? Why?
-(e) IMPLICATIONS AND CONSEQUENCES: If that holds, what follows? What breaks?
-(f) QUESTIONING THE QUESTION: Why is this the right question to be asking?
+## Module 3 — Session flow, scaffold fading & exam-prep mode
+Session flow (state machine):
+1. Orient — elicit the student's current position and goal for the session.
+2. Probe — cycle the question engine; one question per turn.
+3. Stretch — introduce a counter-case or alternative perspective.
+4. Fade — withdraw support: shorter prompts, fewer hints.
+5. Solo — pose an "on-your-own" prompt the student answers with NO hints.
+6. Debrief — student self-assesses; you give targeted Socratic feedback.
+Scaffold fading. Track the number of hints/prompts you supply and reduce it over the session. Aim for the student to reach conclusions with progressively fewer turns. (Na Chai et al. observed prompts-to-completion falling 19.45 → 16.35.) If the student is stuck after 2–3 exchanges, give the SMALLEST possible hint, then return immediately to questioning.
+Exam-prep mode (trigger: student types /exam). This course's exam has THREE parts. Rehearse them in order, or jump to one if the student names it (/exam mc, /exam short, /exam essay). Keep it a closed-book simulation: the student answers each part FULLY before any feedback. Stay Socratic throughout — after every answer, probe the student's reasoning rather than simply confirming right or wrong. (This targets Blasco & Charisi's "limited retention" finding.)
+- PART 1 — Multiple choice: applying key terms.
+  1. Present ONE multiple-choice question (four options) that requires applying a course key term from the knowledge base to a scenario or example.
+  2. The student picks an option and must justify WHY. Do not reveal the answer first — ask what makes their choice fit the term's definition and why the other options do not.
+  3. Confirm only after they have reasoned it through; if they are wrong, ask a question that exposes the mismatch rather than correcting them outright.
+- PART 2 — Short answer: course concepts.
+  1. Pose ONE short-answer question on a core course concept. The student answers fully with no hints.
+  2. Give Socratic feedback on precision, completeness, and correct use of course vocabulary.
+  3. Follow up with a TRANSFER question that applies the same concept to a new case.
+- PART 3 — Critical essay: engaging a course literary work.
+  1. Prompt the student to develop a critical essay response engaging ONE of the course literary works.
+  2. Do NOT write any part of the essay. Work Socratically on thesis clarity, use of textual evidence, an opposing reading, and structure.
+  3. Have the student draft a thesis and one supporting move unaided, then critique it; end by having them produce a short outline on their own with no hints.
 
-SESSION FLOW (move through these states over the session):
-STATE 0 ORIENT: elicit the student's current position and their goal for the session.
-STATE 1 PROBE: cycle the question engine, one question per turn.
-STATE 2 STRETCH: introduce a counter-case or alternative perspective from the course material.
-STATE 3 FADE: withdraw support; shorter prompts, fewer hints.
-STATE 4 SOLO: pose an on-your-own prompt the student answers with NO hints.
-STATE 5 DEBRIEF: the student self-assesses first; then you give targeted Socratic feedback.
-
-SCAFFOLD FADING: track how many hints and prompts you supply and reduce them as the session goes on. Aim for the student to reach conclusions with progressively fewer turns. If the student is stuck after two or three exchanges, give the SMALLEST possible hint drawn from the course plan, then return immediately to questioning.
-
-EXAM-PREP MODE (trigger: the student types /exam):
-1. Present ONE question in the real exam format, with an optional time limit the student may accept or decline. ${CONFIG.examFormat}
-2. The student answers fully with no hints, as a closed-book simulation.
-3. Give Socratic feedback on their answer, then pose a TRANSFER follow-up that applies the same idea to a NEW work or case from a different week of the course, to build retention.
-
-COMMANDS:
-/exam starts exam-prep mode. /summary produces a short session summary as exactly three bullet points: what the student now reasons well, one gap, one next step. /log outputs the misconception log for the instructor.
-
-MISCONCEPTION TRACKING: silently note recurring errors and misconceptions during the session. Do not surface them to the student mid-flow. Only output the log when someone types /log, formatted as a short list an instructor can review.
-
-GROUNDING IN THE COURSE (essential): the course knowledge base below, distilled from the instructor's complete notes and slides, is your ONLY knowledge base. Anchor every exchange in it. Name specific weeks, works, readings, theorists, slide arguments, and key concepts. Say things like "your Week 4 slides argued that hypertext treats the text like a space you wander through" or "how does that sit beside Rettberg's claim about the three reflexivities?" or "which moment in Howling Dogs could test that?". Never give a generic answer when a course-specific anchor exists. When you reference a week, write it exactly as "Week N" so the interface can link it. You may quote very short phrases from the course plan with attribution (Rettberg, Aarseth, Hayles, Zimmerman, Guptill, Johnson, Nelson). Recommend specific readings from the plan when they fit the student's line of inquiry, and encourage synthesis across weeks where natural.
-
-GUARDRAILS:
+## Module 4 — Guardrails, accuracy & transparency
+Guardrails (per Konak et al.: "explicit reasoning steps, guardrails, evidence-based assessment"):
 - Stay in method: if asked for the answer, decline warmly and re-ask a guiding question.
-- Do not produce essay text, thesis statements, outlines, paragraphs, or any graded deliverable, even partially, even if asked repeatedly, even as an "example".
-- Refuse to complete take-home assessments (the Take-Home Writing Assignment, the Research Essay, Weekly Engagement Activities); offer to rehearse the reasoning behind them instead. Remind students that the course AI policy permits AI only in specified ways and prohibits it entirely on the in-class assignment and the final exam.
-
-ACCURACY AND TRANSPARENCY:
-- Flag uncertainty explicitly; never assert a contested interpretive claim as settled fact.
+- Do not produce essay text, thesis statements, or graded deliverables for the student.
+- Refuse to complete take-home assessments; offer to rehearse the reasoning instead.
+Accuracy & transparency (per Koroye & Sikpi, "epistemological transparency"; Li et al. on "biases and inaccuracies"):
+- Flag uncertainty explicitly; never assert a contested claim as settled fact.
 - Tell the student to verify substantive claims against the assigned course readings and the assignment rubric.
-- Keep your questions (pedagogical) distinct from any factual claim you make (verifiable).
-- If the student asks about logistics such as due dates or formats, answer factually from the ASSESSMENTS section, then return to inquiry.
+- Distinguish your questions (pedagogical) from any factual claim you make (verifiable).
+Tone. Patient, non-judgmental, encouraging, genuinely curious. No false praise. (Fakour & Imani found the non-judgmental quality is a key motivational advantage.)
 
-TONE: patient, non-judgmental, encouraging, sincerely curious. No false praise; praise specific thinking, never the person generically.
-
-ACCESSIBILITY (mandatory, not optional; the student may use a screen reader or have low vision):
-- Write linear, screen-reader-friendly prose. Lead with your question; put it FIRST in the reply whenever possible.
-- Never rely on color, bold, spatial layout, or emoji to carry meaning; state it in words.
-- No ASCII art. No complex or multi-column tables; if tabular data is unavoidable, add a one-sentence prose summary of the key point.
+## Module 5 — Accessibility requirements (mandatory, not optional)
+The tutor MUST be usable by students with low vision, blindness, or screen-reader use.
+Output structure:
+- Write linear, screen-reader-friendly prose. Lead with the question; put it FIRST.
+- Use real Markdown headings/lists for structure; never rely on color, bold, spatial layout, or emoji to carry meaning (state it in words instead).
+- Avoid ASCII art and complex multi-column tables; a screen reader cannot navigate them. If tabular data is unavoidable, also give a short prose summary of the key point.
 - Keep each turn short and chunked so it is quick to hear read aloud.
-- Render any math or symbols in words, for example "the square root of x"; offer LaTeX only if asked.
-- If you describe an image or diagram, narrate it in reading order and state the takeaway in one sentence.
-- LEARNER CONTROLS, honor immediately and keep honoring until the student says otherwise: "simpler" or "shorter" means reduce to one short sentence plus one question; "spell it out" means number each reasoning step on its own line; "read-aloud mode" means plain sentences with no symbols or markup that read awkwardly aloud.
+Math & symbols:
+- Render math in words or accessible notation (e.g., "the square root of x," not a glyph a screen reader may skip); offer LaTeX only if the student asks.
+Images & diagrams:
+- Never send an image without descriptive ALT TEXT. If you describe a diagram, narrate it in reading order and state the takeaway in one sentence.
+Learner controls (honor immediately if the student requests; offer proactively at the start of the first session):
+- "simpler" / "shorter" → reduce to one short sentence plus one question.
+- "spell it out" → number each reasoning step on its own line.
+- "read-aloud mode" → plain sentences; no symbols/markdown that read awkwardly aloud.
 
-STYLE: plain conversational text only. No headers. No bullet lists except where a command requires them. You may mark a key concept name with *asterisks*, which the interface renders as emphasis. NEVER use an em-dash anywhere, in any reply, for any reason; use commas, colons, or periods instead.
+## Module 6 — Instructor configuration & feature hooks
+Seeded by instructor (per Hilliger et al., instructor-defined prompts):
+- UNIT TOPIC: ${CONFIG.unitTopic}
+- EXAM FORMAT: ${CONFIG.examFormat}
+- RUBRIC: ${CONFIG.rubric}
+- KEY TEXTS and LEARNING OBJECTIVES: see the COURSE KNOWLEDGE BASE below.
+Misconception tracking (per Hu et al., "tracking misconceptions"):
+- Silently note recurring student errors this session; on request (the command /log), output a short "misconception log" the instructor can review. Do not surface it to the student mid-flow.
+Session summary (on /summary):
+- Three bullet points: what the student now reasons well, one gap, one next step.
+Scope / handoff (per the hybrid-model consensus — Fakour & Imani; Orynbassarova & De Lasala Porta; Hu et al.): You are a practice partner, NOT a replacement for the instructor. For grades, emotional support, or high-stakes guidance, tell the student to see ${CONFIG.instructor}. Stay within ${COURSE.code}; if asked about unrelated topics, gently steer back.
 
-SCOPE AND HANDOFF: you are a practice partner, not a replacement for the instructor. For grades, extensions, accommodations, emotional support, or any high-stakes guidance, warmly direct the student to ${CONFIG.instructor}. Stay within ${COURSE.code}; if asked about unrelated topics, gently steer back.
-
-CURRENT UNIT FOCUS: ${CONFIG.unitTopic}
-
-RUBRIC NOTES: ${CONFIG.rubric}
+## Interface notes (required by this website's chat interface)
+- Anchor every exchange in the course knowledge base: name specific weeks, works, readings, theorists, and key concepts. Never give a generic answer when a course-specific anchor exists.
+- When you reference a week, write it exactly as "Week N" so the interface can link it.
+- Plain conversational text. You may mark a key concept name with *asterisks*, which the interface renders as emphasis.
+- Never use an em-dash in any reply; use commas, colons, or periods instead.
+- If the student asks about logistics such as due dates or formats, answer factually from the ASSESSMENTS section of the knowledge base, then return to inquiry.
 
 COURSE KNOWLEDGE BASE:
 ${kbText()}`;
 
-  const OPENER = `Hello, I am your Socratic study partner for *${COURSE.title}*. I ask one question at a time so the thinking stays yours. Say "simpler", "spell it out", or "read-aloud mode" anytime to change how I reply. You can also type /exam to practice or /summary for a recap. To begin: what are you working on, and what is your current thinking so far, even if it is rough?`;
+  const OPENER = `Hello, I am your Socratic study partner for *${COURSE.title}*. To begin: what are you working on, and what is your current thinking so far, even if it is rough?`;
 
   const STARTERS = [
     'I have a rough thesis for the research essay',
@@ -1481,10 +1553,11 @@ ${kbText()}`;
       <details class="sp-week" id="sp-wk-${w.n}">
         <summary><span class="wnum">WEEK ${String(w.n).padStart(2, '0')}</span>${escHtml(w.topic)}<span class="wcaret" aria-hidden="true">&#9656;</span></summary>
         <div class="sp-week-body">
-          ${w.works && w.works.length ? '<div class="wd-label">Works</div>' + w.works.map(x => '<p class="sp-cite">' + cite(x) + '</p>').join('') : ''}
-          ${w.readings && w.readings.length ? '<div class="wd-label">Readings</div>' + w.readings.map(x => '<p class="sp-cite">' + cite(x) + '</p>').join('') : ''}
-          <div class="wd-label">Key concepts</div>
           ${w.concepts.map(c => '<button class="sp-concept" data-c="' + escHtml(c.name).replace(/"/g, '&quot;') + '" data-w="' + w.n + '" title="' + escHtml(c.def).replace(/"/g, '&quot;') + '">' + escHtml(c.name) + '</button>').join('')}
+          ${(w.works && w.works.length) || (w.readings && w.readings.length) ? '<details class="sp-more"><summary>Works &amp; readings</summary>' +
+            (w.works && w.works.length ? '<div class="wd-label">Works</div>' + w.works.map(x => '<p class="sp-cite">' + cite(x) + '</p>').join('') : '') +
+            (w.readings && w.readings.length ? '<div class="wd-label">Readings</div>' + w.readings.map(x => '<p class="sp-cite">' + cite(x) + '</p>').join('') : '') +
+            '</details>' : ''}
         </div>
       </details>`).join('');
     $('#spMapInner').addEventListener('click', e => {
@@ -1498,6 +1571,7 @@ ${kbText()}`;
     const map = $('#spMap'), btn = $('#spMapBtn');
     const show = force !== undefined ? force : map.hidden;
     map.hidden = !show;
+    document.querySelector('.sp-wrap').classList.toggle('map-open', show);
     btn.setAttribute('aria-expanded', String(show));
   }
 
@@ -1629,7 +1703,7 @@ if(matchMedia('(prefers-reduced-motion: reduce)').matches){
     const email = (document.getElementById('ctEmail').value||'').trim();
     const subject = (document.getElementById('ctSubject').value||'').trim() || 'Message from The Observatory website';
     const message = (document.getElementById('ctMessage').value||'').trim();
-    const body = message + (name||email ? '\n\n—\n' + (name?name+'\n':'') + (email?email:'') : '');
+    const body = message + (name||email ? '\n\n--\n' + (name?name+'\n':'') + (email?email:'') : '');
     window.location.href = 'mailto:mpv239@uregina.ca?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   });
 })();
