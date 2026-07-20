@@ -1441,6 +1441,8 @@ function navTo(view){
   document.body.style.overflow='';
   if(view==='home') requestAnimationFrame(observeReveals);
   if(view==='tutor') Tutor.boot();
+  /* Keep the URL in sync so the current view can be bookmarked/shared */
+  try{ history.replaceState(null, '', view==='home' ? location.pathname + location.search : '#'+view); }catch(e){}
 }
 document.addEventListener('click', e=>{
   const nav = e.target.closest('[data-nav]'); if(nav){ navTo(nav.dataset.nav); return; }
@@ -4328,14 +4330,29 @@ Scope / handoff (per the hybrid-model consensus — Fakour & Imani; Orynbassarov
     const spIn = document.getElementById('spInput');
     if (spIn) spIn.placeholder = 'Share your thinking...';
   }
+  /* Deep links: #workshop (or #workshop1), #workshops, #about, #projects, #tutor, #contact
+     open the page directly on that view. */
+  (function(){
+    const ALIAS = { workshop:'workshop1', workshop1:'workshop1', workshops:'workshops',
+                    about:'about', projects:'projects', tutor:'tutor', contact:'contact', home:'home' };
+    function applyHash(){
+      const h = (location.hash || '').replace('#','').toLowerCase();
+      const view = ALIAS[h];
+      if (view && document.getElementById('view-' + view)) navTo(view);
+    }
+    window.addEventListener('hashchange', applyHash);
+    applyHash();
+  })();
   const holder = document.getElementById('wsQr');
   if (holder && typeof qrcode !== 'undefined') {
     try {
-      const url = location.href.split('#')[0];
+      /* Always encode the canonical workshop URL so the QR works no matter
+         where this file is being previewed (locally, github.io, etc.) */
+      const url = 'https://meganperram.com/genaifellowship/#workshop';
       const qr = qrcode(0, 'M'); qr.addData(url); qr.make();
       holder.innerHTML = qr.createSvgTag({ cellSize: 10, margin: 2, scalable: true });
       const sv = holder.querySelector('svg');
-      if (sv) { sv.setAttribute('role', 'img'); sv.setAttribute('aria-label', 'QR code linking to this page'); }
+      if (sv) { sv.setAttribute('role', 'img'); sv.setAttribute('aria-label', 'QR code linking directly to this workshop page'); }
     } catch (e) {
       holder.innerHTML = '<p class="ws-qr-note">The QR code will appear here once the site is online.</p>';
     }
