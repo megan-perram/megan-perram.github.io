@@ -90,7 +90,7 @@ button{ background: none; border: 0; cursor: pointer; }
    Shell
    ============================================================ */
 .app{
-  min-height: 100vh; display: flex; flex-direction: column;
+  min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column;
   padding: 0 20px calc(120px + env(safe-area-inset-bottom, 0px));
   max-width: 660px; margin: 0 auto;
 }
@@ -188,7 +188,7 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
 .checkin__date{ font-size: .64rem; font-weight: 600; letter-spacing: .17em;
   text-transform: uppercase; color: var(--on-ground-2); margin: 8px 0 14px;
   transition: opacity .9s ease; }
-#checkin-orb{ --size: min(88vw, 372px); }
+#checkin-orb{ --size: min(88vw, 372px, 39dvh); }
 .orb-cta{ display: grid; place-items: center; padding: 0; border-radius: 50%;
   background: none; border: 0; box-shadow: none; }
 .intro-label{ font-family: var(--serif); font-size: 1rem; font-style: italic;
