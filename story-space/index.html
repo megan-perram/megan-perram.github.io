@@ -528,6 +528,18 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
 }
 
 /* ============================================================
+   Phones: the app scrolls inside a fixed shell, the page does not.
+   Letting the page scroll made the browser toolbar retract mid scroll,
+   which changed the viewport height, stopped the content overflowing
+   and stranded the top of the page out of reach.
+   ============================================================ */
+@media (max-width: 760px){
+  html, body{ height: 100%; overflow: hidden; }
+  .app{ height: 100%; min-height: 0; overflow-y: auto;
+        overscroll-behavior-y: contain; -webkit-overflow-scrolling: touch; }
+}
+
+/* ============================================================
    Placeholder access gate
    ============================================================ */
 .gate{ position: fixed; inset: 0; z-index: 200; background: var(--ground);
