@@ -156,10 +156,13 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
     inset 0 -1px 0 rgba(255,255,255,.6),
     0 1px 2px rgba(var(--sh),.12);
 }
-.btn[disabled], .chip[disabled], .deck-arrow[disabled], .send[disabled], .way[disabled]{
+.btn[disabled], .chip[disabled], .deck-arrow[disabled], .send[disabled]{
   opacity: .38; cursor: default; transform: none;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 1px 1px rgba(var(--sh),.05);
 }
+/* the ways label doubles as the carousel's own text, so it stays readable
+   even when there is no ai available to act on it */
+.way[disabled]{ opacity: .9; cursor: default; transform: none; }
 .btn[disabled]:hover, .chip[disabled]:hover, .deck-arrow[disabled]:hover,
 .send[disabled]:hover, .way[disabled]:hover{
   background: linear-gradient(170deg, #FFFFFF 0%, var(--paper) 100%);
