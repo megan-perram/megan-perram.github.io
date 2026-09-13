@@ -221,6 +221,10 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
 .deck-title{ display: block; font-family: var(--serif); font-weight: 400;
   font-size: 1.5rem; letter-spacing: -.012em; line-height: 1.15; }
 .deck-dots{ display: flex; justify-content: center; gap: 7px; padding: 10px 0 18px; }
+/* a soft settle when the part changes, rather than a hard swap */
+@keyframes partIn{ from{ opacity: 0; transform: translateY(5px); } to{ opacity: 1; transform: none; } }
+.part-in{ animation: partIn .34s ease both; }
+@media (prefers-reduced-motion: reduce){ .part-in{ animation: none; } }
 .deck-dot{ width: 6px; height: 6px; border-radius: 50%; border: 0;
   background: var(--line); padding: 0; box-shadow: none;
   transition: background .25s ease, transform .25s ease; }
@@ -1087,7 +1091,7 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
       if (wayOver || document.hidden) return;
       if (Date.now() < wayHoldUntil) return;
       if (current !== "write") return;
-      if (document.getElementById("way-current").disabled) return;
+      if (asking) return;               /* only pause while a reply is in flight */
       turnWay(1);
     }, WAY_EVERY);
   }
@@ -1131,6 +1135,14 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
 
     mine.value = state.phases[i].text || "";
     grow(mine); updateCount(); renderWays(); renderThread(); renderOrder(); cycleWays();
+    [document.querySelector(".deck-text"),
+     document.getElementById("story-phase"),
+     document.querySelector(".instructions")].forEach(function(el){
+      if (!el) return;
+      el.classList.remove("part-in");
+      void el.offsetWidth;                 /* restart the animation */
+      el.classList.add("part-in");
+    });
   }
 
   function updateCount(){
