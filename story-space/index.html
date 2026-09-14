@@ -106,7 +106,9 @@ button{ background: none; border: 0; cursor: pointer; }
   font-style: italic; color: var(--on-ground-2); }
 
 .view{ display: none; flex: 1; flex-direction: column; }
-.view.is-active{ display: flex; }
+.view.is-active{ display: flex; animation: viewIn .45s ease both; }
+@keyframes viewIn{ from{ opacity: 0; } to{ opacity: 1; } }
+@media (prefers-reduced-motion: reduce){ .view.is-active{ animation: none; } }
 
 .eyebrow{ font-size: .64rem; font-weight: 600; letter-spacing: .17em;
   text-transform: uppercase; color: var(--on-ground-2); margin: 0 0 9px; }
@@ -195,15 +197,25 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
 .orb-cta{ display: grid; place-items: center; padding: 0; border-radius: 50%;
   background: none; border: 0; box-shadow: none; }
 .intro-label{ font-family: var(--serif); font-size: 1rem; font-style: italic;
-  color: var(--on-ground-2); margin: 0; min-height: 0; transition: opacity .6s ease; }
-.intro-label:empty{ display: none; }
-.is-intro .intro-label{ min-height: 1.5em; margin: 4px 0 0; }
+  color: var(--on-ground-2); min-height: 1.5em; margin: 4px 0 0;
+  transition: opacity .6s ease; }
+/* the line keeps its space even when empty, so clearing it does not
+   yank everything below the moon upward */
+.intro-label.is-spent{ opacity: 0; }
 .checkin__prompt{ font-family: var(--serif); font-size: 1.12rem; color: var(--on-ground-2);
   max-width: 30ch; margin: 2px auto 0; text-wrap: balance; }
 .checkin__go{ margin: 20px 0 0; }
 .checkin__stats{ display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 18px; }
+.checkin__date, .checkin__prompt, .checkin__go, .checkin__stats{
+  transition: opacity .85s ease, transform .85s ease; }
 .is-intro .checkin__prompt, .is-intro .checkin__go,
-.is-intro .checkin__stats, .is-intro .checkin__date{ opacity: 0; pointer-events: none; }
+.is-intro .checkin__stats, .is-intro .checkin__date{
+  opacity: 0; transform: translateY(6px); pointer-events: none; }
+/* they arrive one after another rather than all at once */
+.checkin__date{ transition-delay: .06s; }
+.checkin__prompt{ transition-delay: .20s; }
+.checkin__go{ transition-delay: .36s; }
+.checkin__stats{ transition-delay: .50s; }
 .is-intro .nav, .is-intro .support-btn{ opacity: .2; pointer-events: none; transition: opacity .7s ease; }
 .intro-skip{ position: fixed; inset: 0; z-index: 60; background: none; border: 0;
   box-shadow: none; cursor: default; }
@@ -409,7 +421,15 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
 .sky svg{ position: absolute; inset: 0; width: 100%; height: 100%; }
 .star{ position: absolute; transform: translate(-50%,-50%);
   display: flex; align-items: baseline; gap: 5px; font-weight: 500;
-  color: var(--ink); white-space: nowrap; }
+  color: var(--ink); white-space: nowrap;
+  padding: 0; background: none; border: 0; box-shadow: none; cursor: pointer;
+  transition: color .2s ease, opacity .2s ease; }
+.star:hover, .star:focus-visible, .star.is-picked{ color: var(--accent); outline: none; }
+.star.is-dim{ opacity: .28; }
+.sky-key{ margin: 10px 0 0; font-size: .7rem; color: var(--on-ground-2); line-height: 1.7; }
+.sky-key b{ font-weight: 600; color: var(--ink-2); }
+.sky-note{ margin: 6px 0 0; min-height: 1.5em; font-family: var(--serif);
+  font-size: .92rem; color: var(--on-ground-2); }
 .star::before{ content:""; width: 4px; height: 4px; border-radius: 50%;
   background: var(--accent); box-shadow: 0 0 9px 1px rgba(10,69,87,.5); flex: none; }
 .star span{ font-size: .68rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
@@ -748,7 +768,7 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
           <span class="orb" data-orb aria-hidden="true"></span>
           <span>
             <h2>Map Your Constellation</h2>
-            <p>See the words you return to most, and how they cluster</p>
+            <p>See which words run through the whole account, and which belong to one part</p>
           </span>
         </button>
         <button class="instrument" data-obs="orbit">
@@ -774,9 +794,14 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
         Observatory
       </button>
       <h1 class="display">Your Constellation</h1>
-      <p class="lede">These are the words you return to across all eight parts. The brighter a
-        star, the more you have used it.</p>
+      <p class="lede">These are the words you return to. A word sits near the centre when it
+        runs through many of the eight parts, and out at the edge when it belongs to just one.
+        The larger a star, the more often you have used that word.</p>
       <div class="sky" id="sky"></div>
+      <p class="sky-key"><b>Centre</b> runs through your whole account &nbsp;&middot;&nbsp;
+        <b>Edge</b> belongs to one part &nbsp;&middot;&nbsp;
+        <b>Lines</b> join words that appear in the same part</p>
+      <p class="sky-note" id="sky-note">Choose a star to see where that word appears.</p>
     </div>
 
     <div id="obs-orbit" hidden>
@@ -992,7 +1017,9 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     var skip = document.querySelector(".intro-skip");
     if (skip) skip.remove();
     orbArc(document.getElementById("checkin-orb"), 180, false);
-    document.getElementById("intro-label").textContent = "";
+    var lab = document.getElementById("intro-label");
+    lab.classList.add("is-spent");            /* fade it out, then empty it */
+    setTimeout(function(){ lab.textContent = ""; lab.classList.remove("is-spent"); }, 620);
     document.getElementById("app").classList.remove("is-intro");
     renderCheckin();
   }
@@ -1535,59 +1562,166 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   function rand(seed, n){ return ((seed * 9301 + 49297 + n * 4523) % 233280) / 233280; }
 
   function renderConstellation(){
-    var counts = {};
+    /* Count each word twice over: how often it appears in total, and how many
+       of the eight parts it turns up in. The second number is what the picture
+       is actually about - a word you use everywhere is doing different work
+       from one you used six times inside a single part. */
+    var counts = {}, inParts = {};
     for (var i=0;i<8;i++){
-      written(i).toLowerCase().replace(/[^a-z\s'-]/g, " ").split(/\s+/).forEach(function(w){
-        w = w.replace(/^['-]+|['-]+$/g, "");
-        if (w.length < 4 || STOP.indexOf(w) > -1) return;
-        counts[w] = (counts[w] || 0) + 1;
-      });
+      (function(idx){
+        var seenHere = {};
+        written(idx).toLowerCase().replace(/[^a-z\s'-]/g, " ").split(/\s+/).forEach(function(w){
+          w = w.replace(/^['-]+|['-]+$/g, "");
+          if (w.length < 4 || STOP.indexOf(w) > -1) return;
+          counts[w] = (counts[w] || 0) + 1;
+          if (!seenHere[w]){
+            seenHere[w] = 1;
+            (inParts[w] = inParts[w] || []).push(idx);
+          }
+        });
+      })(i);
     }
     var top = Object.keys(counts).map(function(w){ return [w, counts[w]]; })
       .filter(function(p){ return p[1] > 1; })
       .sort(function(a,b){ return b[1] - a[1]; }).slice(0, 16);
 
     var sky = document.getElementById("sky");
+    var note = document.getElementById("sky-note");
     sky.innerHTML = "";
+    if (note) note.textContent = "Choose a star to see where that word appears.";
     if (!top.length){
       sky.innerHTML = '<p class="empty">A star appears once you use a word more than once. ' +
         "Keep writing and the constellation forms on its own.</p>";
       return;
     }
-    var W = sky.clientWidth || 320, H = sky.clientHeight || 340, PAD = 22, max = top[0][1], placed = [];
-    top.forEach(function(pair){
+
+    var W = sky.clientWidth || 320, H = sky.clientHeight || 340, PAD = 18, max = top[0][1];
+
+    /* Measure the labels for real before placing them. Guessing a word's width
+       from its letter count is what let stars sit on top of each other. */
+    var probe = document.createElement("div");
+    probe.style.cssText = "position:absolute;visibility:hidden;left:0;top:0;white-space:nowrap";
+    sky.appendChild(probe);
+    var items = top.map(function(pair){
       var word = pair[0], n = pair[1], size = 0.8 + 0.5 * (n / max);
-      var w = word.length * size * 8.6 + 34, h = size * 22 + 12;
-      var s = seedOf(word), x = 0, y = 0, ok = false;
-      for (var t = 0; t < 60 && !ok; t++){
-        x = PAD + w/2 + rand(s, t*2)     * Math.max(1, W - 2*PAD - w);
-        y = PAD + h/2 + rand(s, t*2 + 1) * Math.max(1, H - 2*PAD - h);
+      var parts = inParts[word] || [];
+      var el = document.createElement("button");
+      el.className = "star";
+      el.type = "button";
+      el.style.cssText = "position:static;transform:none;font-size:" + size.toFixed(2) + "rem";
+      el.innerHTML = "<b>" + esc(word) + "</b><span>" + n + "</span>";
+      probe.appendChild(el);
+      return { word:word, n:n, size:size, parts:parts, spread:parts.length, el:el };
+    });
+    items.forEach(function(it){
+      var r = it.el.getBoundingClientRect();
+      it.w = r.width; it.h = r.height;
+    });
+    sky.removeChild(probe);
+
+    /* Distance from the centre carries the meaning: a word spread across every
+       part sits in the core, a word confined to one sits out at the rim. */
+    var widest = 1;
+    items.forEach(function(it){ if (it.spread > widest) widest = it.spread; });
+    var cx = W/2, cy = H/2;
+    var rx = Math.max(1, W/2 - PAD), ry = Math.max(1, H/2 - PAD);
+
+    /* Most-spread first, so the core is settled before the rim fills in. */
+    items.sort(function(a,b){ return b.spread - a.spread || b.n - a.n; });
+
+    var placed = [];
+    items.forEach(function(it){
+      var ring = widest > 1 ? (widest - it.spread) / (widest - 1) : 0;
+      ring = 0.12 + 0.80 * ring;                    /* keep the very centre breathable */
+      var seed = seedOf(it.word) || 1;
+      function nextRand(){
+        seed = (seed * 1103515245 + 12345) & 0x7FFFFFFF;
+        return seed / 0x7FFFFFFF;
+      }
+      var base = nextRand() * Math.PI * 2, x = 0, y = 0, ok = false;
+      for (var t = 0; t < 360 && !ok; t++){
+        /* walk around the ring first, and only then let the radius drift a little */
+        var ang  = base + t * 0.31;
+        var wob  = ring + (t > 120 ? (nextRand() - 0.5) * 0.18 : 0);
+        wob = Math.max(0, Math.min(1, wob));
+        x = cx + Math.cos(ang) * rx * wob;
+        y = cy + Math.sin(ang) * ry * wob;
+        if (x - it.w/2 < PAD || x + it.w/2 > W - PAD) continue;
+        if (y - it.h/2 < PAD || y + it.h/2 > H - PAD) continue;
         ok = true;
         for (var j = 0; j < placed.length; j++){
-          var p = placed[j];
-          if (Math.abs(x-p.x) < (w+p.w)/2 + 8 && Math.abs(y-p.y) < (h+p.h)/2 + 8){ ok = false; break; }
+          var q = placed[j];
+          if (Math.abs(x - q.x) < (it.w + q.w)/2 + 12 &&
+              Math.abs(y - q.y) < (it.h + q.h)/2 + 8){ ok = false; break; }
         }
       }
-      placed.push({ x:x, y:y, w:w, h:h, word:word, n:n, size:size });
+      if (ok){ it.x = x; it.y = y; placed.push(it); }
     });
-    var lines = "";
-    for (var a = 1; a < placed.length; a++){
-      var best = null, bd = Infinity;
-      for (var b = 0; b < a; b++){
-        var d = Math.pow(placed[a].x-placed[b].x,2) + Math.pow(placed[a].y-placed[b].y,2);
-        if (d < bd){ bd = d; best = placed[b]; }
-      }
-      if (best) lines += '<line x1="'+placed[a].x.toFixed(1)+'" y1="'+placed[a].y.toFixed(1)+
+
+    /* Lines join words that genuinely share a part. Each word keeps only its
+       strongest tie, so the picture stays a constellation rather than a mesh. */
+    var svgLines = "";
+    placed.forEach(function(a, ai){
+      var best = null, bestShared = 0, bestD = Infinity;
+      placed.forEach(function(b, bi){
+        if (bi >= ai) return;
+        var shared = 0;
+        a.parts.forEach(function(pt){ if (b.parts.indexOf(pt) > -1) shared++; });
+        if (!shared) return;
+        var d = Math.pow(a.x-b.x,2) + Math.pow(a.y-b.y,2);
+        if (shared > bestShared || (shared === bestShared && d < bestD)){
+          bestShared = shared; bestD = d; best = b;
+        }
+      });
+      if (best) svgLines += '<line x1="'+a.x.toFixed(1)+'" y1="'+a.y.toFixed(1)+
         '" x2="'+best.x.toFixed(1)+'" y2="'+best.y.toFixed(1)+'"/>';
-    }
+    });
     sky.innerHTML = '<svg aria-hidden="true" stroke="currentColor" stroke-width="1" ' +
-      'style="color:var(--ink-3);opacity:.3">' + lines + "</svg>";
-    placed.forEach(function(p){
-      var el = document.createElement("span");
-      el.className = "star";
-      el.style.left = p.x + "px"; el.style.top = p.y + "px";
-      el.style.fontSize = p.size.toFixed(2) + "rem";
-      el.innerHTML = "<b>" + esc(p.word) + "</b><span>" + p.n + "</span>";
+      'style="color:var(--ink-3);opacity:.3">' + svgLines + "</svg>";
+
+    function partList(parts){
+      return parts.map(function(pt){ return PHASES[pt].title; }).join(", ");
+    }
+    function describe(it){
+      return it.word + " — " + it.n + (it.n === 1 ? " time" : " times") +
+        ", in " + (it.spread === 8 ? "all eight parts" :
+          it.spread + (it.spread === 1 ? " part: " : " parts: ") + partList(it.parts));
+    }
+    /* Hovering previews a word; clicking holds it there so it can be read on a
+       phone, or while looking away from the screen. The two must stay separate:
+       if a hover also counted as a pick, the click that follows would read as
+       the second click and turn it straight back off. */
+    var held = null;
+    function paint(el, it){
+      sky.querySelectorAll(".star").forEach(function(o){
+        o.classList.toggle("is-picked", o === el);
+        o.classList.toggle("is-dim", o !== el);
+      });
+      if (note) note.textContent = describe(it);
+    }
+    function reset(){
+      sky.querySelectorAll(".star").forEach(function(o){
+        o.classList.remove("is-picked"); o.classList.remove("is-dim"); });
+      if (note) note.textContent = "Choose a star to see where that word appears.";
+    }
+    placed.forEach(function(it){
+      var el = it.el;
+      el.style.cssText = "";
+      el.style.left = it.x + "px";
+      el.style.top  = it.y + "px";
+      el.style.fontSize = it.size.toFixed(2) + "rem";
+      el.title = describe(it);
+      el.setAttribute("aria-label", describe(it));
+      function preview(){ if (!held) paint(el, it); }
+      function unpreview(){ if (!held) reset(); }
+      el.addEventListener("mouseenter", preview);
+      el.addEventListener("mouseleave", unpreview);
+      el.addEventListener("focus", preview);
+      el.addEventListener("blur", unpreview);
+      el.addEventListener("click", function(){
+        if (held === el){ held = null; reset(); }
+        else { held = el; paint(el, it); }
+      });
       sky.appendChild(el);
     });
   }
