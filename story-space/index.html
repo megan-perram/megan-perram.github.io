@@ -1113,6 +1113,91 @@ body.reel-open{ overflow: hidden; }
 @keyframes dust{ 0%{ opacity: 0; transform: scale(.4); } 30%{ opacity: .28; } 100%{ opacity: 0; transform: scale(2.2) translateY(-10px); } }
 .a-house .dust{ transform-box: fill-box; }
 .a-house .dust circle{ transform-box: fill-box; transform-origin: center; }
+
+/* ============================================================
+   Voice typing
+   ============================================================ */
+.mic{ display: inline-flex; align-items: center; gap: 5px; padding: 0; background: none;
+  border: 0; box-shadow: none; font-size: .58rem; font-weight: 600; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--ink-3); cursor: pointer; }
+.mic svg{ width: 14px; height: 14px; }
+.mic:hover{ color: var(--ink); }
+.mic.is-on{ color: var(--accent); }
+.mic.is-on svg{ animation: micPulse 1.4s ease-in-out infinite; }
+@keyframes micPulse{ 50%{ opacity: .35; } }
+@media (prefers-reduced-motion: reduce){ .mic.is-on svg{ animation: none; } }
+.story__tools{ display: inline-flex; align-items: center; gap: 14px; }
+.ask .mic{ flex: none; width: 36px; height: 36px; justify-content: center; border-radius: 50%;
+  margin-bottom: 2px; }
+.ask .mic svg{ width: 17px; height: 17px; }
+.voice-note{ margin: 0 15px; padding: 0 0 10px; font-size: .7rem; line-height: 1.5;
+  color: var(--ink-3); }
+.ask-wrap .voice-note{ margin: -4px 16px 12px; padding: 0; }
+
+/* ============================================================
+   Community story space
+   ============================================================ */
+.sec-head{ font-family: var(--serif); font-weight: 400; font-size: 1.3rem;
+  letter-spacing: -.01em; margin: 30px 0 12px; }
+.comm-list{ display: flex; flex-direction: column; gap: 12px; }
+.comm-card{ padding: 18px 20px; border-radius: 18px; background: var(--paper);
+  border: 1px solid var(--line-soft); box-shadow: 0 1px 2px rgba(var(--sh),.05); }
+.comm-card__by{ font-size: .62rem; font-weight: 600; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--ink-3); margin: 0 0 8px; }
+.comm-card__text{ margin: 0; font-family: var(--serif); font-size: 1rem; line-height: 1.7;
+  white-space: pre-wrap; color: var(--ink); }
+.comm-card .chip{ margin-top: 12px; }
+.comm-empty{ margin: 0; padding: 20px; border-radius: 16px; border: 1px dashed var(--line);
+  font-size: .84rem; line-height: 1.6; color: var(--on-ground-2); }
+.comm-warn{ margin: 0 0 16px; padding: 16px 18px; border-radius: 16px;
+  background: linear-gradient(170deg, var(--tint-violet), var(--tint-blue));
+  border: 1px solid var(--tint-line); font-size: .86rem; line-height: 1.6; color: var(--ink); }
+.comm-warn b{ display: block; font-family: var(--serif); font-weight: 400; font-size: 1.08rem;
+  margin-bottom: 4px; }
+.field-label{ display: block; font-size: .58rem; font-weight: 600; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--ink-3); margin: 14px 0 6px; }
+.field{ display: block; width: 100%; padding: 11px 14px; border-radius: 14px;
+  border: 1px solid var(--line); background: var(--paper); font-size: 16px; color: var(--ink); }
+.field:focus{ outline: none; border-color: var(--tint-line); box-shadow: 0 0 0 3px rgba(10,69,87,.12); }
+textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; resize: vertical;
+  min-height: 12em; }
+.check{ display: flex; gap: 10px; align-items: flex-start; margin: 16px 0;
+  font-size: .86rem; line-height: 1.55; color: var(--ink-2); cursor: pointer; }
+.check input{ margin-top: 3px; width: 17px; height: 17px; accent-color: var(--accent); flex: none; }
+.comm-actions{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.comm-status{ font-size: .78rem; color: var(--on-ground-2); }
+
+/* ============================================================
+   The research behind this app
+   ============================================================ */
+.research-btn{ align-self: flex-start; margin: -8px 0 22px; }
+.rs{ border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line-soft);
+  margin-bottom: 12px; }
+.rs[open]{ background: var(--surface-2); }
+.rs summary{ list-style: none; cursor: pointer; display: flex; align-items: center;
+  justify-content: space-between; gap: 12px; padding: 18px 20px;
+  font-family: var(--serif); font-size: 1.18rem; color: var(--ink); }
+.rs summary::-webkit-details-marker{ display: none; }
+.rs summary span{ font-family: var(--sans); font-size: .7rem; color: var(--ink-3); white-space: nowrap; }
+.rs summary svg{ width: 16px; height: 16px; flex: none; color: var(--ink-3);
+  transition: transform .25s ease; }
+.rs[open] summary svg{ transform: rotate(180deg); }
+.rs summary:focus-visible{ outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--r-card); }
+.rs__body{ padding: 0 20px 8px; }
+.rs__intro{ margin: 0 0 6px; font-size: .9rem; line-height: 1.65; color: var(--ink-2); }
+.rs-item{ padding: 18px 0; border-top: 1px solid var(--line-soft); }
+.rs-item h3{ font-family: var(--serif); font-weight: 400; font-size: 1.12rem; margin: 0 0 8px; }
+.rs-item p{ margin: 0; font-size: .9rem; line-height: 1.7; color: var(--ink-2); }
+.rs-item .rs-app{ margin-top: 10px; padding: 11px 14px; border-radius: 12px;
+  background: var(--paper); border: 1px solid var(--line-soft); color: var(--ink); }
+.rs-app b{ display: block; font-size: .58rem; font-weight: 600; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+.rs-item .rs-cite{ margin-top: 8px; font-size: .74rem; color: var(--ink-3); }
+.works{ list-style: none; margin: 0; padding: 0; }
+.works li{ padding: 12px 0 12px 2em; text-indent: -2em; border-top: 1px solid var(--line-soft);
+  font-size: .84rem; line-height: 1.6; color: var(--ink-2); overflow-wrap: anywhere; }
+.works a{ color: var(--accent); }
+
 /* ============================================================
    Phones: the app scrolls inside a fixed shell, the page does not.
    Letting the page scroll made the browser toolbar retract mid scroll,
@@ -1267,9 +1352,10 @@ body.reel-open{ overflow: hidden; }
           <p id="prompt-text"></p>
         </div>
         <div class="story">
-          <div class="story__label"><span>Your Story</span><span id="mine-count"></span></div>
+          <div class="story__label"><span>Your Story</span><span class="story__tools"><span id="mine-count"></span><button class="mic" type="button" id="mic-mine" hidden aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg><span>Speak</span></button></span></div>
           <textarea class="mine" id="mine" aria-label="Your Writing For This Part"
             placeholder="Start wherever you like. It saves as you go."></textarea>
+          <p class="voice-note" id="voice-note-mine" hidden></p>
         </div>
         <div class="panel__foot">
           <span id="savestate">Saved Automatically</span>
@@ -1289,13 +1375,15 @@ body.reel-open{ overflow: hidden; }
         </div>
         <div class="way-dots" id="way-dots"></div>
         <div class="thread" id="thread"></div>
-        <div class="ask">
+        <div class="ask-wrap"><div class="ask">
           <textarea id="ask-input" rows="1" aria-label="Ask A Question"
             placeholder="Ask a question"></textarea>
+          <button class="mic" type="button" id="mic-ask" hidden aria-pressed="false" aria-label="Speak Your Question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
           <button class="send" id="ask-send" aria-label="Send">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
           </button>
         </div>
+        <p class="voice-note" id="voice-note-ask" hidden></p></div>
       </div>
 
     </div>
@@ -1337,11 +1425,11 @@ body.reel-open{ overflow: hidden; }
             <p>Turn what you have written into an account for an appointment</p>
           </span>
         </button>
-        <button class="instrument instrument--empty" data-obs="none" disabled>
+        <button class="instrument" data-obs="community">
           <span class="orb" data-orb aria-hidden="true"></span>
           <span>
-            <h2>Not Chosen Yet</h2>
-            <p>A third instrument, still to be decided</p>
+            <h2>Community Story Space</h2>
+            <p>Read stories from others in the study, and choose whether to share your own</p>
           </span>
         </button>
       </div>
@@ -1379,8 +1467,51 @@ body.reel-open{ overflow: hidden; }
         <button class="chip" id="orbit-redo">Do It Again</button>
       </div>
       <p class="orbit-note">This is your account, written up. It is not a medical summary and it
-        does not suggest what you might have.</p>
+        does not suggest what you might have. Always read it over before you use it.</p>
     </div>
+
+    <div id="obs-community" hidden>
+      <button class="back-link" data-obs-back>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        Observatory
+      </button>
+      <h1 class="display">Community Story Space</h1>
+      <p class="lede">Living without a diagnosis can feel lonely. This is a place to read the stories
+        of other people in this study, and to add your own if you want to. Sharing is always your
+        choice, and you can take your story down at any time.</p>
+
+      <h2 class="sec-head">Stories From The Community</h2>
+      <div class="comm-list" id="comm-list"></div>
+
+      <h2 class="sec-head">Share Your Story</h2>
+      <div id="comm-mine" hidden>
+        <p class="comm-empty">Your story is shared in the Community Story Space. Thank you for adding it.</p>
+        <div class="comm-actions" style="margin-top:14px">
+          <button class="chip" id="comm-edit">Update What I Shared</button>
+          <button class="chip" id="comm-remove">Take My Story Down</button>
+        </div>
+      </div>
+      <div id="comm-form">
+        <div class="comm-warn"><b>Before You Share</b>Other people in the study will be able to read
+          what you share here. Please take out anything that could identify you or someone else, like
+          names, places, doctors, clinics, hospitals, workplaces and dates. You can change the copy
+          below without changing your own story.</div>
+        <label class="field-label" for="comm-name">Name To Show (Optional)</label>
+        <input class="field" id="comm-name" maxlength="40" placeholder="Anonymous" autocomplete="off">
+        <label class="field-label" for="comm-text">The Copy You Will Share</label>
+        <textarea class="field" id="comm-text" maxlength="40000"></textarea>
+        <div class="comm-actions" style="margin-top:10px">
+          <button class="chip" id="comm-fill" type="button">Start Again From My Story</button>
+        </div>
+        <label class="check"><input type="checkbox" id="comm-ok">
+          <span>I have taken out names, places and other details that could identify me or anyone else.</span></label>
+        <div class="comm-actions">
+          <button class="btn btn--sm" id="comm-share" disabled>Share With The Community</button>
+          <span class="comm-status" id="comm-status"></span>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- ============ LEARN ============ -->
@@ -1390,8 +1521,140 @@ body.reel-open{ overflow: hidden; }
     <p class="lede">Three short reels about medically unexplained symptoms, writing, and this study. Each one
       opens with a short film, then a narrator talks you through it. Use the arrows or swipe to move, and tap to pause. Once you have
       finished all three, your writing space will open up.</p>
+    <button class="support-btn research-btn" id="research-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2zM4 19.5A2 2 0 0 0 6 21.5h13"/><path d="M9 7h6M9 10.5h4"/></svg>
+      See The Research Behind This App
+    </button>
     <div class="status-row" id="reel-status"></div>
     <div class="reel-covers" id="reel-covers"></div>
+  </section>
+
+
+  <!-- ============ RESEARCH ============ -->
+  <section class="view" id="view-research">
+    <div>
+      <button class="back-link" id="research-back">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        Learning Hub
+      </button>
+    </div>
+    <p class="eyebrow">Why It Works The Way It Does</p>
+    <h1 class="display">The Research Behind This App</h1>
+    <p class="lede">Every part of The Undiagnosed: Story Space was shaped by research on illness
+      writing, digital health and AI. Open a section to see the studies and what they led to in the app.</p>
+    <details class="rs">
+      <summary>How The App Is Designed <span>15 Choices</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="rs__body">
+<div class="rs-item"><h3>Your Words Stay Yours</h3><p>Draxler and colleagues ran two studies, with 30 and 96 people, on writing with AI. People often felt that sentences the AI wrote did not really belong to them, yet they still put only their own name on the finished piece. The more a person shaped the text themselves, the more it felt like theirs. Couser argues that who controls an ill or disabled person's story is an ethical question in its own right.</p><p class="rs-app"><b>In This App</b>The AI's replies sit in a tinted bubble and your writing sits on white paper, so you can always tell at a glance who wrote what.</p><p class="rs-cite">Draxler et al.; Couser, <i>Vulnerable Subjects</i></p></div>
+<div class="rs-item"><h3>Only You Can Change Your Story</h3><p>Huang and Saksono designed an AI storytelling assistant for health stories and decided on purpose that the AI would help people tell their story but would not write it, so the story stayed authentic. Chan built a narrative therapy chatbot around a “not-knowing” stance, where the person's own story stays at the centre and the AI does not hand out answers.</p><p class="rs-app"><b>In This App</b>The AI cannot type into Your Story. Its words only go in if you press Add To My Story.</p><p class="rs-cite">Huang and Saksono; Chan; Draxler et al.</p></div>
+<div class="rs-item"><h3>Eight Parts, One Step at a Time</h3><p>Kim and colleagues tested MindfulDiary, an AI journaling app, for four weeks with 28 patients living with depression. The AI was set to behave differently at each stage of the conversation, which kept it inside guidelines written by mental health experts, and patients wrote fuller entries. In a study with 230 people, Feng and colleagues found that an AI which planned its questions in stages did better than a standard one. Chan and colleagues describe good narrative conversations as moving forward in steps.</p><p class="rs-app"><b>In This App</b>Each of the eight moon phases has its own writing prompt, and the AI always knows which part you are working on.</p><p class="rs-cite">Kim et al.; Feng et al.; Chan et al., “Indicators”</p></div>
+<div class="rs-item"><h3>Starting Is the Hardest Part</h3><p>Jennings, a writing scholar with ADHD, finds AI most useful for the parts of writing that are hardest to begin: getting started, organizing and brainstorming. In an eight-week study with 20 students, Nepal and colleagues found that people preferred writing prompts based on their own lives over generic ones. In a study of 30 people, Park and colleagues found that writing to a chatbot encouraged people to tell their experience as a story.</p><p class="rs-app"><b>In This App</b>Give Me A Way In offers one small, specific place to begin, like a single moment or detail, rather than a big question about feelings.</p><p class="rs-cite">Jennings; Nepal et al.; Park et al.</p></div>
+<div class="rs-item"><h3>Typing First, Voice When You Need It</h3><p>Norihama and colleagues studied a mobile writing chatbot with two groups of 28 and 36 people. Most chose typing over voice messages, because typing felt more private and they could read back and edit what they wrote. Jennings notes that speech-to-text helps some writers get words down when typing is hard.</p><p class="rs-app"><b>In This App</b>Typing is the main way to write. A Speak button lets you talk instead, for days when typing is too much.</p><p class="rs-cite">Norihama et al.; Jennings</p></div>
+<div class="rs-item"><h3>Made for Low-Energy Days</h3><p>In workshops with 13 people living with long COVID, Sas and colleagues heard that symptoms changing from day to day were hard to keep track of, and participants asked for simple tools that do not add work. Homewood, who lives with long COVID, used a fitness tracker for 18 months and ended up using it to do less, not more. She argues that technology should respect a body whose energy rises and falls.</p><p class="rs-app"><b>In This App</b>Everything saves as you go. You can stop mid-sentence and come back days later, and the app never comments on time away.</p><p class="rs-cite">Sas et al.; Homewood</p></div>
+<div class="rs-item"><h3>No Streaks, No Pressure</h3><p>Homewood found that tools built to push people to do more do not suit illness that comes and goes. Sosnowy studied 40 blogs by women with multiple sclerosis. Blogging helped them learn and push back against doctors, but it also added pressure to manage their illness “well.”</p><p class="rs-app"><b>In This App</b>The word count is just information. There are no daily goals, streaks or reminders.</p><p class="rs-cite">Homewood; Sosnowy</p></div>
+<div class="rs-item"><h3>A Calm, Serious Tone</h3><p>Cheng and colleagues interviewed middle-aged and older adults living with chronic pain about mental health apps. They warned against apps that sound overly cheerful, casual or childish about serious things.</p><p class="rs-app"><b>In This App</b>Muted colours throughout, and no exclamation marks, emojis or cartoon characters.</p><p class="rs-cite">Cheng et al.</p></div>
+<div class="rs-item"><h3>Room for Messy, Unfinished Stories</h3><p>Frank describes three kinds of illness story: restitution (getting better), chaos (no order and no end) and quest (finding meaning). Nettleton interviewed people living with unexplained neurological symptoms and found that uncertainty and chaos ran through their accounts. Hawkins shows that illness memoirs often fall into stock shapes, like a battle or a journey, that do not fit everyone.</p><p class="rs-app"><b>In This App</b>You can skip parts, write them in any order and drag them into a new reading order. Your story does not need an ending.</p><p class="rs-cite">Frank; Nettleton; Hawkins</p></div>
+<div class="rs-item"><h3>Support Is Always One Tap Away</h3><p>Chen and colleagues adapted six trauma-informed principles for technology: safety, trust, peer support, collaboration, enablement and intersectionality. They argue that technology can harm people who have already been through hard experiences when these principles are ignored.</p><p class="rs-app"><b>In This App</b>The Need Support? button stays at the top of every screen.</p><p class="rs-cite">Chen et al.</p></div>
+<div class="rs-item"><h3>Bringing Your Story to an Appointment</h3><p>In <i>Hyperandrogenism and the Marginalization of Pathologized Bodies</i>, Perram worked with ten women and nonbinary people living with hyperandrogenism who wrote their illness stories as digital hypertext. Participants believed their stories should do two jobs: help them reflect, and teach the wider social and medical community about their experience, including as a teaching tool for healthcare providers. Perram also draws on Couser's point that when a doctor retells a person's illness as “the patient's disease,” the person can lose authority over their own story.<br><br>Other research points the same way. In the MindfulDiary study, psychiatrists said reading their patients' entries helped them understand those patients and feel more empathy for them (Kim et al.). White and Epston made written documents a core part of narrative therapy. But when Ayre and colleagues asked ChatGPT to simplify 26 health texts, it kept only about 80% of the key messages, so an AI summary can drop important points.</p><p class="rs-app"><b>In This App</b>Put My Story In Orbit turns your writing into an account for an appointment, in your own words rather than clinical ones. Always read it over before you use it.</p><p class="rs-cite">Perram; Couser, <i>Recovering Bodies</i>; Kim et al.; White and Epston; Ayre et al.</p></div>
+<div class="rs-item"><h3>A Community Story Space</h3><p>In Perram's study, sharing was always optional. Participants could add their finished stories to a shared space, set up to build community, where they could read each other's work, and all ten chose to share. Perram argues that these stories do their most important work when they reach a wider community, not only the person who wrote them.<br><br>Other studies support this. People with unexplained symptoms in a facilitated support group said hearing from others with similar experiences made them feel validated, helped them cope and gave them new ways to talk to doctors (Marcinow et al.). People living with long COVID used online groups to pool what they knew and to push back when doctors dismissed them (Jayadeva and Lupton).</p><p class="rs-app"><b>In This App</b>The Community Story Space lets you read other participants' stories and, if you choose, share your own. You are reminded to take out names and other identifying details first, and you can take your story down at any time.</p><p class="rs-cite">Perram; Marcinow et al.; Jayadeva and Lupton</p></div>
+<div class="rs-item"><h3>Your Own Way Through</h3><p>Toonders and colleagues studied an online program for people with medically unexplained symptoms and found it worked when it was matched to each person's situation and motivations.</p><p class="rs-app"><b>In This App</b>Eight Ways In, a free question box, and the freedom to skip or reorder parts all let you shape the app around you.</p><p class="rs-cite">Toonders et al.</p></div>
+<div class="rs-item"><h3>Language That Includes Everyone</h3><p>A 2025 review found somatic symptom disorders in 6 to 9.7% of transgender people, compared with 5 to 7% of the general population (Bradlow et al.). In German health records, 9.7% of transgender patients had a somatoform disorder, compared with 5.8% of cisgender patients (Konrad and Kostev). A review of 26 studies found some evidence of higher rates of functional disorders among sexual and gender minority people (Lerario et al.).</p><p class="rs-app"><b>In This App</b>The app speaks to women and gender-diverse people, and the AI never assumes your gender.</p><p class="rs-cite">Bradlow et al.; Konrad and Kostev; Lerario et al.</p></div>
+<div class="rs-item"><h3>Real Images, Not AI Images</h3><p>Varela-Rodríguez and Plage analyzed 262 AI-generated images about cancer. Most showed white women, repeating existing biases, and getting more inclusive images took expert prompting that most people would not know how to do.</p><p class="rs-app"><b>In This App</b>The moon you see throughout the app is a real photograph, and no images in the app are made by AI.</p><p class="rs-cite">Varela-Rodríguez and Plage</p></div>
+      </div>
+    </details>
+    <details class="rs">
+      <summary>How The AI Responds <span>19 Choices</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="rs__body">
+        <p class="rs__intro">The Undiagnosed AI is a writing companion, not a therapist. Its job is to help you find words for your own experience. It draws on ideas from narrative practice, and the studies below shaped how it is set up to respond.</p>
+<div class="rs-item"><h3>It Never Guesses at a Diagnosis</h3><p>When Kuroiwa and colleagues asked ChatGPT to self-diagnose common bone and joint problems, it was right 100% of the time for carpal tunnel but only 4% of the time for cervical myelopathy, and it rarely told people to see a doctor. Jang and colleagues found autistic adults trusted AI advice more than human advice, even when a job coach found some of it questionable. In a UK clinic, Sanders and colleagues found the explanations that helped patients were worked out together with their doctors over time.</p><p class="rs-app"><b>In This App</b>The AI never names, guesses at or rules out a diagnosis or cause.</p><p class="rs-cite">Kuroiwa et al.; Jang et al.; Sanders et al.</p></div>
+<div class="rs-item"><h3>No Medical Advice</h3><p>Bushuven and colleagues tested ChatGPT on 22 child emergencies. It named the right problem 94% of the time, but told parents to call emergency services in only 54% of cases and gave correct first aid in only 45%. An AI can sound right and still be unsafe. McGreevey and colleagues list safety among the key questions for any health chatbot.</p><p class="rs-app"><b>In This App</b>The AI does not suggest tests, treatments, supplements or what to do about symptoms.</p><p class="rs-cite">Bushuven et al.; McGreevey et al.</p></div>
+<div class="rs-item"><h3>It Believes You</h3><p>Nettleton found that the biggest struggle for people with unexplained symptoms was being accepted as genuinely ill without a disease to point to. Scott and colleagues argue the “medically unexplained symptoms” label is no longer valid and that the cognitive behavioural treatment model often used with it rests on weak evidence. When Raile tested ChatGPT on therapy conversations, it leaned heavily on cognitive behavioural therapy and mindfulness.</p><p class="rs-app"><b>In This App</b>The AI takes what you write as true. It never suggests symptoms are stress or in your head, and it does not try to reframe your thoughts.</p><p class="rs-cite">Nettleton; Scott et al.; Raile</p></div>
+<div class="rs-item"><h3>It Never Writes Your Story</h3><p>People do not feel that AI-written text is really theirs (Draxler et al.). Huang and Saksono, and Chan, both designed their tools so the AI helps but does not write.</p><p class="rs-app"><b>In This App</b>When you are looking for a word, the AI may offer two or three short options. You choose, and you type it yourself.</p><p class="rs-cite">Draxler et al.; Huang and Saksono; Chan</p></div>
+<div class="rs-item"><h3>Not a Therapist, Doctor or Friend</h3><p>Across four studies with 556 people, Ovsyannikova and colleagues found readers rated AI replies as more caring than replies from trained crisis workers, even when they knew which was which. That makes AI warmth very convincing. Chan concluded that his narrative therapy chatbot should be a modest helper, not a source of solutions. Barzkar and colleagues describe a patient who came to treat ChatGPT almost like a person.</p><p class="rs-app"><b>In This App</b>The AI always presents itself as a writing companion.</p><p class="rs-cite">Ovsyannikova et al.; Chan; Barzkar et al.</p></div>
+<div class="rs-item"><h3>In a Crisis, It Points to People</h3><p>In 2025, a news report described a woman who died by suicide after relying on an AI chatbot for therapy (Whiteside). A review of mental health chatbots found the field lacked proper safety testing (Bendig et al.), and trauma-informed design puts safety first (Chen et al.).</p><p class="rs-app"><b>In This App</b>If you seem to be in danger, the AI says so gently and points you to the Need Support? button, where 9-8-8 and other lines are staffed by people.</p><p class="rs-cite">Whiteside; Bendig et al.; Chen et al.</p></div>
+<div class="rs-item"><h3>Curious, Not Knowing</h3><p>Chan's chatbot used a “not-knowing” stance, which assumes the person is the expert on their own life, and social work students valued that it centred their story instead of giving advice (Chan; Chan et al., “Our Journey”). White's narrative practice is built on asking questions rather than giving interpretations.</p><p class="rs-app"><b>In This App</b>The AI asks rather than tells.</p><p class="rs-cite">Chan; Chan et al., “Our Journey”; White, <i>Maps</i></p></div>
+<div class="rs-item"><h3>Your Words, Not Medical Words</h3><p>Nettleton's participants resisted having their experience translated into psychological terms. Rettberg shows that AI tends to flatten stories into the most common patterns it has seen. Couser argues that illness writing is how people take their body's story back from medical accounts.</p><p class="rs-app"><b>In This App</b>The AI mirrors your own language back to you instead of clinical terms or labels.</p><p class="rs-cite">Nettleton; Rettberg; Couser, <i>Recovering Bodies</i></p></div>
+<div class="rs-item"><h3>No Push to Recover or Inspire</h3><p>Frank shows that the “getting better” story is the one society wants, and that it silences people whose illness has no end. Hawkins traces how illness memoirs fall into battle and journey myths, and Couser notes that disability memoirs are often pushed into triumph stories. Gadiraju and colleagues found that AI often produced inspiration stories about disabled people.</p><p class="rs-app"><b>In This App</b>The AI does not steer your story toward recovery, a lesson or a happy ending.</p><p class="rs-cite">Frank; Hawkins; Couser, <i>Signifying Bodies</i>; Gadiraju et al.</p></div>
+<div class="rs-item"><h3>You Don't Have to Stay Positive</h3><p>Groenevelt found that Dutch women with contested illnesses posted mostly positive content online, with only glimpses of hardship, so they would seem legitimately ill. Sosnowy found that women blogging about multiple sclerosis felt pressure to manage their illness well.</p><p class="rs-app"><b>In This App</b>Hardship, anger and grief all belong in your story, and the AI will not ask you to look on the bright side.</p><p class="rs-cite">Groenevelt; Sosnowy</p></div>
+<div class="rs-item"><h3>No Promises That Writing Heals</h3><p>A review of 146 studies by Frattaroli found that writing about difficult experiences has a real but small positive effect on wellbeing. That is not enough to promise anyone it will help them.</p><p class="rs-app"><b>In This App</b>The AI does not promise that writing will heal you or tell you how to feel.</p><p class="rs-cite">Frattaroli; Frank</p></div>
+<div class="rs-item"><h3>Naming the Problem, Gently</h3><p>In narrative therapy, externalizing means naming a problem as something outside the person (White and Epston). Madigan traces the idea to Foucault's work on how institutions shape how people see themselves. Haber and colleagues tested AI tools for externalizing, but always with a therapist in the room.</p><p class="rs-app"><b>In This App</b>Because there is no therapist here, the AI only ever offers this as an option, and never insists.</p><p class="rs-cite">White and Epston; Madigan; Haber et al.</p></div>
+<div class="rs-item"><h3>Close Up First, Bigger Meaning Later</h3><p>White's idea of scaffolding moves from what is close to a person's experience toward bigger ideas, one step at a time. When Ramey and colleagues coded real therapy sessions with children, most of what was said fit White's steps, and the children responded to them. Chan and colleagues use these steps to judge whether a narrative conversation is working.</p><p class="rs-app"><b>In This App</b>The AI starts with a specific moment, detail or person before asking what something meant.</p><p class="rs-cite">White, <i>Maps</i>; Ramey et al.; Chan et al., “Indicators”</p></div>
+<div class="rs-item"><h3>Room for People and Systems</h3><p>Combs and Freedman explain that identity is shaped through relationships, not formed alone. Dumaresque and colleagues argue that narrative practice should be political and connect personal problems to wider unfairness.</p><p class="rs-app"><b>In This App</b>Your story can include doctors, family, work, money and institutions. If you connect your experience to wider unfairness, the AI follows you there, but it never pushes a political reading you did not offer.</p><p class="rs-cite">Combs and Freedman; Dumaresque et al.</p></div>
+<div class="rs-item"><h3>No Assumptions About Who You Are</h3><p>Abid and colleagues found GPT-3 matched “Muslim” to “terrorist” in 23% of analogy tests. Gadiraju and colleagues found that disabled people noticed subtle stereotypes in AI replies, and Jang and colleagues found autistic adults trusted AI advice that an expert found questionable. Functional symptoms are also more common among transgender people (Bradlow et al.).</p><p class="rs-app"><b>In This App</b>The AI does not assume your gender, age, culture, body, income or abilities, and does not change its answers based on who it thinks you are.</p><p class="rs-cite">Abid et al.; Gadiraju et al.; Jang et al.; Bradlow et al.</p></div>
+<div class="rs-item"><h3>No Identifying Details</h3><p>Trauma-informed design puts safety and trust first (Chen et al.). In Norihama and colleagues' mobile writing study, privacy was the main reason people chose typing over voice.</p><p class="rs-app"><b>In This App</b>The AI does not ask for names, places or other identifying details, and does not repeat them back if you share them.</p><p class="rs-cite">Chen et al.; Norihama et al.</p></div>
+<div class="rs-item"><h3>No Steering</h3><p>Zohny and colleagues showed that GPT-4 can be set to talk in the styles of different kinds of doctor, and warned that AI can quietly persuade people or reinforce what they already believe.</p><p class="rs-app"><b>In This App</b>The AI's questions open things up rather than lead you toward an answer.</p><p class="rs-cite">Zohny et al.</p></div>
+<div class="rs-item"><h3>Not Something to Lean On</h3><p>Neurodivergent people discussing AI online worried about relying on it too much and having it replace human contact (Carik et al.). Barzkar and colleagues describe a patient who began to treat ChatGPT almost like a person.</p><p class="rs-app"><b>In This App</b>The AI does not encourage you to rely on it. If you mention feeling alone, it notices the people and supports you have already written about.</p><p class="rs-cite">Carik et al.; Barzkar et al.</p></div>
+<div class="rs-item"><h3>Short, Plain and Calm</h3><p>Adults living with chronic pain disliked apps that sounded cheerful or childish (Cheng et al.). When ChatGPT simplified health texts, they still came out at about a grade 11 reading level (Ayre et al.), but with clear instructions its answers to parents averaged a grade 8.7 level (Hunter et al.). In Norihama and colleagues' study, a simple acknowledgement felt like being listened to.</p><p class="rs-app"><b>In This App</b>The AI replies in two to four plain sentences, with at most one question.</p><p class="rs-cite">Cheng et al.; Ayre et al.; Hunter et al.; Norihama et al.</p></div>
+      </div>
+    </details>
+    <details class="rs" id="rs-sources">
+      <summary>Sources <span>62 Works Cited</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <div class="rs__body">
+        <ul class="works">
+<li>Abid, Abubakar, et al. “Persistent Anti-Muslim Bias in Large Language Models.” <i>Proceedings of the 2021 AAAI/ACM Conference on AI, Ethics, and Society</i>, ACM, 2021, pp. 298–306. <a href="https://doi.org/10.1145/3461702.3462624" target="_blank" rel="noopener">doi.org/10.1145/3461702.3462624</a></li>
+<li>Al-Anezi, Fahad M. “Exploring the Use of ChatGPT as a Virtual Health Coach for Chronic Disease Management.” <i>Learning Health Systems</i>, 2024. <a href="https://doi.org/10.1002/lrh2.10406" target="_blank" rel="noopener">doi.org/10.1002/lrh2.10406</a></li>
+<li>Ayre, Julie, et al. “New Frontiers in Health Literacy: Using ChatGPT to Simplify Health Information for People in the Community.” <i>Journal of General Internal Medicine</i>, vol. 39, no. 4, 2024, pp. 573–77. <a href="https://doi.org/10.1007/s11606-023-08469-w" target="_blank" rel="noopener">doi.org/10.1007/s11606-023-08469-w</a></li>
+<li>Barzkar, Farzaneh, et al. “The Machine as Therapist: Unpacking Transference and Emotional Healing in AI-Assisted Therapy.” <i>Journal of Contemporary Psychotherapy</i>, vol. 55, no. 4, 2025, pp. 361–68. <a href="https://doi.org/10.1007/s10879-025-09677-7" target="_blank" rel="noopener">doi.org/10.1007/s10879-025-09677-7</a></li>
+<li>Bendig, Eileen, et al. “The Next Generation: Chatbots in Clinical Psychology and Psychotherapy to Foster Mental Health: A Scoping Review.” <i>Verhaltenstherapie</i>, vol. 32, suppl. 1, 2022, pp. 64–76. <a href="https://doi.org/10.1159/000501812" target="_blank" rel="noopener">doi.org/10.1159/000501812</a></li>
+<li>Bradlow, Richard C. J., et al. “A Systematic Review of Functional Neurological Disorder in Transgender People.” <i>International Journal of Transgender Health</i>, 2025. <a href="https://doi.org/10.1080/26895269.2025.2538742" target="_blank" rel="noopener">doi.org/10.1080/26895269.2025.2538742</a></li>
+<li>Bushuven, Stefan, et al. “‘ChatGPT, Can You Help Me Save My Child’s Life?’: Diagnostic Accuracy and Supportive Capabilities to Lay Rescuers by ChatGPT in Prehospital Basic Life Support and Paediatric Advanced Life Support Cases: An In-Silico Analysis.” <i>Journal of Medical Systems</i>, vol. 47, 2023. <a href="https://doi.org/10.1007/s10916-023-02019-x" target="_blank" rel="noopener">doi.org/10.1007/s10916-023-02019-x</a></li>
+<li>Carik, Buse, et al. “Exploring Large Language Models Through a Neurodivergent Lens: Use, Challenges, Community-Driven Workarounds, and Concerns.” <i>Proceedings of the ACM International Conference on Supporting Group Work</i>, ACM, 2025. <a href="https://arxiv.org/abs/2410.06336" target="_blank" rel="noopener">arxiv.org/abs/2410.06336</a></li>
+<li>Chan, C., et al. “Indicators for Assessing Intervention Fidelity of Narrative Practice: A Heuristic Review of the Concept of Scaffolding in White (2007).” <i>Journal of Systemic Therapies</i>, vol. 39, no. 3, 2020, pp. 77–90. <a href="https://doi.org/10.1521/jsyt.2020.39.3.77" target="_blank" rel="noopener">doi.org/10.1521/jsyt.2020.39.3.77</a></li>
+<li>Chan, Chitat. “An Exploratory Study of a Narrative Therapy Chatbot with Social Work Students.” <i>Journal of Technology in Human Services</i>, vol. 44, no. 2, 2026, pp. 140–67. <a href="https://doi.org/10.1080/15228835.2025.2559342" target="_blank" rel="noopener">doi.org/10.1080/15228835.2025.2559342</a></li>
+<li>Chan, Chitat, et al. “Our Journey with an AI Assistant Offering Narrative Therapy on WhatsApp.” <i>Journal of Social Work Practice</i>, vol. 39, no. 2, 2025, pp. 165–89. <a href="https://doi.org/10.1080/02650533.2024.2420314" target="_blank" rel="noopener">doi.org/10.1080/02650533.2024.2420314</a></li>
+<li>Chen, Janet X., et al. “Trauma-Informed Computing: Towards Safer Technology Experiences for All.” <i>Proceedings of the 2022 CHI Conference on Human Factors in Computing Systems</i>, ACM, 2022, pp. 1–20. <a href="https://doi.org/10.1145/3491102.3517475" target="_blank" rel="noopener">doi.org/10.1145/3491102.3517475</a></li>
+<li>Cheng, Ann L., et al. “Design Preferences for Mental Health Apps Among Nondigitally Native Adults With Chronic Pain: Qualitative Analysis.” <i>JMIR mHealth and uHealth</i>, vol. 14, 2026, e87358. <a href="https://doi.org/10.2196/87358" target="_blank" rel="noopener">doi.org/10.2196/87358</a></li>
+<li>Combs, Gene, and Jill Freedman. “Narrative, Poststructuralism, and Social Justice: Current Practices in Narrative Therapy.” <i>The Counseling Psychologist</i>, vol. 40, no. 7, 2012, pp. 1033–60. <a href="https://doi.org/10.1177/0011000012460662" target="_blank" rel="noopener">doi.org/10.1177/0011000012460662</a></li>
+<li>---. “Narrative Therapy’s Relational Understanding of Identity.” <i>Family Process</i>, vol. 55, no. 2, 2016, pp. 211–24. <a href="https://doi.org/10.1111/famp.12216" target="_blank" rel="noopener">doi.org/10.1111/famp.12216</a></li>
+<li>Couser, G. Thomas. <i>Recovering Bodies: Illness, Disability, and Life Writing</i>. U of Wisconsin P, 1997. <a href="https://search.worldcat.org/search?q=ti%3ARecovering+Bodies+au%3ACouser" target="_blank" rel="noopener">Find this book</a></li>
+<li>---. <i>Signifying Bodies: Disability in Contemporary Life Writing</i>. U of Michigan P, 2009. <a href="https://search.worldcat.org/search?q=ti%3ASignifying+Bodies+au%3ACouser" target="_blank" rel="noopener">Find this book</a></li>
+<li>---. <i>Vulnerable Subjects: Ethics and Life Writing</i>. Cornell UP, 2004. <a href="https://search.worldcat.org/search?q=ti%3AVulnerable+Subjects+au%3ACouser" target="_blank" rel="noopener">Find this book</a></li>
+<li>Draxler, Fiona, et al. “The AI Ghostwriter Effect: When Users Do Not Perceive Ownership of AI-Generated Text But Self-Declare as Authors.” <i>ACM Transactions on Computer-Human Interaction</i>, vol. 31, no. 2, 2024, article 25. <a href="https://doi.org/10.1145/3637875" target="_blank" rel="noopener">doi.org/10.1145/3637875</a></li>
+<li>Dumaresque, R., et al. “Politicized Narrative Therapy: A Reckoning and a Call to Action.” <i>Canadian Social Work Review / Revue canadienne de service social</i>, vol. 35, no. 1, 2018, pp. 109–29. <a href="https://doi.org/10.7202/1051105ar" target="_blank" rel="noopener">doi.org/10.7202/1051105ar</a></li>
+<li>Feng, Yi, et al. “Reframe Your Life Story: Interactive Narrative Therapist and Innovative Moment Assessment with Large Language Models.” <i>arXiv</i>, 27 July 2025, arXiv:2507.20241. <a href="https://arxiv.org/abs/2507.20241" target="_blank" rel="noopener">arxiv.org/abs/2507.20241</a></li>
+<li>Frank, Arthur W. <i>The Wounded Storyteller: Body, Illness, and Ethics</i>. 2nd ed., U of Chicago P, 2013. <a href="https://search.worldcat.org/search?q=ti%3AThe+Wounded+Storyteller+au%3AFrank" target="_blank" rel="noopener">Find this book</a></li>
+<li>Frattaroli, Joanne. “Experimental Disclosure and Its Moderators: A Meta-Analysis.” <i>Psychological Bulletin</i>, vol. 132, no. 6, 2006, pp. 823–65. <a href="https://doi.org/10.1037/0033-2909.132.6.823" target="_blank" rel="noopener">doi.org/10.1037/0033-2909.132.6.823</a></li>
+<li>Fränkl, Eirin, et al. “Public and Patient Involvement in the Development of an Internet-Based Guide for Persistent Somatic Symptoms (GUIDE.PSS): A Qualitative Study on the Needs of Those Affected.” <i>Health Expectations</i>, vol. 27, no. 1, 2024, e13931. <a href="https://doi.org/10.1111/hex.13931" target="_blank" rel="noopener">doi.org/10.1111/hex.13931</a></li>
+<li>Gadiraju, Vinitha, et al. “‘I Wouldn’t Say Offensive But...’: Disability-Centered Perspectives on Large Language Models.” <i>Proceedings of the 2023 ACM Conference on Fairness, Accountability, and Transparency</i>, ACM, 2023, pp. 205–16. <a href="https://research.google/pubs/i-wouldnt-say-offensive-but-disability-centered-perspectives-on-large-language-models/" target="_blank" rel="noopener">research.google/pubs/i-wouldnt-say-offensive-but-disability-centered-perspectives-on-large-language-models/</a></li>
+<li>Groenevelt, Irene. “‘It’s Not All Nice and Fun’: Narrating Contested Illness on YouTube and Instagram.” <i>Health</i>, vol. 26, no. 5, 2022, pp. 589–604. <a href="https://doi.org/10.1177/13634593211017187" target="_blank" rel="noopener">doi.org/10.1177/13634593211017187</a></li>
+<li>Haber, Yuval, et al. “The Externalization of Internal Experiences in Psychotherapy through Generative Artificial Intelligence: A Theoretical, Clinical, and Ethical Analysis.” <i>Frontiers in Digital Health</i>, vol. 7, 2025, article 1512273. <a href="https://doi.org/10.3389/fdgth.2025.1512273" target="_blank" rel="noopener">doi.org/10.3389/fdgth.2025.1512273</a></li>
+<li>Hawkins, Anne Hunsaker. <i>Reconstructing Illness: Studies in Pathography</i>. Purdue UP, 1993. <a href="https://search.worldcat.org/search?q=ti%3AReconstructing+Illness+au%3AHawkins" target="_blank" rel="noopener">Find this book</a></li>
+<li>Homewood, Sarah. “Self-Tracking to Do Less: An Autoethnography of Long COVID That Informs the Design of Pacing Technologies.” <i>Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems</i>, ACM, 2023, article 656. <a href="https://doi.org/10.1145/3544548.3581505" target="_blank" rel="noopener">doi.org/10.1145/3544548.3581505</a></li>
+<li>Huang, Z., and Herman Saksono. “Designing an LLM AI-Powered Digital Storytelling Assistant for Inclusive and Authentic Health Narratives.” <i>GenAICHI: CHI 2025 Workshop on Generative AI and HCI</i>, 2025. <a href="https://scholar.google.com/scholar?q=%22Designing+an+LLM+AI-Powered+Digital+Storytelling+Assistant+for+Inclusive+and+Authentic+Health+Narratives%22" target="_blank" rel="noopener">Search for this source</a></li>
+<li>Hunter, R. Brandon, et al. “Using ChatGPT to Provide Patient-Specific Answers to Parental Questions in the PICU.” <i>Pediatrics</i>, vol. 154, no. 5, 2024. <a href="https://doi.org/10.1542/peds.2024-066615" target="_blank" rel="noopener">doi.org/10.1542/peds.2024-066615</a></li>
+<li>Jang, JiWoong, et al. “‘It’s the Only Thing I Can Trust’: Envisioning Large Language Model Use by Autistic Workers for Communication Assistance.” <i>Proceedings of the CHI Conference on Human Factors in Computing Systems</i>, ACM, 2024. <a href="https://doi.org/10.1145/3613904.3642894" target="_blank" rel="noopener">doi.org/10.1145/3613904.3642894</a></li>
+<li>Jayadeva, Sazana, and Deborah Lupton. “‘Most People with Long COVID Are Their Own Doctors’: Self-Tracking and Online Patient Groups as Pathways to Challenging Epistemic Injustice.” <i>Sociology</i>, 2025. <a href="https://doi.org/10.1177/00380385251351252" target="_blank" rel="noopener">doi.org/10.1177/00380385251351252</a></li>
+<li>Jennings, Alex. “Chat(GPT)-ing about the Affordances Generative AI Tools Offer for ADHD Writers.” <i>Xchanges</i>, vol. 19, no. 1, 2025. <a href="https://xchanges.org/chatgpt-ing-affordances-19-1" target="_blank" rel="noopener">xchanges.org/chatgpt-ing-affordances-19-1</a></li>
+<li>Kim, Taewan, et al. “MindfulDiary: Harnessing Large Language Model to Support Psychiatric Patients’ Journaling.” <i>Proceedings of the CHI Conference on Human Factors in Computing Systems</i>, ACM, 2024. <a href="https://doi.org/10.1145/3613904.3642937" target="_blank" rel="noopener">doi.org/10.1145/3613904.3642937</a></li>
+<li>Konrad, Marcel, and Karel Kostev. “Increased Prevalence of Depression, Anxiety, and Adjustment and Somatoform Disorders in Transsexual Individuals.” <i>Journal of Affective Disorders</i>, vol. 274, 2020, pp. 482–85. <a href="https://doi.org/10.1016/j.jad.2020.05.074" target="_blank" rel="noopener">doi.org/10.1016/j.jad.2020.05.074</a></li>
+<li>Kuroiwa, Tomoyuki, et al. “The Potential of ChatGPT as a Self-Diagnostic Tool in Common Orthopedic Diseases: Exploratory Study.” <i>Journal of Medical Internet Research</i>, vol. 25, 2023, e47621. <a href="https://doi.org/10.2196/47621" target="_blank" rel="noopener">doi.org/10.2196/47621</a></li>
+<li>Lerario, Mackenzie P., et al. “Functional Neurological Disorder and Functional Somatic Syndromes among Sexual and Gender Minority People: A Scoping Review.” <i>Journal of Psychosomatic Research</i>, vol. 174, 2023. <a href="https://doi.org/10.1016/j.jpsychores.2023.111491" target="_blank" rel="noopener">doi.org/10.1016/j.jpsychores.2023.111491</a></li>
+<li>Lucchini, Ariane, et al. “Care in Pieces: Unpacking Experiences of Using LLMs for Self-Management of Endometriosis and PCOS.” <i>Proceedings of the 2026 ACM Designing Interactive Systems Conference</i>, ACM, 2026. <a href="https://doi.org/10.1145/3800645.3812813" target="_blank" rel="noopener">doi.org/10.1145/3800645.3812813</a></li>
+<li>Madigan, Stephen P. “The Application of Michel Foucault’s Philosophy in the Problem Externalizing Discourse of Michael White.” <i>Journal of Family Therapy</i>, vol. 14, no. 3, 1992, pp. 265–79. <a href="https://doi.org/10.1046/j..1992.00458.x" target="_blank" rel="noopener">doi.org/10.1046/j..1992.00458.x</a></li>
+<li>Marcinow, Michelle, et al. “Making Sense of Symptoms, Clinicians and Systems: A Qualitative Evaluation of a Facilitated Support Group for Patients with Medically Unexplained Symptoms.” <i>BMC Family Practice</i>, vol. 22, 2021, article 142. <a href="https://doi.org/10.1186/s12875-021-01495-9" target="_blank" rel="noopener">doi.org/10.1186/s12875-021-01495-9</a></li>
+<li>McGreevey, John D., III, et al. “Clinical, Legal, and Ethical Aspects of Artificial Intelligence–Assisted Conversational Agents in Health Care.” <i>JAMA</i>, vol. 324, no. 6, 2020, pp. 552–53. <a href="https://doi.org/10.1001/jama.2020.2724" target="_blank" rel="noopener">doi.org/10.1001/jama.2020.2724</a></li>
+<li>Nepal, Subigya, et al. “MindScape Study: Integrating LLM and Behavioral Sensing for Personalized AI-Driven Journaling Experiences.” <i>Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies</i>, vol. 8, no. 4, 2024. <a href="https://doi.org/10.1145/3699761" target="_blank" rel="noopener">doi.org/10.1145/3699761</a></li>
+<li>Nettleton, Sarah. “‘I Just Want Permission to Be Ill’: Towards a Sociology of Medically Unexplained Symptoms.” <i>Social Science &amp; Medicine</i>, vol. 62, no. 5, 2006, pp. 1167–78. <a href="https://doi.org/10.1016/j.socscimed.2005.07.030" target="_blank" rel="noopener">doi.org/10.1016/j.socscimed.2005.07.030</a></li>
+<li>Norihama, Shunpei, et al. “Examining Input Modalities and Visual Feedback Designs in Mobile Expressive Writing.” <i>arXiv</i>, 2024, arXiv:2410.00449. <a href="https://arxiv.org/abs/2410.00449" target="_blank" rel="noopener">arxiv.org/abs/2410.00449</a></li>
+<li>Ovsyannikova, Dariya, et al. “Third-Party Evaluators Perceive AI as More Compassionate than Expert Humans.” <i>Communications Psychology</i>, vol. 3, 2025, article 4. <a href="https://doi.org/10.1038/s44271-024-00182-6" target="_blank" rel="noopener">doi.org/10.1038/s44271-024-00182-6</a></li>
+<li>Park, SoHyun, et al. “‘I Wrote as If I Were Telling a Story to Someone I Knew’: Designing Chatbot Interactions for Expressive Writing in Mental Health.” <i>Proceedings of the 2021 ACM Designing Interactive Systems Conference</i>, ACM, 2021, pp. 926–41. <a href="https://pure.uos.ac.kr/en/publications/i-wrote-as-if-i-were-telling-a-story-to-someone-i-knew-designing-/" target="_blank" rel="noopener">pure.uos.ac.kr/en/publications/i-wrote-as-if-i-were-telling-a-story-to-someone-i-knew-designing-/</a></li>
+<li>Perram, Megan. <i>Hyperandrogenism and the Marginalization of Pathologized Bodies: Exploring Therapeutic Storytelling in Hypertext Illness Narratives</i>. Routledge, 2026. <a href="https://www.routledge.com/Hyperandrogenism-and-the-Marginalization-of-Pathologized-Bodies-Exploring-Therapeutic-Storytelling-in-Hypertext-Illness-Narratives/Perram/p/book/9781041087885" target="_blank" rel="noopener">www.routledge.com/Hyperandrogenism-and-the-Marginalization-of-Pathologized-Bodies-Exploring-Therapeutic-Storytelling-in-Hypertext-Illness-Narratives/Perram/p/book/9781041087885</a></li>
+<li>Raile, Paolo. “The Usefulness of ChatGPT for Psychotherapists and Patients.” <i>Humanities and Social Sciences Communications</i>, vol. 11, 2024, article 47. <a href="https://doi.org/10.1057/s41599-023-02567-0" target="_blank" rel="noopener">doi.org/10.1057/s41599-023-02567-0</a></li>
+<li>Ramey, H. L., et al. “Scaffolding and Concept Formation in Narrative Therapy: A Qualitative Research Report.” <i>Journal of Systemic Therapies</i>, vol. 29, no. 4, 2010, pp. 74–91. <a href="https://doi.org/10.1521/jsyt.2010.29.4.74" target="_blank" rel="noopener">doi.org/10.1521/jsyt.2010.29.4.74</a></li>
+<li>Rettberg, Jill Walker. “How Generative AI Endangers Cultural Narratives.” <i>Issues in Science and Technology</i>, vol. 40, no. 2, 2024, pp. 77–79. <a href="https://doi.org/10.58875/RQJD7538" target="_blank" rel="noopener">doi.org/10.58875/RQJD7538</a></li>
+<li>Sanders, Tom, et al. “Explanation for Symptoms and Biographical Repair in a Clinic for Persistent Physical Symptoms.” <i>SSM: Qualitative Research in Health</i>, 2024, article 100438. <a href="https://doi.org/10.1016/j.ssmqr.2024.100438" target="_blank" rel="noopener">doi.org/10.1016/j.ssmqr.2024.100438</a></li>
+<li>Sas, Corina, et al. “‘A Switch Went Off in My Whole Body’: Lived Experiences of Fatigue and Post-Exertional Malaise in Long Covid.” <i>Extended Abstracts of the 2023 CHI Conference on Human Factors in Computing Systems</i>, ACM, 2023. <a href="https://doi.org/10.1145/3544549.3585846" target="_blank" rel="noopener">doi.org/10.1145/3544549.3585846</a></li>
+<li>Scott, Michael J., et al. “The ‘Medically Unexplained Symptoms’ Syndrome Concept and the Cognitive-Behavioural Treatment Model.” <i>Journal of Health Psychology</i>, vol. 27, no. 1, 2022, pp. 3–8. <a href="https://scholar.google.com/scholar?q=%22The+%27medically+unexplained+symptoms%27+syndrome+concept+and+the+cognitive-behavioural+treatment+model%22" target="_blank" rel="noopener">Search for this source</a></li>
+<li>Sosnowy, Collette. “Practicing Patienthood Online: Social Media, Chronic Illness, and Lay Expertise.” <i>Societies</i>, vol. 4, no. 2, 2014, pp. 316–29. <a href="https://doi.org/10.3390/soc4020316" target="_blank" rel="noopener">doi.org/10.3390/soc4020316</a></li>
+<li>Toonders, Suze Adriana Johanna, et al. “Patients’ Perspectives on the Usability of a Blended Approach to an Integrated Intervention for Patients with Medically Unexplained Physical Symptoms: Mixed Methods Study.” <i>Journal of Medical Internet Research</i>, vol. 23, no. 9, 2021, e19794. <a href="https://doi.org/10.2196/19794" target="_blank" rel="noopener">doi.org/10.2196/19794</a></li>
+<li>Vahedifard, Farzan, et al. “Practical Use of ChatGPT in Psychiatry for Treatment Plan and Psychoeducation.” <i>arXiv</i>, 15 Nov. 2023, arXiv:2311.09131. <a href="https://arxiv.org/abs/2311.09131" target="_blank" rel="noopener">arxiv.org/abs/2311.09131</a></li>
+<li>Varela-Rodríguez, M., and S. Plage. “Visualizing Cancer and Survivorship with Generative AI? An Exploration of Breast, Prostate, and Pancreatic Cancer Imagery.” <i>Journal of Cancer Survivorship</i>, 2025. <a href="https://link.springer.com/article/10.1007/s11764-025-01843-z" target="_blank" rel="noopener">link.springer.com/article/10.1007/s11764-025-01843-z</a></li>
+<li>White, Michael. <i>Maps of Narrative Practice</i>. W. W. Norton, 2007. <a href="https://search.worldcat.org/search?q=ti%3AMaps+of+Narrative+Practice+au%3AWhite" target="_blank" rel="noopener">Find this book</a></li>
+<li>White, Michael, and David Epston. <i>Narrative Means to Therapeutic Ends</i>. W. W. Norton, 1990. <a href="https://search.worldcat.org/search?q=ti%3ANarrative+Means+to+Therapeutic+Ends+au%3AWhite+Epston" target="_blank" rel="noopener">Find this book</a></li>
+<li>Whiteside, S. “Woman Dies by Suicide after Using AI Therapist.” <i>NewsNation</i>, Nexstar Media, 22 Aug. 2025. <a href="https://www.newsnationnow.com/health/woman-suicide-ai-therapist/" target="_blank" rel="noopener">www.newsnationnow.com/health/woman-suicide-ai-therapist/</a></li>
+<li>Zohny, Hazem, et al. “Which AI Doctor Would You Like to See? Emulating Healthcare Provider–Patient Communication Models with GPT-4: Proof-of-Concept and Ethical Exploration.” <i>Journal of Medical Ethics</i>, 2025. <a href="https://doi.org/10.1136/jme-2024-110256" target="_blank" rel="noopener">doi.org/10.1136/jme-2024-110256</a></li>
+        </ul>
+      </div>
+    </details>
   </section>
 
   <!-- ============ SUPPORT ============ -->
@@ -1578,14 +1841,14 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   }
 
   /* ---------- routing ---------- */
-  var VIEWS = ["checkin","write","story","observatory","learn","support"];
+  var VIEWS = ["checkin","write","story","observatory","learn","support","research"];
   var current = "checkin";
   function go(name){
     current = name;
     VIEWS.forEach(function(v){
       document.getElementById("view-" + v).classList.toggle("is-active", v === name); });
     document.querySelectorAll(".nav__item").forEach(function(b){
-      b.classList.toggle("is-on", b.getAttribute("data-go") === name); });
+      b.classList.toggle("is-on", b.getAttribute("data-go") === (name === "research" ? "learn" : name)); });
     window.scrollTo(0,0);
     if (name === "write")       renderWrite();
     if (name === "story")       renderReadThrough();
@@ -2077,6 +2340,8 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     document.getElementById("obs-home").hidden = !!obsView;
     document.getElementById("obs-constellation").hidden = obsView !== "constellation";
     document.getElementById("obs-orbit").hidden = obsView !== "orbit";
+    document.getElementById("obs-community").hidden = obsView !== "community";
+    if (obsView === "community") renderCommunity();
     if (obsView === "constellation") renderConstellation();
     if (obsView === "orbit") renderOrbit();
     window.scrollTo(0,0);
@@ -2338,6 +2603,199 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
       .then(function(){ btn.textContent = "Saved"; setTimeout(function(){ btn.textContent = "Save As A File"; }, 1800); })
       ["catch"](function(){ btn.textContent = "Save As A File"; });
   });
+
+
+  /* ---------- the research behind this app ---------- */
+  document.getElementById("research-btn").addEventListener("click", function(){ go("research"); });
+  document.getElementById("research-back").addEventListener("click", function(){ go("learn"); });
+
+  /* ---------- voice typing ----------
+     Uses the browser's own speech recognition. Typing stays the main way in;
+     this is an extra for days when typing is hard. */
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var VOICE_NOTE = "Listening. Tap again to stop. Your browser turns your speech into text, " +
+    "which may send the audio to Google or Apple to do it. Only the text is kept here.";
+  var activeMic = null;
+  function setupMic(btnId, noteId, field){
+    var btn = document.getElementById(btnId), note = document.getElementById(noteId);
+    if (!btn || !SR) return;
+    btn.hidden = false;
+    var rec = null, before = "", after = "", finals = "";
+    var label = btn.querySelector("span");
+    function setOn(on){
+      btn.classList.toggle("is-on", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      if (label) label.textContent = on ? "Stop" : "Speak";
+    }
+    function write(interim){
+      var mid = (finals + (interim ? " " + interim : "")).replace(/\s+/g, " ").trim();
+      var lead = before && mid && !/\s$/.test(before) ? " " : "";
+      field.value = before + lead + mid + after;
+      field.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+    function stop(){ if (rec){ try { rec.stop(); } catch (e) {} } }
+    btn.addEventListener("click", function(){
+      if (rec){ stop(); return; }
+      if (activeMic && activeMic !== stop) activeMic();
+      var s = field.selectionStart, e = field.selectionEnd;
+      if (typeof s !== "number"){ s = e = field.value.length; }
+      before = field.value.slice(0, s); after = field.value.slice(e); finals = "";
+      rec = new SR();
+      rec.lang = navigator.language || "en-CA";
+      rec.continuous = true; rec.interimResults = true;
+      rec.onresult = function(ev){
+        var interim = "";
+        for (var i = ev.resultIndex; i < ev.results.length; i++){
+          var r = ev.results[i];
+          if (r.isFinal) finals += " " + r[0].transcript; else interim += r[0].transcript;
+        }
+        write(interim);
+      };
+      rec.onerror = function(ev){
+        if (ev.error === "not-allowed" || ev.error === "service-not-allowed"){
+          note.textContent = "Your browser did not allow the microphone, so voice typing is off. You can still type.";
+          note.hidden = false;
+        } else if (ev.error === "no-speech"){
+          note.textContent = "Nothing was heard. Tap Speak to try again.";
+          note.hidden = false;
+        }
+      };
+      rec.onend = function(){
+        write(""); rec = null; activeMic = null; setOn(false);
+        if (note.textContent === VOICE_NOTE) note.hidden = true;
+        field.focus();
+        var p = (before + finals).length; try { field.setSelectionRange(p, p); } catch (e) {}
+      };
+      try { rec.start(); } catch (err){ rec = null; return; }
+      activeMic = stop;
+      setOn(true);
+      note.textContent = VOICE_NOTE; note.hidden = false;
+    });
+  }
+  setupMic("mic-mine", "voice-note-mine", mine);
+  setupMic("mic-ask", "voice-note-ask", askInput);
+
+  /* ---------- community story space ----------
+     Each person's shared story lives at community/<their id>. Everyone in the
+     study can read the collection; each person writes only their own. */
+  var commDb = null, commUid = null, commDocs = [], commMine = null, commSub = null, commReady = false;
+  function commText(){
+    var out = [];
+    state.order.forEach(function(i){
+      var tx = written(i);
+      if (tx) out.push(PHASES[i].title + "\n\n" + tx);
+    });
+    return out.join("\n\n\n");
+  }
+  function commFill(force){
+    var ta = document.getElementById("comm-text");
+    if (force || !ta.value.trim()) ta.value = commText();
+    commCheck();
+  }
+  function commCheck(){
+    var ok = document.getElementById("comm-ok").checked;
+    var tx = document.getElementById("comm-text").value.trim();
+    document.getElementById("comm-share").disabled = !(ok && tx && commDb && commUid);
+  }
+  function commStatus(s){ document.getElementById("comm-status").textContent = s || ""; }
+  function renderCommunity(){
+    var list = document.getElementById("comm-list");
+    list.innerHTML = "";
+    if (!commReady){
+      var p = document.createElement("p"); p.className = "comm-empty";
+      p.textContent = commDb === false
+        ? "The Community Story Space opens when the study begins. Nothing can be shared from this version of the app yet."
+        : "Loading stories.";
+      list.appendChild(p);
+    } else if (!commDocs.length){
+      var p2 = document.createElement("p"); p2.className = "comm-empty";
+      p2.textContent = "No stories have been shared yet. When people choose to share, their stories will appear here.";
+      list.appendChild(p2);
+    }
+    commDocs.forEach(function(d){
+      var card = document.createElement("article"); card.className = "comm-card";
+      var by = document.createElement("p"); by.className = "comm-card__by";
+      var when = d.sharedAt ? new Date(d.sharedAt).toLocaleDateString(undefined, { month:"long", day:"numeric", year:"numeric" }) : "";
+      by.textContent = (d.name || "Anonymous") + (d.mine ? " (You)" : "") + (when ? "  ·  " + when : "");
+      var body = document.createElement("p"); body.className = "comm-card__text";
+      var full = String(d.text || ""), long = full.length > 700;
+      body.textContent = long ? full.slice(0, 700).replace(/\s+\S*$/, "") + "…" : full;
+      card.appendChild(by); card.appendChild(body);
+      if (long){
+        var more = document.createElement("button"); more.className = "chip"; more.type = "button";
+        more.textContent = "Read All Of It";
+        more.addEventListener("click", function(){
+          var open = more.textContent !== "Read All Of It";
+          body.textContent = open ? full.slice(0, 700).replace(/\s+\S*$/, "") + "…" : full;
+          more.textContent = open ? "Read All Of It" : "Show Less";
+        });
+        card.appendChild(more);
+      }
+      list.appendChild(card);
+    });
+    document.getElementById("comm-mine").hidden = !commMine;
+    document.getElementById("comm-form").hidden = !!commMine && !commEditing;
+    if (!commMine || commEditing) commFill(false);
+    if (commDb === false) commStatus("Sharing is not switched on in this version of the app.");
+  }
+  var commEditing = false;
+  document.getElementById("comm-ok").addEventListener("change", commCheck);
+  document.getElementById("comm-text").addEventListener("input", commCheck);
+  document.getElementById("comm-fill").addEventListener("click", function(){ commFill(true); });
+  document.getElementById("comm-edit").addEventListener("click", function(){
+    commEditing = true;
+    document.getElementById("comm-text").value = commMine ? commMine.text : commText();
+    document.getElementById("comm-name").value = commMine ? (commMine.name || "") : "";
+    document.getElementById("comm-ok").checked = false;
+    renderCommunity();
+  });
+  document.getElementById("comm-share").addEventListener("click", function(){
+    var btn = this;
+    if (!commDb || !commUid) return;
+    var tx = document.getElementById("comm-text").value.trim();
+    var nm = document.getElementById("comm-name").value.trim().slice(0, 40);
+    if (!tx || !document.getElementById("comm-ok").checked) return;
+    btn.disabled = true; commStatus("Sharing");
+    commDb.doc("community/" + commUid).set({ name: nm, text: tx.slice(0, 40000), sharedAt: new Date().toISOString() })
+      .then(function(){
+        commEditing = false; document.getElementById("comm-ok").checked = false;
+        commStatus("");
+      })["catch"](function(err){
+        btn.disabled = false;
+        commStatus(err && err.code === "invalid_argument"
+          ? "Your access does not allow sharing here."
+          : "That did not go through. Try again when you like.");
+      });
+  });
+  document.getElementById("comm-remove").addEventListener("click", function(){
+    var btn = this;
+    if (!commDb || !commUid) return;
+    btn.disabled = true;
+    commDb.doc("community/" + commUid).delete()
+      .then(function(){ btn.disabled = false; commEditing = false; })
+      ["catch"](function(){ btn.disabled = false; btn.textContent = "Could Not Take It Down"; });
+  });
+  function startCommunity(){
+    if (!(window.claude && window.claude.use)){ commDb = false; return; }
+    Promise.all([window.claude.use("db"), window.claude.use("user")]).then(function(r){
+      if (!r[0]){ commDb = false; if (obsView === "community") renderCommunity(); return; }
+      commDb = r[0];
+      return (r[1] && r[1].id ? r[1].id() : Promise.resolve(null)).then(function(id){
+        commUid = id || null;
+        commSub = commDb.collection("community").orderBy("sharedAt", "desc").limit(100).onSnapshot(function(snap){
+          commReady = true; commMine = null;
+          commDocs = snap.docs.map(function(d){
+            var v = d.data() || {};
+            var item = { name: String(v.name || ""), text: String(v.text || ""), sharedAt: v.sharedAt, mine: d.id === commUid };
+            if (item.mine) commMine = item;
+            return item;
+          });
+          if (obsView === "community") renderCommunity();
+        }, function(){ commReady = true; if (obsView === "community") renderCommunity(); });
+      });
+    })["catch"](function(){ commDb = false; if (obsView === "community") renderCommunity(); });
+  }
+  startCommunity();
 
   /* ---------- boot ---------- */
   function adoptOrder(o){
