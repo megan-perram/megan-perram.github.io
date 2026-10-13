@@ -1130,25 +1130,6 @@ body.reel-open{ overflow: hidden; }
 .a-house .dust{ transform-box: fill-box; }
 .a-house .dust circle{ transform-box: fill-box; transform-origin: center; }
 
-/* ============================================================
-   Voice typing
-   ============================================================ */
-.mic{ display: inline-flex; align-items: center; gap: 5px; padding: 0; background: none;
-  border: 0; box-shadow: none; font-size: .58rem; font-weight: 600; letter-spacing: .15em;
-  text-transform: uppercase; color: var(--ink-3); cursor: pointer; }
-.mic svg{ width: 14px; height: 14px; }
-.mic:hover{ color: var(--ink); }
-.mic.is-on{ color: var(--accent); }
-.mic.is-on svg{ animation: micPulse 1.4s ease-in-out infinite; }
-@keyframes micPulse{ 50%{ opacity: .35; } }
-@media (prefers-reduced-motion: reduce){ .mic.is-on svg{ animation: none; } }
-.story__tools{ display: inline-flex; align-items: center; gap: 14px; }
-.ask .mic{ flex: none; width: 36px; height: 36px; justify-content: center; border-radius: 50%;
-  margin-bottom: 2px; }
-.ask .mic svg{ width: 17px; height: 17px; }
-.voice-note{ margin: 0 15px; padding: 0 0 10px; font-size: .7rem; line-height: 1.5;
-  color: var(--ink-3); }
-.ask-wrap .voice-note{ margin: -4px 16px 12px; padding: 0; }
 
 /* ============================================================
    Community story space
@@ -1275,8 +1256,10 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
 @media (max-width: 520px){ .foot__hint{ display: none; } }
 .panel--story{ overflow: clip; }
 @media (max-width: 959px){
-  .ai-tab--bottom{ position: sticky; bottom: calc(82px + env(safe-area-inset-bottom, 0px)); z-index: 5;
-    margin: 4px 10px 10px; width: calc(100% - 20px); border-radius: 18px; box-shadow: 0 14px 28px -14px rgba(0,0,0,.55); }
+  .ai-tab--bottom{ position: static; box-sizing: border-box;
+    margin: 6px 14px 14px; width: calc(100% - 28px); border-radius: 18px; box-shadow: 0 14px 28px -14px rgba(0,0,0,.55); }
+  /* while typing on a phone, tuck the bottom nav away so it never sits on the writing */
+  body.is-typing .nav{ display: none; }
 }
 .panel--ai .turn{ max-width: 92%; }
 
@@ -1289,7 +1272,7 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
   box-shadow: 0 0 14px 2px rgba(244,226,182,.45); }
 .ai-tab:hover{ box-shadow: 0 0 0 3px rgba(244,226,182,.35), 0 10px 22px -10px rgba(var(--sh),.6); }
 .ai-tab:hover svg{ color: var(--night-ink); }
-.ai-tab--bottom{ display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 18px; text-align: left; }
+.ai-tab--bottom{ display: flex; align-items: center; gap: 12px; box-sizing: border-box; padding: 13px 18px; text-align: left; }
 .ai-tab__text{ display: flex; flex-direction: column; margin-right: auto; }
 .ai-tab__text b{ font-weight: 600; font-size: .84rem; }
 .ai-tab__text small{ font-size: .7rem; color: var(--night-ink-2); }
@@ -1334,10 +1317,6 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
 .panel--ai .send{ background: var(--lunar); border: 0; color: var(--ink); box-shadow: 0 0 14px -3px rgba(244,226,182,.5); }
 .panel--ai .send:hover{ background: var(--lunar); filter: brightness(1.06); }
 .panel--ai .send[disabled]{ opacity: .35; background: var(--lunar); }
-.panel--ai .mic{ color: var(--night-ink-2); }
-.panel--ai .mic:hover{ color: var(--night-ink); }
-.panel--ai .mic.is-on{ color: var(--glow-1); }
-.panel--ai .voice-note{ color: var(--night-ink-2); }
 .ai-foot{ margin: 0 18px 14px; font-size: .64rem; line-height: 1.45; color: var(--night-ink-2); text-align: center; }
 .ai-only-wide{ display: none; }
 
@@ -1628,21 +1607,20 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
           <span class="instructions__label">Instructions</span>
           <p id="prompt-text"></p>
         </div>
+        <button class="ai-tab ai-tab--bottom" id="ai-open-bottom" type="button" aria-controls="ai-panel" aria-expanded="false">
+          <span class="ai-tab__spark" aria-hidden="true"></span>
+          <span class="ai-tab__text"><b>The Undiagnosed AI</b><small>Ask for help with this part</small></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
         <div class="story">
-          <div class="story__label"><span>Your Story</span><span class="story__tools"><span id="mine-count"></span><button class="mic" type="button" id="mic-mine" hidden aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg><span>Speak</span></button></span></div>
+          <div class="story__label"><span>Your Story</span><span class="story__tools"><span id="mine-count"></span></span></div>
           <textarea class="mine" id="mine" aria-label="Your Writing For This Part"
             placeholder="Start wherever you like. It saves as you go."></textarea>
-          <p class="voice-note" id="voice-note-mine" hidden></p>
         </div>
         <div class="panel__foot">
           <span class="foot__hint">Your words stay on this page until you choose to change them.</span>
           <button class="btn btn--sm" id="update-btn"><svg class="btn__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg><span id="update-label">Update Story</span></button>
         </div>
-        <button class="ai-tab ai-tab--bottom" id="ai-open-bottom" type="button" aria-controls="ai-panel" aria-expanded="false">
-          <span class="ai-tab__spark" aria-hidden="true"></span>
-          <span class="ai-tab__text"><b>The Undiagnosed AI</b><small>Ask for help with this part</small></span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
-        </button>
       </div>
 
       <button class="ai-tab ai-tab--side" id="ai-open-side" type="button" aria-controls="ai-panel" aria-expanded="false" title="Open The Undiagnosed AI">
@@ -1680,12 +1658,10 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
         <div class="ask-wrap"><div class="ask">
           <textarea id="ask-input" rows="1" aria-label="Ask A Question"
             placeholder="Ask a question"></textarea>
-          <button class="mic" type="button" id="mic-ask" hidden aria-pressed="false" aria-label="Speak Your Question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
           <button class="send" id="ask-send" aria-label="Send">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
           </button>
         </div>
-        <p class="voice-note" id="voice-note-ask" hidden></p>
         <p class="ai-foot">The AI can help you write. It never changes your story unless you add its words.</p></div>
       </div>
 
@@ -1860,7 +1836,7 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
 <div class="rs-item"><h3>The AI Cannot Edit Your Writing</h3><p>Huang and Saksono designed an AI storytelling assistant for health stories and decided on purpose that the AI would help people tell their story but would not write it, so the story stayed authentic. Chan built a narrative therapy chatbot around a “not-knowing” stance, where the person's own story stays at the centre and the AI does not hand out answers.</p><p class="rs-app"><b>In This App</b>The AI cannot type into Your Story. Its words only go in if you press Add To My Story.</p><p class="rs-cite">Huang and Saksono; Chan; Draxler et al.</p></div>
 <div class="rs-item"><h3>Writing in Eight Parts</h3><p>Kim and colleagues tested MindfulDiary, an AI journaling app, for four weeks with 28 patients living with depression. The AI was set to behave differently at each stage of the conversation, which kept it inside guidelines written by mental health experts, and patients wrote fuller entries. In a study with 230 people, Feng and colleagues found that an AI which planned its questions in stages did better than a standard one. Chan and colleagues describe good narrative conversations as moving forward in steps.</p><p class="rs-app"><b>In This App</b>Each of the eight moon phases has its own writing prompt, and the AI always knows which part you are working on.</p><p class="rs-cite">Kim et al.; Feng et al.; Chan et al., “Indicators”</p></div>
 <div class="rs-item"><h3>Help With Getting Started</h3><p>Jennings, a writing scholar with ADHD, finds AI most useful for the parts of writing that are hardest to begin: getting started, organizing and brainstorming. In an eight-week study with 20 students, Nepal and colleagues found that people preferred writing prompts based on their own lives over generic ones. In a study of 30 people, Park and colleagues found that writing to a chatbot encouraged people to tell their experience as a story.</p><p class="rs-app"><b>In This App</b>Give Me A Way In offers one small, specific place to begin, like a single moment or detail, rather than a big question about feelings.</p><p class="rs-cite">Jennings; Nepal et al.; Park et al.</p></div>
-<div class="rs-item"><h3>Typing and Voice Typing</h3><p>Norihama and colleagues studied a mobile writing chatbot with two groups of 28 and 36 people. Most chose typing over voice messages, because typing felt more private and they could read back and edit what they wrote. Jennings notes that speech-to-text helps some writers get words down when typing is hard.</p><p class="rs-app"><b>In This App</b>Typing is the main way to write. A Speak button lets you talk instead, for days when typing is too much.</p><p class="rs-cite">Norihama et al.; Jennings</p></div>
+<div class="rs-item"><h3>Typing Only</h3><p>Norihama and colleagues studied a mobile writing chatbot with two groups of 28 and 36 people. Most chose typing over voice messages, because typing felt more private and they could read back and edit what they wrote. Jennings notes that speech-to-text helps some writers get words down when typing is hard.</p><p class="rs-app"><b>In This App</b>You write by typing. There is no voice typing, because turning speech into text would send your voice to an outside company.</p><p class="rs-cite">Norihama et al.; Jennings</p></div>
 <div class="rs-item"><h3>Automatic Saving</h3><p>In workshops with 13 people living with long COVID, Sas and colleagues heard that symptoms changing from day to day were hard to keep track of, and participants asked for simple tools that do not add work. Homewood, who lives with long COVID, used a fitness tracker for 18 months and ended up using it to do less, not more. She argues that technology should respect a body whose energy rises and falls.</p><p class="rs-app"><b>In This App</b>Everything saves as you go. You can stop mid-sentence and come back days later, and the app never comments on time away.</p><p class="rs-cite">Sas et al.; Homewood</p></div>
 <div class="rs-item"><h3>No Goals or Reminders</h3><p>Homewood found that tools built to push people to do more do not suit illness that comes and goes. Sosnowy studied 40 blogs by women with multiple sclerosis. Blogging helped them learn and push back against doctors, but it also added pressure to manage their illness “well.”</p><p class="rs-app"><b>In This App</b>The word count is just information. There are no daily goals, streaks or reminders.</p><p class="rs-cite">Homewood; Sosnowy</p></div>
 <div class="rs-item"><h3>Colours and Tone</h3><p>Cheng and colleagues interviewed middle-aged and older adults living with chronic pain about mental health apps. They warned against apps that sound overly cheerful, casual or childish about serious things.</p><p class="rs-app"><b>In This App</b>Muted colours throughout, and no exclamation marks, emojis or cartoon characters.</p><p class="rs-cite">Cheng et al.</p></div>
@@ -2091,6 +2067,7 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   function esc(s){ return String(s).replace(/[&<>"']/g, function(c){
     return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]; }); }
   function wordCount(s){ var t = String(s||"").trim(); return t ? t.split(/\s+/).length : 0; }
+  function toTop(){ window.scrollTo(0,0); var a = document.querySelector(".app"); if (a) a.scrollTop = 0; }
   function grow(el){ el.style.height = "auto"; el.style.height = el.scrollHeight + "px"; }
   function written(i){ return (state.phases[i].text || "").trim(); }
   function writtenCount(){ var n=0; for (var i=0;i<8;i++) if (written(i)) n++; return n; }
@@ -2162,7 +2139,7 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
       document.getElementById("view-" + v).classList.toggle("is-active", v === name); });
     document.querySelectorAll(".nav__item").forEach(function(b){
       b.classList.toggle("is-on", b.getAttribute("data-go") === name); });
-    window.scrollTo(0,0);
+    toTop();
     if (name === "write")       renderWrite();
     if (name === "story")       renderReadThrough();
     if (name === "observatory") showObs(obsView);
@@ -2323,9 +2300,9 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     setTimeout(function(){ lab.textContent = "Update Story"; }, 1500);
   });
   document.getElementById("deck-prev").addEventListener("click", function(){
-    if (state.active > 0){ state.active--; renderWrite(); save(); window.scrollTo(0,0); } });
+    if (state.active > 0){ state.active--; renderWrite(); save(); toTop(); } });
   document.getElementById("deck-next").addEventListener("click", function(){
-    if (state.active < 7){ state.active++; renderWrite(); save(); window.scrollTo(0,0); } });
+    if (state.active < 7){ state.active++; renderWrite(); save(); toTop(); } });
 
   /* ---------- the ai beside it ---------- */
   var GREETING = "I am The Undiagnosed AI. We can talk together to work on your story. " +
@@ -2370,6 +2347,12 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   /* ---------- opening and closing the AI ---------- */
   var ws = document.getElementById("workspace");
   var AI_KEY = "undiagnosed-ai-open";
+  /* hide the bottom nav while typing on a phone so it never covers the text */
+  document.addEventListener("focusin", function(e){
+    var t = e.target;
+    if (!wide() && t && (t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && /^(text|search|email)?$/.test(t.type || ""))))
+      document.body.classList.add("is-typing"); });
+  document.addEventListener("focusout", function(){ document.body.classList.remove("is-typing"); });
   function wide(){ return window.matchMedia && window.matchMedia("(min-width: 960px)").matches; }
   function aiIsOpen(){ return ws.classList.contains("ai-open"); }
   function setAI(open, keep){
@@ -2547,14 +2530,14 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
       open.textContent = written(i).replace(/\s+/g, " ").slice(0, 90);
       open.setAttribute("aria-label", "Open This Piece");
       open.addEventListener("click", function(){
-        state.active = i; renderWrite(); save(); window.scrollTo(0,0); });
+        state.active = i; renderWrite(); save(); toTop(); });
 
       var edit = document.createElement("button");
       edit.className = "piece__act"; edit.type = "button";
       edit.setAttribute("aria-label", "Edit This Piece");
       edit.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2.1 2.1 0 0 0-3-3L5 17v3z"/></svg>';
       edit.addEventListener("click", function(){
-        state.active = i; renderWrite(); save(); window.scrollTo(0,0);
+        state.active = i; renderWrite(); save(); toTop();
         setTimeout(function(){ mine.focus(); }, 80); });
 
       var del = document.createElement("button");
@@ -2687,7 +2670,7 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     if (obsView === "community") renderCommunity();
     if (obsView === "constellation") renderConstellation();
     if (obsView === "orbit") renderOrbit();
-    window.scrollTo(0,0);
+    toTop();
   }
   document.querySelectorAll("[data-obs]").forEach(function(b){
     b.addEventListener("click", function(){
@@ -2981,71 +2964,7 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     researchFrom = current === "research" ? researchFrom : current; go("research"); });
   document.getElementById("research-back").addEventListener("click", function(){ go(researchFrom); });
 
-  /* ---------- voice typing ----------
-     Uses the browser's own speech recognition. Typing stays the main way in;
-     this is an extra for days when typing is hard. */
-  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  var VOICE_NOTE = "Listening. Tap again to stop. Your browser turns your speech into text, " +
-    "which may send the audio to Google or Apple to do it. Only the text is kept here.";
-  var activeMic = null;
-  function setupMic(btnId, noteId, field){
-    var btn = document.getElementById(btnId), note = document.getElementById(noteId);
-    if (!btn || !SR) return;
-    btn.hidden = false;
-    var rec = null, before = "", after = "", finals = "";
-    var label = btn.querySelector("span");
-    function setOn(on){
-      btn.classList.toggle("is-on", on);
-      btn.setAttribute("aria-pressed", on ? "true" : "false");
-      if (label) label.textContent = on ? "Stop" : "Speak";
-    }
-    function write(interim){
-      var mid = (finals + (interim ? " " + interim : "")).replace(/\s+/g, " ").trim();
-      var lead = before && mid && !/\s$/.test(before) ? " " : "";
-      field.value = before + lead + mid + after;
-      field.dispatchEvent(new Event("input", { bubbles: true }));
-    }
-    function stop(){ if (rec){ try { rec.stop(); } catch (e) {} } }
-    btn.addEventListener("click", function(){
-      if (rec){ stop(); return; }
-      if (activeMic && activeMic !== stop) activeMic();
-      var s = field.selectionStart, e = field.selectionEnd;
-      if (typeof s !== "number"){ s = e = field.value.length; }
-      before = field.value.slice(0, s); after = field.value.slice(e); finals = "";
-      rec = new SR();
-      rec.lang = navigator.language || "en-CA";
-      rec.continuous = true; rec.interimResults = true;
-      rec.onresult = function(ev){
-        var interim = "";
-        for (var i = ev.resultIndex; i < ev.results.length; i++){
-          var r = ev.results[i];
-          if (r.isFinal) finals += " " + r[0].transcript; else interim += r[0].transcript;
-        }
-        write(interim);
-      };
-      rec.onerror = function(ev){
-        if (ev.error === "not-allowed" || ev.error === "service-not-allowed"){
-          note.textContent = "Your browser did not allow the microphone, so voice typing is off. You can still type.";
-          note.hidden = false;
-        } else if (ev.error === "no-speech"){
-          note.textContent = "Nothing was heard. Tap Speak to try again.";
-          note.hidden = false;
-        }
-      };
-      rec.onend = function(){
-        write(""); rec = null; activeMic = null; setOn(false);
-        if (note.textContent === VOICE_NOTE) note.hidden = true;
-        field.focus();
-        var p = (before + finals).length; try { field.setSelectionRange(p, p); } catch (e) {}
-      };
-      try { rec.start(); } catch (err){ rec = null; return; }
-      activeMic = stop;
-      setOn(true);
-      note.textContent = VOICE_NOTE; note.hidden = false;
-    });
-  }
-  setupMic("mic-mine", "voice-note-mine", mine);
-  setupMic("mic-ask", "voice-note-ask", askInput);
+  
 
   /* ---------- community story space ----------
      Each person's shared story lives at community/<their id>. Everyone in the
