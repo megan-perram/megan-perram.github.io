@@ -40,6 +40,22 @@
   --sh:            10,69,87;
 
   --focus:         #0A4557;
+
+  /* lunar ombre: the warm glow behind the stone, fading into the cool sky */
+  --glow-1:  #F4E2B6;
+  --glow-2:  #ECE6D8;
+  --glow-3:  #D5E2E8;
+  --glow-4:  #B9CFDA;
+  --lunar: linear-gradient(115deg, var(--glow-1) 0%, var(--glow-2) 36%, var(--glow-3) 72%, var(--glow-4) 100%);
+  --lunar-line: #CDBF98;
+
+  /* the ai panel: the inverse world */
+  --night:    #10141A;
+  --night-2:  #171C24;
+  --night-3:  #222934;
+  --night-line: #2E3743;
+  --night-ink:  #EEF0F2;
+  --night-ink-2: #A9B3BE;
   --r-card:  22px;
   --r-pill:  999px;
 
@@ -141,8 +157,8 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
 }
 .btn:hover, .chip:hover, .support-btn:hover, .deck-arrow:hover:not([disabled]),
 .send:hover, .way:hover:not([disabled]){
-  background: linear-gradient(168deg, var(--tint-violet) 0%, var(--tint-blue) 52%, var(--tint-pink) 100%);
-  border-color: var(--tint-line);
+  background: var(--lunar);
+  border-color: var(--lunar-line);
   transform: translateY(-1px);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,1),
@@ -395,7 +411,7 @@ h1.display{ font-family: var(--serif); font-optical-sizing: auto; font-weight: 4
   border: 1px solid var(--line);
   box-shadow: inset 0 1px 0 #fff, 0 1px 1px rgba(var(--sh),.06), 0 7px 15px -8px rgba(var(--sh),.24);
   transition: background .22s ease, border-color .22s ease, box-shadow .22s ease, transform .13s ease; }
-.instrument:hover{ background: linear-gradient(168deg, var(--tint-violet), var(--tint-blue) 60%, var(--tint-pink));
+.instrument:hover{ background: var(--lunar);
   border-color: var(--tint-line); transform: translateY(-1px);
   box-shadow: inset 0 1px 0 #fff, 0 12px 22px -10px rgba(var(--sh),.4); }
 .instrument:active{ transform: translateY(1px); }
@@ -630,7 +646,7 @@ body.reel-open{ overflow: hidden; }
 .rbtn{ width: 34px; height: 34px; flex: none; display: grid; place-items: center; border-radius: 50%; padding: 0;
   color: var(--ink-2); background: rgba(253,253,252,.78); border: 1px solid var(--line-soft); box-shadow: 0 4px 10px -6px rgba(var(--sh),.35);
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background .2s ease, transform .15s ease; }
-.rbtn:hover{ background: linear-gradient(170deg, var(--tint-violet), var(--tint-blue)); color: var(--ink); }
+.rbtn:hover{ background: var(--lunar); color: var(--ink); }
 .rbtn:active{ transform: scale(.92); }
 .rbtn svg{ width: 16px; height: 16px; }
 .rbtn[aria-pressed="false"]{ opacity: .6; }
@@ -953,7 +969,7 @@ body.reel-open{ overflow: hidden; }
 .rnav{ width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; padding: 0; color: var(--ink);
   background: linear-gradient(170deg, #FFFFFF 0%, var(--paper) 100%); border: 1px solid var(--line);
   box-shadow: inset 0 1px 0 #fff, 0 6px 14px -8px rgba(var(--sh),.45); transition: background .2s ease, transform .12s ease; }
-.rnav:hover{ background: linear-gradient(168deg, var(--tint-violet), var(--tint-blue) 52%, var(--tint-pink)); }
+.rnav:hover{ background: var(--lunar); }
 .rnav:active{ transform: scale(.94); }
 .rnav[disabled]{ opacity: .35; }
 .rnav svg{ width: 18px; height: 18px; }
@@ -1170,7 +1186,12 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
 /* ============================================================
    The research behind this app
    ============================================================ */
-.research-btn{ align-self: flex-start; margin: -8px 0 22px; }
+.research-link{ display: inline-flex; align-items: center; gap: 7px; margin: 22px auto 0; padding: 6px 10px;
+  border-radius: var(--r-pill); font-size: .76rem; font-weight: 500; color: var(--on-ground-2);
+  transition: color .2s ease, background .2s ease, opacity .85s ease .6s; }
+.research-link svg{ width: 16px; height: 16px; }
+.research-link:hover{ color: var(--ink); background: var(--lunar); }
+.is-intro .research-link{ opacity: 0; pointer-events: none; }
 .rs{ border-radius: var(--r-card); background: var(--surface); border: 1px solid var(--line-soft);
   margin-bottom: 12px; }
 .rs[open]{ background: var(--surface-2); }
@@ -1178,7 +1199,7 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
   justify-content: space-between; gap: 12px; padding: 18px 20px;
   font-family: var(--serif); font-size: 1.18rem; color: var(--ink); }
 .rs summary::-webkit-details-marker{ display: none; }
-.rs summary span{ font-family: var(--sans); font-size: .7rem; color: var(--ink-3); white-space: nowrap; }
+.rs summary span{ margin-left: auto; font-family: var(--sans); font-size: .7rem; color: var(--ink-3); white-space: nowrap; }
 .rs summary svg{ width: 16px; height: 16px; flex: none; color: var(--ink-3);
   transition: transform .25s ease; }
 .rs[open] summary svg{ transform: rotate(180deg); }
@@ -1234,6 +1255,231 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
   box-shadow: 0 0 0 3px rgba(10,69,87,.12); }
 .gate__btn{ width: 100%; margin-top: 4px; }
 .gate__err{ margin: 12px 0 0; font-size: .8rem; color: #8A2B2B; }
+
+/* ============================================================
+   Writing space, round six: a banner on each panel, the AI as a
+   dark companion that opens from a tab
+   ============================================================ */
+.panel--story{ background: var(--surface); }
+.banner{ display: flex; align-items: center; gap: 12px; padding: 14px 18px; }
+.banner__titles{ display: flex; flex-direction: column; min-width: 0; margin-right: auto; text-align: left; }
+.banner--story{ border-bottom: 1px solid var(--line-soft);
+  background: linear-gradient(115deg, rgba(244,226,182,.38) 0%, rgba(236,230,216,.30) 40%, rgba(213,226,232,.55) 100%); }
+.banner--story h3{ font-family: var(--serif); font-weight: 400; font-size: 1.22rem; margin: 0; letter-spacing: -.01em; }
+.banner--story .panel__phase{ margin-top: 1px; }
+.banner__save{ flex: none; font-size: .64rem; font-weight: 500; color: var(--ink-3); white-space: nowrap; }
+.instructions{ padding: 14px 18px 4px; }
+.story{ background: #FBFBF9; }
+.foot__hint{ font-size: .66rem; color: var(--ink-3); line-height: 1.4; max-width: 30ch; }
+#update-btn{ white-space: nowrap; flex: none; margin-left: auto; }
+@media (max-width: 520px){ .foot__hint{ display: none; } }
+.panel--story{ overflow: clip; }
+@media (max-width: 959px){
+  .ai-tab--bottom{ position: sticky; bottom: calc(82px + env(safe-area-inset-bottom, 0px)); z-index: 5;
+    margin: 4px 10px 10px; width: calc(100% - 20px); border-radius: 18px; box-shadow: 0 14px 28px -14px rgba(0,0,0,.55); }
+}
+.panel--ai .turn{ max-width: 92%; }
+
+/* ---- the tab that opens it ---- */
+.ai-tab{ display: none; border: 0; cursor: pointer; color: var(--night-ink);
+  background: radial-gradient(120% 140% at 0% 0%, rgba(244,226,182,.20), transparent 55%), var(--night);
+  transition: box-shadow .25s ease, transform .15s ease; }
+.ai-tab svg{ width: 18px; height: 18px; flex: none; color: var(--night-ink-2); }
+.ai-tab__spark{ flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--lunar);
+  box-shadow: 0 0 14px 2px rgba(244,226,182,.45); }
+.ai-tab:hover{ box-shadow: 0 0 0 3px rgba(244,226,182,.35), 0 10px 22px -10px rgba(var(--sh),.6); }
+.ai-tab:hover svg{ color: var(--night-ink); }
+.ai-tab--bottom{ display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 18px; text-align: left; }
+.ai-tab__text{ display: flex; flex-direction: column; margin-right: auto; }
+.ai-tab__text b{ font-weight: 600; font-size: .84rem; }
+.ai-tab__text small{ font-size: .7rem; color: var(--night-ink-2); }
+
+/* ---- the panel itself: the inverse world ---- */
+.panel--ai{ display: none; background: var(--night); border: 1px solid var(--night-line); color: var(--night-ink);
+  box-shadow: 0 24px 50px -28px rgba(0,0,0,.55); }
+.workspace.ai-open .panel--ai{ display: flex; }
+.banner--ai{ border-bottom: 1px solid var(--night-line);
+  background: radial-gradient(90% 160% at 0% 0%, rgba(244,226,182,.16), transparent 60%), var(--night-2); }
+.banner--ai .orb{ --size: 34px; }
+.banner--ai b{ font-size: .9rem; font-weight: 600; letter-spacing: .01em; }
+.banner--ai small{ font-size: .7rem; color: var(--night-ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ai-icon{ flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%;
+  color: var(--night-ink-2); border: 1px solid var(--night-line); background: var(--night-3);
+  transition: background .2s ease, color .2s ease; }
+.ai-icon svg{ width: 17px; height: 17px; }
+.ai-icon:hover{ background: var(--lunar); color: var(--ink); border-color: transparent; }
+
+.panel--ai .ways{ padding-top: 16px; }
+.panel--ai .way{ background: var(--night-3); border-color: var(--night-line); color: var(--night-ink);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 8px 16px -10px rgba(0,0,0,.6); }
+.panel--ai .way:hover:not([disabled]){ background: var(--lunar); color: var(--ink); border-color: transparent;
+  box-shadow: 0 0 18px -2px rgba(244,226,182,.45); }
+.panel--ai .way[disabled]:hover{ background: var(--night-3); border-color: var(--night-line); }
+.panel--ai .way-arrow{ color: var(--night-ink-2); opacity: .7; }
+.panel--ai .way-arrow:hover{ color: var(--night-ink); opacity: 1; }
+.panel--ai .way-dot{ background: #3A4552; }
+.panel--ai .way-dot.is-on{ background: var(--glow-1); }
+.panel--ai .thread{ padding: 14px 16px 6px; }
+.panel--ai .turn--ai .bubble{ background: var(--lunar); border: 0; border-radius: 18px 18px 18px 6px;
+  box-shadow: 0 10px 24px -14px rgba(244,226,182,.55); }
+.panel--ai .turn--ai .bubble p{ color: var(--ink); }
+.panel--ai .turn--me .bubble{ background: var(--night-3); border: 1px solid var(--night-line); border-radius: 18px 18px 6px 18px;
+  box-shadow: none; }
+.panel--ai .turn--me .bubble p{ color: var(--night-ink); }
+.panel--ai .dots i{ background: var(--accent); }
+.panel--ai .bubble .add{ background: rgba(255,255,255,.72); border-color: rgba(12,12,14,.12); box-shadow: none; }
+.panel--ai .ask{ background: var(--night-2); border-color: var(--night-line); box-shadow: none; margin: 8px 14px 8px; border-radius: 24px; }
+.panel--ai .ask textarea{ color: var(--night-ink); }
+.panel--ai .ask textarea::placeholder{ color: var(--night-ink-2); }
+.panel--ai .send{ background: var(--lunar); border: 0; color: var(--ink); box-shadow: 0 0 14px -3px rgba(244,226,182,.5); }
+.panel--ai .send:hover{ background: var(--lunar); filter: brightness(1.06); }
+.panel--ai .send[disabled]{ opacity: .35; background: var(--lunar); }
+.panel--ai .mic{ color: var(--night-ink-2); }
+.panel--ai .mic:hover{ color: var(--night-ink); }
+.panel--ai .mic.is-on{ color: var(--glow-1); }
+.panel--ai .voice-note{ color: var(--night-ink-2); }
+.ai-foot{ margin: 0 18px 14px; font-size: .64rem; line-height: 1.45; color: var(--night-ink-2); text-align: center; }
+.ai-only-wide{ display: none; }
+
+/* phones and tablets: the AI opens over the writing, and closes back to it */
+@media (max-width: 959px){
+  .workspace.ai-open .panel--ai{ position: fixed; inset: 0; z-index: 70; border-radius: 0; border: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px); animation: aiUp .32s cubic-bezier(.2,.9,.25,1); }
+  .panel--ai .banner--ai{ padding-top: calc(14px + env(safe-area-inset-top, 0px)); }
+  .panel--ai .thread{ flex: 1; overflow-y: auto; overscroll-behavior: contain; }
+  body.ai-sheet .nav, body.ai-sheet .support-btn{ visibility: hidden; }
+}
+@keyframes aiUp{ from{ transform: translateY(24px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce){ .workspace.ai-open .panel--ai{ animation: none; } }
+
+/* desktop: a tab on the right of the writing box that opens a side panel */
+@media (min-width: 960px){
+  .ai-only-sheet{ display: none; }
+  .ai-only-wide{ display: block; }
+  .ai-tab--bottom{ display: none; }
+  .workspace{ grid-template-columns: minmax(0,1fr) 52px; }
+  .workspace.ai-open{ grid-template-columns: minmax(0,1.6fr) minmax(320px,1fr); }
+  .ai-tab--side{ display: flex; flex-direction: column; align-items: center; gap: 12px;
+    position: sticky; top: 18px; padding: 16px 0 18px; border-radius: 18px; width: 52px; }
+  .ai-tab__label{ writing-mode: vertical-rl; font-size: .78rem; font-weight: 600; letter-spacing: .04em; }
+  .workspace.ai-open .ai-tab--side{ display: none; }
+  .panel--ai{ position: sticky; top: 18px; min-height: 480px; height: calc(100vh - 150px); max-height: 760px; }
+  .panel--ai .thread{ flex: 1; overflow-y: auto; }
+  .workspace.ai-open .panel--ai{ animation: aiIn .3s cubic-bezier(.2,.9,.25,1); }
+}
+@keyframes aiIn{ from{ transform: translateX(16px); opacity: 0; } }
+
+/* ============================================================
+   Round six: research link, covers on phones, the scroll spacer,
+   sound gate, community walkthrough, screen recording
+   ============================================================ */
+/* Safari ignores bottom padding on a scrolling flex box, so the space for the
+   nav is a real element instead */
+.app::after{ content: ""; display: block; flex: none; height: calc(110px + env(safe-area-inset-bottom, 0px)); }
+.app{ padding-bottom: 0; }
+@media (min-width: 760px){ .app{ padding-bottom: 0; } }
+
+/* hub covers on phones: one row each, so the words never sit on the moon */
+@media (max-width: 600px){
+  .reel-covers{ grid-template-columns: 1fr; gap: 12px; }
+  .cover{ aspect-ratio: auto; display: grid; grid-template-columns: 76px minmax(0,1fr) 34px; grid-template-areas: "moon text play"; align-items: center;
+    gap: 14px; padding: 14px 14px 14px 12px; border-radius: 20px; }
+  .cover::after{ display: none; }
+  .cover__moon{ grid-area: moon; position: relative; left: auto; top: auto; transform: none; width: 76px; }
+  .cover__text{ grid-area: text; }
+  .cover__play{ grid-area: play; }
+  .cover:hover .cover__moon{ transform: scale(1.04); }
+  .cover__text{ position: static; padding: 0; }
+  .cover__t{ font-size: 1.12rem; }
+  .cover__play{ position: static; }
+}
+
+/* the sound gate at the start of a reel */
+.reel__sound{ position: absolute; inset: 0; z-index: 12; display: grid; place-items: center; padding: 24px;
+  background: rgba(234,234,232,.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.sound__card{ max-width: 320px; text-align: center; }
+.sound__icon{ display: inline-grid; place-items: center; width: 72px; height: 72px; border-radius: 50%;
+  background: var(--lunar); color: var(--accent); box-shadow: 0 0 30px -4px rgba(244,226,182,.9); margin-bottom: 14px; }
+.sound__icon svg{ width: 32px; height: 32px; animation: beat 1.8s ease-in-out infinite; }
+.sound__card h2{ font-family: var(--serif); font-weight: 400; font-size: 1.7rem; margin: 0 0 8px; }
+.sound__card p{ margin: 0 0 10px; font-size: .9rem; line-height: 1.55; color: var(--ink-2); }
+.sound__card .sound__cc{ font-size: .76rem; color: var(--ink-3); margin-bottom: 20px; }
+.rbtn[hidden]{ display: none; }
+
+/* the community icon in the reel */
+.a-comm{ position: relative; width: 200px; height: 150px; }
+.a-comm__page{ position: absolute; top: 10px; left: calc(var(--i) * 52px + 10px); width: 76px; height: 104px; border-radius: 10px;
+  background: var(--paper); border: 1px solid var(--line); box-shadow: 0 12px 22px -14px rgba(var(--sh),.6);
+  display: flex; flex-direction: column; gap: 7px; padding: 16px 12px; opacity: 0; transform: translateY(16px);
+  transition: opacity .4s ease, transform .55s cubic-bezier(.2,.9,.25,1); transition-delay: calc(var(--i) * 220ms + 200ms); }
+.a-comm__page:nth-child(2){ top: 0; z-index: 1; background: var(--lunar); border-color: var(--lunar-line); }
+.a-comm__page i{ display: block; height: 4px; border-radius: 2px; background: rgba(10,69,87,.35); }
+.a-comm__page i:nth-child(2){ width: 80%; } .a-comm__page i:nth-child(4){ width: 60%; }
+.card.is-on .a-comm__page{ opacity: 1; transform: none; }
+
+/* community walkthrough */
+.comm-hint{ margin: 10px 0 0; font-size: .78rem; color: var(--on-ground-2); }
+.comm-copy-head{ display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin: 16px 0 8px; }
+.comm-copy-head .field-label{ margin: 0; }
+.comm-preview{ max-height: 420px; overflow-y: auto; padding: 16px 18px; border-radius: 16px; background: var(--paper);
+  border: 1px solid var(--line); font-family: var(--serif); font-size: 1rem; line-height: 1.75; white-space: pre-wrap; color: var(--ink); }
+.comm-preview mark{ background: var(--lunar); color: var(--ink); border-radius: 4px; padding: 1px 3px;
+  box-shadow: 0 0 0 2px var(--lunar-line); }
+.anon{ display: inline; padding: 0 5px; margin: 0 1px; border-radius: 6px; font: inherit; font-family: var(--sans);
+  font-size: .86em; font-weight: 600; color: var(--accent); background: var(--tint-blue); border: 1px dashed var(--tint-line);
+  cursor: pointer; box-shadow: none; }
+.anon:hover{ background: var(--lunar); border-color: var(--lunar-line); text-decoration: line-through; }
+.comm-legend{ margin: 8px 0 0; font-size: .74rem; color: var(--on-ground-2); }
+.anon-key{ display: inline-block; padding: 0 5px; border-radius: 6px; font-weight: 600; color: var(--accent);
+  background: var(--tint-blue); border: 1px dashed var(--tint-line); margin-right: 4px; }
+.comm-walk{ margin: 0 0 12px; padding: 16px 18px; border-radius: 18px; background: var(--night); color: var(--night-ink);
+  box-shadow: 0 18px 36px -24px rgba(0,0,0,.6); }
+.walk__count{ margin: 0 0 8px; font-size: .62rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--glow-1); }
+.walk__snip{ margin: 0 0 12px; font-family: var(--serif); font-size: 1rem; line-height: 1.6; color: var(--night-ink-2); }
+.walk__snip mark{ background: var(--lunar); color: var(--ink); border-radius: 4px; padding: 1px 4px; }
+.walk__q{ margin: 0 0 12px; font-size: .92rem; color: var(--night-ink); }
+.walk__note{ margin: -4px 0 12px; font-size: .78rem; color: var(--night-ink-2); }
+.comm-walk .chip{ background: var(--night-3); color: var(--night-ink); border-color: var(--night-line); box-shadow: none; }
+.comm-walk .chip:hover{ background: var(--lunar); color: var(--ink); }
+.walk__stop{ margin-left: auto; font-size: .74rem; color: var(--night-ink-2); text-decoration: underline; text-underline-offset: 3px; }
+.walk__stop:hover{ color: var(--night-ink); }
+.comm-card__title{ font-family: var(--serif); font-weight: 400; font-size: 1.2rem; margin: 0 0 8px; }
+
+/* screen recording */
+.rec-bar{ position: fixed; left: 0; right: 0; top: 0; z-index: 75; display: flex; align-items: center; gap: 10px;
+  padding: calc(7px + env(safe-area-inset-top, 0px)) 14px 7px; background: var(--night); color: var(--night-ink);
+  font-size: .74rem; }
+.rec-bar[hidden]{ display: none; }
+.rec-bar b{ font-weight: 600; }
+.rec-sub{ color: var(--night-ink-2); margin-right: auto; }
+.rec-dot{ width: 9px; height: 9px; border-radius: 50%; background: #E0645C; box-shadow: 0 0 0 0 rgba(224,100,92,.6);
+  animation: recPulse 1.8s ease-out infinite; flex: none; }
+@keyframes recPulse{ 0%{ box-shadow: 0 0 0 0 rgba(224,100,92,.6); } 100%{ box-shadow: 0 0 0 9px rgba(224,100,92,0); } }
+.rec-end{ padding: 5px 11px; border-radius: var(--r-pill); font-size: .7rem; font-weight: 600; color: var(--night-ink);
+  border: 1px solid var(--night-line); background: var(--night-3); }
+.rec-end:hover{ background: var(--lunar); color: var(--ink); }
+body.is-recording .app{ padding-top: 36px; }
+body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
+@media (min-width: 960px){ body.is-recording .panel--ai, body.is-recording .ai-tab--side{ top: 50px; } body.is-recording .workspace.ai-open .panel--ai{ top: 50px; } }
+@media (max-width: 480px){ .rec-sub{ display: none; } .rec-bar b{ margin-right: auto; } }
+.rec-modal{ position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 20px;
+  background: rgba(16,20,26,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); overflow-y: auto; }
+.rec-modal[hidden]{ display: none; }
+.rec-card{ width: 100%; max-width: 420px; padding: 26px 24px 20px; border-radius: var(--r-card); background: var(--surface-2);
+  border: 1px solid var(--line); box-shadow: 0 30px 60px -30px rgba(0,0,0,.5); text-align: left; animation: aiUp .3s ease; }
+.rec-icon{ display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 16px; background: var(--lunar);
+  color: var(--accent); margin-bottom: 12px; }
+.rec-icon svg{ width: 26px; height: 26px; }
+.rec-title{ font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.2; margin: 0 0 10px; }
+.rec-text{ margin: 0 0 10px; font-size: .9rem; line-height: 1.6; color: var(--ink-2); }
+.rec-list{ margin: 0 0 18px; padding-left: 1.1em; font-size: .86rem; line-height: 1.6; color: var(--ink-2); }
+.rec-list li{ margin-bottom: 4px; }
+.rec-actions{ display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.rec-preview{ margin: 16px 0 0; font-size: .72rem; color: var(--ink-3); }
+.toast{ position: fixed; left: 50%; bottom: calc(86px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 95;
+  padding: 10px 16px; border-radius: var(--r-pill); background: var(--night); color: var(--night-ink); font-size: .8rem;
+  box-shadow: 0 14px 30px -16px rgba(0,0,0,.6); }
+.toast[hidden]{ display: none; }
 </style>
 
 </head>
@@ -1288,6 +1534,33 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
 })();
 </script>
 
+<div class="rec-bar" id="rec-bar" hidden role="status">
+  <span class="rec-dot" aria-hidden="true"></span>
+  <b>Recording This Session</b>
+  <span class="rec-sub">Screen only. No audio.</span>
+  <button class="rec-end" id="rec-end" type="button">End Session</button>
+</div>
+<div class="rec-modal" id="rec-modal" hidden role="dialog" aria-modal="true" aria-labelledby="rec-title">
+  <div class="rec-card">
+    <span class="rec-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 17v3.5"/><circle cx="12" cy="10.75" r="2.6" fill="currentColor" stroke="none"/></svg></span>
+    <p class="gate__eyebrow">Before You Write</p>
+    <h2 class="rec-title" id="rec-title">This Session Will Be Screen Recorded</h2>
+    <p class="rec-text">The recording captures what happens in this app while you write: your typing, edits,
+      deletions and the AI's replies. It does not record your voice, your face, or anything else on your device.</p>
+    <ul class="rec-list">
+      <li>A banner stays at the top of the screen while recording is on.</li>
+      <li>You can end the session at any time, and your writing is saved.</li>
+      <li>The recording is linked only to your participant ID.</li>
+    </ul>
+    <div class="rec-actions">
+      <button class="btn" id="rec-agree" type="button">I Agree, Start Writing</button>
+      <button class="chip" id="rec-later" type="button">Not Right Now</button>
+    </div>
+    <p class="rec-preview">Preview: nothing is recorded in this version of the app yet.</p>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
 <div class="app is-intro" id="app">
 
   <div class="topbar">
@@ -1319,6 +1592,7 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
       </button>
     </div>
     <div class="checkin__stats" id="checkin-stats"></div>
+    <button class="research-link" id="research-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg>About The Research</button>
   </section>
 
   <!-- ============ WRITE ============ -->
@@ -1340,12 +1614,15 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
     </div>
     <div class="deck-dots" id="deck-dots"></div>
 
-    <div class="workspace">
+    <div class="workspace" id="workspace">
 
       <div class="panel panel--story">
-        <div class="panel__head">
-          <h3>Story Space</h3>
-          <span class="panel__phase" id="story-phase"></span>
+        <div class="banner banner--story">
+          <span class="banner__titles">
+            <h3>Story Space</h3>
+            <span class="panel__phase" id="story-phase"></span>
+          </span>
+          <span class="banner__save" id="savestate">Saved Automatically</span>
         </div>
         <div class="instructions">
           <span class="instructions__label">Instructions</span>
@@ -1358,12 +1635,37 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
           <p class="voice-note" id="voice-note-mine" hidden></p>
         </div>
         <div class="panel__foot">
-          <span id="savestate">Saved Automatically</span>
+          <span class="foot__hint">Your words stay on this page until you choose to change them.</span>
           <button class="btn btn--sm" id="update-btn"><svg class="btn__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg><span id="update-label">Update Story</span></button>
         </div>
+        <button class="ai-tab ai-tab--bottom" id="ai-open-bottom" type="button" aria-controls="ai-panel" aria-expanded="false">
+          <span class="ai-tab__spark" aria-hidden="true"></span>
+          <span class="ai-tab__text"><b>The Undiagnosed AI</b><small>Ask for help with this part</small></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
+        </button>
       </div>
 
-      <div class="panel panel--ai">
+      <button class="ai-tab ai-tab--side" id="ai-open-side" type="button" aria-controls="ai-panel" aria-expanded="false" title="Open The Undiagnosed AI">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        <span class="ai-tab__spark" aria-hidden="true"></span>
+        <span class="ai-tab__label">The Undiagnosed AI</span>
+      </button>
+
+      <div class="panel panel--ai" id="ai-panel" role="region" aria-label="The Undiagnosed AI">
+        <div class="banner banner--ai">
+          <span class="orb" id="ai-orb" aria-hidden="true"></span>
+          <span class="banner__titles">
+            <b>The Undiagnosed AI</b>
+            <small id="ai-phase">Writing Companion</small>
+          </span>
+          <button class="ai-icon ai-only-sheet" id="ai-support" type="button" aria-label="Need Support?">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.3A4 4 0 0 1 12 8a4 4 0 0 1 7 2.7C19 15.6 12 20 12 20z"/></svg>
+          </button>
+          <button class="ai-icon" id="ai-close" type="button" aria-label="Close The AI">
+            <svg class="ai-only-wide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            <svg class="ai-only-sheet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
         <div class="ways">
           <button class="way-arrow" id="way-prev" aria-label="Previous Way In">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
@@ -1383,7 +1685,8 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
           </button>
         </div>
-        <p class="voice-note" id="voice-note-ask" hidden></p></div>
+        <p class="voice-note" id="voice-note-ask" hidden></p>
+        <p class="ai-foot">The AI can help you write. It never changes your story unless you add its words.</p></div>
       </div>
 
     </div>
@@ -1492,22 +1795,34 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
         </div>
       </div>
       <div id="comm-form">
-        <div class="comm-warn"><b>Before You Share</b>Other people in the study will be able to read
-          what you share here. Please take out anything that could identify you or someone else, like
-          names, places, doctors, clinics, hospitals, workplaces and dates. You can change the copy
-          below without changing your own story.</div>
-        <label class="field-label" for="comm-name">Name To Show (Optional)</label>
-        <input class="field" id="comm-name" maxlength="40" placeholder="Anonymous" autocomplete="off">
-        <label class="field-label" for="comm-text">The Copy You Will Share</label>
-        <textarea class="field" id="comm-text" maxlength="40000"></textarea>
-        <div class="comm-actions" style="margin-top:10px">
-          <button class="chip" id="comm-fill" type="button">Start Again From My Story</button>
+        <div class="comm-warn"><b>Before You Share</b>Other people in the study will be able to read what
+          you share. The app can walk you through your story to find names, places and dates, and you decide
+          what to keep. Sharing a copy never changes your own story.</div>
+        <div id="comm-step-upload">
+          <button class="btn" id="comm-upload" type="button"><svg class="btn__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Upload My Story</button>
+          <p class="comm-hint">This brings in a copy of everything you have written, in your reading order.</p>
         </div>
-        <label class="check"><input type="checkbox" id="comm-ok">
-          <span>I have taken out names, places and other details that could identify me or anyone else.</span></label>
-        <div class="comm-actions">
-          <button class="btn btn--sm" id="comm-share" disabled>Share With The Community</button>
-          <span class="comm-status" id="comm-status"></span>
+        <div id="comm-draft" hidden>
+          <label class="field-label" for="comm-title">Title (Optional)</label>
+          <input class="field" id="comm-title" maxlength="80" placeholder="Untitled" autocomplete="off">
+          <div class="comm-copy-head">
+            <span class="field-label">The Copy You Will Share</span>
+            <button class="btn btn--sm" id="comm-scan" type="button"><svg class="btn__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>Check For Names And Places</button>
+          </div>
+          <div class="comm-walk" id="comm-walk" hidden aria-live="polite"></div>
+          <div class="comm-preview" id="comm-preview"></div>
+          <textarea class="field" id="comm-text" maxlength="40000" hidden aria-label="Edit The Copy You Will Share"></textarea>
+          <p class="comm-legend" id="comm-legend" hidden><span class="anon-key">[name]</span> Changed for you. Tap any change to undo it.</p>
+          <div class="comm-actions" style="margin-top:12px">
+            <button class="chip" id="comm-editcopy" type="button">Edit The Copy Myself</button>
+            <button class="chip" id="comm-fill" type="button">Upload Again From My Story</button>
+          </div>
+          <label class="check"><input type="checkbox" id="comm-ok">
+            <span>I have checked my story and taken out anything that could identify me or anyone else.</span></label>
+          <div class="comm-actions">
+            <button class="btn btn--sm" id="comm-share" disabled>Share With The Community</button>
+            <span class="comm-status" id="comm-status"></span>
+          </div>
         </div>
       </div>
     </div>
@@ -1518,12 +1833,9 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
   <section class="view" id="view-learn">
     <p class="eyebrow">Understanding What Is Happening</p>
     <h1 class="display">Learning Hub</h1>
-    <p class="lede">Three short reels about medically unexplained symptoms, writing, and this study. Each one
+    <p class="lede">Below you will find three short reels about medically unexplained symptoms, writing, and this study. Each one
       opens with a short film, then a narrator talks you through it. Use the arrows or swipe to move, and tap to pause. Once you have
       finished all three, your writing space will open up.</p>
-    <button class="support-btn research-btn" id="research-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2zM4 19.5A2 2 0 0 0 6 21.5h13"/><path d="M9 7h6M9 10.5h4"/></svg>
-      See The Research Behind This App
-    </button>
     <div class="status-row" id="reel-status"></div>
     <div class="reel-covers" id="reel-covers"></div>
   </section>
@@ -1534,7 +1846,7 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
     <div>
       <button class="back-link" id="research-back">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
-        Learning Hub
+        <span id="research-back-label">Back</span>
       </button>
     </div>
     <p class="eyebrow">Why It Works The Way It Does</p>
@@ -1542,48 +1854,47 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
     <p class="lede">Every part of The Undiagnosed: Story Space was shaped by research on illness
       writing, digital health and AI. Open a section to see the studies and what they led to in the app.</p>
     <details class="rs">
-      <summary>How The App Is Designed <span>15 Choices</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+      <summary>How The App Is Designed <span>14 Choices</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
       <div class="rs__body">
-<div class="rs-item"><h3>Your Words Stay Yours</h3><p>Draxler and colleagues ran two studies, with 30 and 96 people, on writing with AI. People often felt that sentences the AI wrote did not really belong to them, yet they still put only their own name on the finished piece. The more a person shaped the text themselves, the more it felt like theirs. Couser argues that who controls an ill or disabled person's story is an ethical question in its own right.</p><p class="rs-app"><b>In This App</b>The AI's replies sit in a tinted bubble and your writing sits on white paper, so you can always tell at a glance who wrote what.</p><p class="rs-cite">Draxler et al.; Couser, <i>Vulnerable Subjects</i></p></div>
-<div class="rs-item"><h3>Only You Can Change Your Story</h3><p>Huang and Saksono designed an AI storytelling assistant for health stories and decided on purpose that the AI would help people tell their story but would not write it, so the story stayed authentic. Chan built a narrative therapy chatbot around a “not-knowing” stance, where the person's own story stays at the centre and the AI does not hand out answers.</p><p class="rs-app"><b>In This App</b>The AI cannot type into Your Story. Its words only go in if you press Add To My Story.</p><p class="rs-cite">Huang and Saksono; Chan; Draxler et al.</p></div>
-<div class="rs-item"><h3>Eight Parts, One Step at a Time</h3><p>Kim and colleagues tested MindfulDiary, an AI journaling app, for four weeks with 28 patients living with depression. The AI was set to behave differently at each stage of the conversation, which kept it inside guidelines written by mental health experts, and patients wrote fuller entries. In a study with 230 people, Feng and colleagues found that an AI which planned its questions in stages did better than a standard one. Chan and colleagues describe good narrative conversations as moving forward in steps.</p><p class="rs-app"><b>In This App</b>Each of the eight moon phases has its own writing prompt, and the AI always knows which part you are working on.</p><p class="rs-cite">Kim et al.; Feng et al.; Chan et al., “Indicators”</p></div>
-<div class="rs-item"><h3>Starting Is the Hardest Part</h3><p>Jennings, a writing scholar with ADHD, finds AI most useful for the parts of writing that are hardest to begin: getting started, organizing and brainstorming. In an eight-week study with 20 students, Nepal and colleagues found that people preferred writing prompts based on their own lives over generic ones. In a study of 30 people, Park and colleagues found that writing to a chatbot encouraged people to tell their experience as a story.</p><p class="rs-app"><b>In This App</b>Give Me A Way In offers one small, specific place to begin, like a single moment or detail, rather than a big question about feelings.</p><p class="rs-cite">Jennings; Nepal et al.; Park et al.</p></div>
-<div class="rs-item"><h3>Typing First, Voice When You Need It</h3><p>Norihama and colleagues studied a mobile writing chatbot with two groups of 28 and 36 people. Most chose typing over voice messages, because typing felt more private and they could read back and edit what they wrote. Jennings notes that speech-to-text helps some writers get words down when typing is hard.</p><p class="rs-app"><b>In This App</b>Typing is the main way to write. A Speak button lets you talk instead, for days when typing is too much.</p><p class="rs-cite">Norihama et al.; Jennings</p></div>
-<div class="rs-item"><h3>Made for Low-Energy Days</h3><p>In workshops with 13 people living with long COVID, Sas and colleagues heard that symptoms changing from day to day were hard to keep track of, and participants asked for simple tools that do not add work. Homewood, who lives with long COVID, used a fitness tracker for 18 months and ended up using it to do less, not more. She argues that technology should respect a body whose energy rises and falls.</p><p class="rs-app"><b>In This App</b>Everything saves as you go. You can stop mid-sentence and come back days later, and the app never comments on time away.</p><p class="rs-cite">Sas et al.; Homewood</p></div>
-<div class="rs-item"><h3>No Streaks, No Pressure</h3><p>Homewood found that tools built to push people to do more do not suit illness that comes and goes. Sosnowy studied 40 blogs by women with multiple sclerosis. Blogging helped them learn and push back against doctors, but it also added pressure to manage their illness “well.”</p><p class="rs-app"><b>In This App</b>The word count is just information. There are no daily goals, streaks or reminders.</p><p class="rs-cite">Homewood; Sosnowy</p></div>
-<div class="rs-item"><h3>A Calm, Serious Tone</h3><p>Cheng and colleagues interviewed middle-aged and older adults living with chronic pain about mental health apps. They warned against apps that sound overly cheerful, casual or childish about serious things.</p><p class="rs-app"><b>In This App</b>Muted colours throughout, and no exclamation marks, emojis or cartoon characters.</p><p class="rs-cite">Cheng et al.</p></div>
-<div class="rs-item"><h3>Room for Messy, Unfinished Stories</h3><p>Frank describes three kinds of illness story: restitution (getting better), chaos (no order and no end) and quest (finding meaning). Nettleton interviewed people living with unexplained neurological symptoms and found that uncertainty and chaos ran through their accounts. Hawkins shows that illness memoirs often fall into stock shapes, like a battle or a journey, that do not fit everyone.</p><p class="rs-app"><b>In This App</b>You can skip parts, write them in any order and drag them into a new reading order. Your story does not need an ending.</p><p class="rs-cite">Frank; Nettleton; Hawkins</p></div>
-<div class="rs-item"><h3>Support Is Always One Tap Away</h3><p>Chen and colleagues adapted six trauma-informed principles for technology: safety, trust, peer support, collaboration, enablement and intersectionality. They argue that technology can harm people who have already been through hard experiences when these principles are ignored.</p><p class="rs-app"><b>In This App</b>The Need Support? button stays at the top of every screen.</p><p class="rs-cite">Chen et al.</p></div>
-<div class="rs-item"><h3>Bringing Your Story to an Appointment</h3><p>In <i>Hyperandrogenism and the Marginalization of Pathologized Bodies</i>, Perram worked with ten women and nonbinary people living with hyperandrogenism who wrote their illness stories as digital hypertext. Participants believed their stories should do two jobs: help them reflect, and teach the wider social and medical community about their experience, including as a teaching tool for healthcare providers. Perram also draws on Couser's point that when a doctor retells a person's illness as “the patient's disease,” the person can lose authority over their own story.<br><br>Other research points the same way. In the MindfulDiary study, psychiatrists said reading their patients' entries helped them understand those patients and feel more empathy for them (Kim et al.). White and Epston made written documents a core part of narrative therapy. But when Ayre and colleagues asked ChatGPT to simplify 26 health texts, it kept only about 80% of the key messages, so an AI summary can drop important points.</p><p class="rs-app"><b>In This App</b>Put My Story In Orbit turns your writing into an account for an appointment, in your own words rather than clinical ones. Always read it over before you use it.</p><p class="rs-cite">Perram; Couser, <i>Recovering Bodies</i>; Kim et al.; White and Epston; Ayre et al.</p></div>
-<div class="rs-item"><h3>A Community Story Space</h3><p>In Perram's study, sharing was always optional. Participants could add their finished stories to a shared space, set up to build community, where they could read each other's work, and all ten chose to share. Perram argues that these stories do their most important work when they reach a wider community, not only the person who wrote them.<br><br>Other studies support this. People with unexplained symptoms in a facilitated support group said hearing from others with similar experiences made them feel validated, helped them cope and gave them new ways to talk to doctors (Marcinow et al.). People living with long COVID used online groups to pool what they knew and to push back when doctors dismissed them (Jayadeva and Lupton).</p><p class="rs-app"><b>In This App</b>The Community Story Space lets you read other participants' stories and, if you choose, share your own. You are reminded to take out names and other identifying details first, and you can take your story down at any time.</p><p class="rs-cite">Perram; Marcinow et al.; Jayadeva and Lupton</p></div>
-<div class="rs-item"><h3>Your Own Way Through</h3><p>Toonders and colleagues studied an online program for people with medically unexplained symptoms and found it worked when it was matched to each person's situation and motivations.</p><p class="rs-app"><b>In This App</b>Eight Ways In, a free question box, and the freedom to skip or reorder parts all let you shape the app around you.</p><p class="rs-cite">Toonders et al.</p></div>
-<div class="rs-item"><h3>Language That Includes Everyone</h3><p>A 2025 review found somatic symptom disorders in 6 to 9.7% of transgender people, compared with 5 to 7% of the general population (Bradlow et al.). In German health records, 9.7% of transgender patients had a somatoform disorder, compared with 5.8% of cisgender patients (Konrad and Kostev). A review of 26 studies found some evidence of higher rates of functional disorders among sexual and gender minority people (Lerario et al.).</p><p class="rs-app"><b>In This App</b>The app speaks to women and gender-diverse people, and the AI never assumes your gender.</p><p class="rs-cite">Bradlow et al.; Konrad and Kostev; Lerario et al.</p></div>
-<div class="rs-item"><h3>Real Images, Not AI Images</h3><p>Varela-Rodríguez and Plage analyzed 262 AI-generated images about cancer. Most showed white women, repeating existing biases, and getting more inclusive images took expert prompting that most people would not know how to do.</p><p class="rs-app"><b>In This App</b>The moon you see throughout the app is a real photograph, and no images in the app are made by AI.</p><p class="rs-cite">Varela-Rodríguez and Plage</p></div>
+<div class="rs-item"><h3>Showing Who Wrote What</h3><p>Draxler and colleagues ran two studies, with 30 and 96 people, on writing with AI. People often felt that sentences the AI wrote did not really belong to them, yet they still put only their own name on the finished piece. The more a person shaped the text themselves, the more it felt like theirs. Couser argues that who controls an ill or disabled person's story is an ethical question in its own right.</p><p class="rs-app"><b>In This App</b>The AI's replies appear in coloured bubbles inside the dark AI panel, and your own writing sits on the paper of the writing box, so you can always tell who wrote what.</p><p class="rs-cite">Draxler et al.; Couser, <i>Vulnerable Subjects</i></p></div>
+<div class="rs-item"><h3>The AI Cannot Edit Your Writing</h3><p>Huang and Saksono designed an AI storytelling assistant for health stories and decided on purpose that the AI would help people tell their story but would not write it, so the story stayed authentic. Chan built a narrative therapy chatbot around a “not-knowing” stance, where the person's own story stays at the centre and the AI does not hand out answers.</p><p class="rs-app"><b>In This App</b>The AI cannot type into Your Story. Its words only go in if you press Add To My Story.</p><p class="rs-cite">Huang and Saksono; Chan; Draxler et al.</p></div>
+<div class="rs-item"><h3>Writing in Eight Parts</h3><p>Kim and colleagues tested MindfulDiary, an AI journaling app, for four weeks with 28 patients living with depression. The AI was set to behave differently at each stage of the conversation, which kept it inside guidelines written by mental health experts, and patients wrote fuller entries. In a study with 230 people, Feng and colleagues found that an AI which planned its questions in stages did better than a standard one. Chan and colleagues describe good narrative conversations as moving forward in steps.</p><p class="rs-app"><b>In This App</b>Each of the eight moon phases has its own writing prompt, and the AI always knows which part you are working on.</p><p class="rs-cite">Kim et al.; Feng et al.; Chan et al., “Indicators”</p></div>
+<div class="rs-item"><h3>Help With Getting Started</h3><p>Jennings, a writing scholar with ADHD, finds AI most useful for the parts of writing that are hardest to begin: getting started, organizing and brainstorming. In an eight-week study with 20 students, Nepal and colleagues found that people preferred writing prompts based on their own lives over generic ones. In a study of 30 people, Park and colleagues found that writing to a chatbot encouraged people to tell their experience as a story.</p><p class="rs-app"><b>In This App</b>Give Me A Way In offers one small, specific place to begin, like a single moment or detail, rather than a big question about feelings.</p><p class="rs-cite">Jennings; Nepal et al.; Park et al.</p></div>
+<div class="rs-item"><h3>Typing and Voice Typing</h3><p>Norihama and colleagues studied a mobile writing chatbot with two groups of 28 and 36 people. Most chose typing over voice messages, because typing felt more private and they could read back and edit what they wrote. Jennings notes that speech-to-text helps some writers get words down when typing is hard.</p><p class="rs-app"><b>In This App</b>Typing is the main way to write. A Speak button lets you talk instead, for days when typing is too much.</p><p class="rs-cite">Norihama et al.; Jennings</p></div>
+<div class="rs-item"><h3>Automatic Saving</h3><p>In workshops with 13 people living with long COVID, Sas and colleagues heard that symptoms changing from day to day were hard to keep track of, and participants asked for simple tools that do not add work. Homewood, who lives with long COVID, used a fitness tracker for 18 months and ended up using it to do less, not more. She argues that technology should respect a body whose energy rises and falls.</p><p class="rs-app"><b>In This App</b>Everything saves as you go. You can stop mid-sentence and come back days later, and the app never comments on time away.</p><p class="rs-cite">Sas et al.; Homewood</p></div>
+<div class="rs-item"><h3>No Goals or Reminders</h3><p>Homewood found that tools built to push people to do more do not suit illness that comes and goes. Sosnowy studied 40 blogs by women with multiple sclerosis. Blogging helped them learn and push back against doctors, but it also added pressure to manage their illness “well.”</p><p class="rs-app"><b>In This App</b>The word count is just information. There are no daily goals, streaks or reminders.</p><p class="rs-cite">Homewood; Sosnowy</p></div>
+<div class="rs-item"><h3>Colours and Tone</h3><p>Cheng and colleagues interviewed middle-aged and older adults living with chronic pain about mental health apps. They warned against apps that sound overly cheerful, casual or childish about serious things.</p><p class="rs-app"><b>In This App</b>Muted colours throughout, and no exclamation marks, emojis or cartoon characters.</p><p class="rs-cite">Cheng et al.</p></div>
+<div class="rs-item"><h3>Writing in Any Order</h3><p>Frank describes three kinds of illness story: restitution (getting better), chaos (no order and no end) and quest (finding meaning). Nettleton interviewed people living with unexplained neurological symptoms and found that uncertainty and chaos ran through their accounts. Hawkins shows that illness memoirs often fall into stock shapes, like a battle or a journey, that do not fit everyone.</p><p class="rs-app"><b>In This App</b>You can skip parts, write them in any order and drag them into a new reading order. Your story does not need an ending.</p><p class="rs-cite">Frank; Nettleton; Hawkins</p></div>
+<div class="rs-item"><h3>The Need Support? Button</h3><p>Chen and colleagues adapted six trauma-informed principles for technology: safety, trust, peer support, collaboration, enablement and intersectionality. They argue that technology can harm people who have already been through hard experiences when these principles are ignored.</p><p class="rs-app"><b>In This App</b>The Need Support? button stays at the top of every screen.</p><p class="rs-cite">Chen et al.</p></div>
+<div class="rs-item"><h3>Put My Story In Orbit</h3><p>In <i>Hyperandrogenism and the Marginalization of Pathologized Bodies</i>, Perram worked with ten women and nonbinary people living with hyperandrogenism who wrote their illness stories as digital hypertext. Participants believed their stories should do two jobs: help them reflect, and teach the wider social and medical community about their experience, including as a teaching tool for healthcare providers. Perram also draws on Couser's point that when a doctor retells a person's illness as “the patient's disease,” the person can lose authority over their own story.<br><br>Other research points the same way. In the MindfulDiary study, psychiatrists said reading their patients' entries helped them understand those patients and feel more empathy for them (Kim et al.). White and Epston made written documents a core part of narrative therapy. But when Ayre and colleagues asked ChatGPT to simplify 26 health texts, it kept only about 80% of the key messages, so an AI summary can drop important points.</p><p class="rs-app"><b>In This App</b>Put My Story In Orbit turns your writing into an account for an appointment, in your own words rather than clinical ones. Always read it over before you use it.</p><p class="rs-cite">Perram; Couser, <i>Recovering Bodies</i>; Kim et al.; White and Epston; Ayre et al.</p></div>
+<div class="rs-item"><h3>Community Story Space</h3><p>In Perram's study, sharing was always optional. Participants could add their finished stories to a shared space, set up to build community, where they could read each other's work, and all ten chose to share. Perram argues that these stories do their most important work when they reach a wider community, not only the person who wrote them.<br><br>Other studies support this. People with unexplained symptoms in a facilitated support group said hearing from others with similar experiences made them feel validated, helped them cope and gave them new ways to talk to doctors (Marcinow et al.). People living with long COVID used online groups to pool what they knew and to push back when doctors dismissed them (Jayadeva and Lupton).</p><p class="rs-app"><b>In This App</b>The Community Story Space lets you read other participants' stories and, if you choose, share your own. You are reminded to take out names and other identifying details first, and you can take your story down at any time.</p><p class="rs-cite">Perram; Marcinow et al.; Jayadeva and Lupton</p></div>
+<div class="rs-item"><h3>Choosing How to Use the App</h3><p>Toonders and colleagues studied an online program for people with medically unexplained symptoms and found it worked when it was matched to each person's situation and motivations.</p><p class="rs-app"><b>In This App</b>Eight Ways In, a free question box, and the freedom to skip or reorder parts all let you shape the app around you.</p><p class="rs-cite">Toonders et al.</p></div>
+<div class="rs-item"><h3>Inclusive Language</h3><p>A 2025 review found somatic symptom disorders in 6 to 9.7% of transgender people, compared with 5 to 7% of the general population (Bradlow et al.). In German health records, 9.7% of transgender patients had a somatoform disorder, compared with 5.8% of cisgender patients (Konrad and Kostev). A review of 26 studies found some evidence of higher rates of functional disorders among sexual and gender minority people (Lerario et al.).</p><p class="rs-app"><b>In This App</b>The app speaks to women and gender-diverse people, and the AI never assumes your gender.</p><p class="rs-cite">Bradlow et al.; Konrad and Kostev; Lerario et al.</p></div>
       </div>
     </details>
     <details class="rs">
       <summary>How The AI Responds <span>19 Choices</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
       <div class="rs__body">
         <p class="rs__intro">The Undiagnosed AI is a writing companion, not a therapist. Its job is to help you find words for your own experience. It draws on ideas from narrative practice, and the studies below shaped how it is set up to respond.</p>
-<div class="rs-item"><h3>It Never Guesses at a Diagnosis</h3><p>When Kuroiwa and colleagues asked ChatGPT to self-diagnose common bone and joint problems, it was right 100% of the time for carpal tunnel but only 4% of the time for cervical myelopathy, and it rarely told people to see a doctor. Jang and colleagues found autistic adults trusted AI advice more than human advice, even when a job coach found some of it questionable. In a UK clinic, Sanders and colleagues found the explanations that helped patients were worked out together with their doctors over time.</p><p class="rs-app"><b>In This App</b>The AI never names, guesses at or rules out a diagnosis or cause.</p><p class="rs-cite">Kuroiwa et al.; Jang et al.; Sanders et al.</p></div>
+<div class="rs-item"><h3>No Diagnoses</h3><p>When Kuroiwa and colleagues asked ChatGPT to self-diagnose common bone and joint problems, it was right 100% of the time for carpal tunnel but only 4% of the time for cervical myelopathy, and it rarely told people to see a doctor. Jang and colleagues found autistic adults trusted AI advice more than human advice, even when a job coach found some of it questionable. In a UK clinic, Sanders and colleagues found the explanations that helped patients were worked out together with their doctors over time.</p><p class="rs-app"><b>In This App</b>The AI never names, guesses at or rules out a diagnosis or cause.</p><p class="rs-cite">Kuroiwa et al.; Jang et al.; Sanders et al.</p></div>
 <div class="rs-item"><h3>No Medical Advice</h3><p>Bushuven and colleagues tested ChatGPT on 22 child emergencies. It named the right problem 94% of the time, but told parents to call emergency services in only 54% of cases and gave correct first aid in only 45%. An AI can sound right and still be unsafe. McGreevey and colleagues list safety among the key questions for any health chatbot.</p><p class="rs-app"><b>In This App</b>The AI does not suggest tests, treatments, supplements or what to do about symptoms.</p><p class="rs-cite">Bushuven et al.; McGreevey et al.</p></div>
-<div class="rs-item"><h3>It Believes You</h3><p>Nettleton found that the biggest struggle for people with unexplained symptoms was being accepted as genuinely ill without a disease to point to. Scott and colleagues argue the “medically unexplained symptoms” label is no longer valid and that the cognitive behavioural treatment model often used with it rests on weak evidence. When Raile tested ChatGPT on therapy conversations, it leaned heavily on cognitive behavioural therapy and mindfulness.</p><p class="rs-app"><b>In This App</b>The AI takes what you write as true. It never suggests symptoms are stress or in your head, and it does not try to reframe your thoughts.</p><p class="rs-cite">Nettleton; Scott et al.; Raile</p></div>
-<div class="rs-item"><h3>It Never Writes Your Story</h3><p>People do not feel that AI-written text is really theirs (Draxler et al.). Huang and Saksono, and Chan, both designed their tools so the AI helps but does not write.</p><p class="rs-app"><b>In This App</b>When you are looking for a word, the AI may offer two or three short options. You choose, and you type it yourself.</p><p class="rs-cite">Draxler et al.; Huang and Saksono; Chan</p></div>
-<div class="rs-item"><h3>Not a Therapist, Doctor or Friend</h3><p>Across four studies with 556 people, Ovsyannikova and colleagues found readers rated AI replies as more caring than replies from trained crisis workers, even when they knew which was which. That makes AI warmth very convincing. Chan concluded that his narrative therapy chatbot should be a modest helper, not a source of solutions. Barzkar and colleagues describe a patient who came to treat ChatGPT almost like a person.</p><p class="rs-app"><b>In This App</b>The AI always presents itself as a writing companion.</p><p class="rs-cite">Ovsyannikova et al.; Chan; Barzkar et al.</p></div>
-<div class="rs-item"><h3>In a Crisis, It Points to People</h3><p>In 2025, a news report described a woman who died by suicide after relying on an AI chatbot for therapy (Whiteside). A review of mental health chatbots found the field lacked proper safety testing (Bendig et al.), and trauma-informed design puts safety first (Chen et al.).</p><p class="rs-app"><b>In This App</b>If you seem to be in danger, the AI says so gently and points you to the Need Support? button, where 9-8-8 and other lines are staffed by people.</p><p class="rs-cite">Whiteside; Bendig et al.; Chen et al.</p></div>
-<div class="rs-item"><h3>Curious, Not Knowing</h3><p>Chan's chatbot used a “not-knowing” stance, which assumes the person is the expert on their own life, and social work students valued that it centred their story instead of giving advice (Chan; Chan et al., “Our Journey”). White's narrative practice is built on asking questions rather than giving interpretations.</p><p class="rs-app"><b>In This App</b>The AI asks rather than tells.</p><p class="rs-cite">Chan; Chan et al., “Our Journey”; White, <i>Maps</i></p></div>
-<div class="rs-item"><h3>Your Words, Not Medical Words</h3><p>Nettleton's participants resisted having their experience translated into psychological terms. Rettberg shows that AI tends to flatten stories into the most common patterns it has seen. Couser argues that illness writing is how people take their body's story back from medical accounts.</p><p class="rs-app"><b>In This App</b>The AI mirrors your own language back to you instead of clinical terms or labels.</p><p class="rs-cite">Nettleton; Rettberg; Couser, <i>Recovering Bodies</i></p></div>
-<div class="rs-item"><h3>No Push to Recover or Inspire</h3><p>Frank shows that the “getting better” story is the one society wants, and that it silences people whose illness has no end. Hawkins traces how illness memoirs fall into battle and journey myths, and Couser notes that disability memoirs are often pushed into triumph stories. Gadiraju and colleagues found that AI often produced inspiration stories about disabled people.</p><p class="rs-app"><b>In This App</b>The AI does not steer your story toward recovery, a lesson or a happy ending.</p><p class="rs-cite">Frank; Hawkins; Couser, <i>Signifying Bodies</i>; Gadiraju et al.</p></div>
-<div class="rs-item"><h3>You Don't Have to Stay Positive</h3><p>Groenevelt found that Dutch women with contested illnesses posted mostly positive content online, with only glimpses of hardship, so they would seem legitimately ill. Sosnowy found that women blogging about multiple sclerosis felt pressure to manage their illness well.</p><p class="rs-app"><b>In This App</b>Hardship, anger and grief all belong in your story, and the AI will not ask you to look on the bright side.</p><p class="rs-cite">Groenevelt; Sosnowy</p></div>
-<div class="rs-item"><h3>No Promises That Writing Heals</h3><p>A review of 146 studies by Frattaroli found that writing about difficult experiences has a real but small positive effect on wellbeing. That is not enough to promise anyone it will help them.</p><p class="rs-app"><b>In This App</b>The AI does not promise that writing will heal you or tell you how to feel.</p><p class="rs-cite">Frattaroli; Frank</p></div>
-<div class="rs-item"><h3>Naming the Problem, Gently</h3><p>In narrative therapy, externalizing means naming a problem as something outside the person (White and Epston). Madigan traces the idea to Foucault's work on how institutions shape how people see themselves. Haber and colleagues tested AI tools for externalizing, but always with a therapist in the room.</p><p class="rs-app"><b>In This App</b>Because there is no therapist here, the AI only ever offers this as an option, and never insists.</p><p class="rs-cite">White and Epston; Madigan; Haber et al.</p></div>
-<div class="rs-item"><h3>Close Up First, Bigger Meaning Later</h3><p>White's idea of scaffolding moves from what is close to a person's experience toward bigger ideas, one step at a time. When Ramey and colleagues coded real therapy sessions with children, most of what was said fit White's steps, and the children responded to them. Chan and colleagues use these steps to judge whether a narrative conversation is working.</p><p class="rs-app"><b>In This App</b>The AI starts with a specific moment, detail or person before asking what something meant.</p><p class="rs-cite">White, <i>Maps</i>; Ramey et al.; Chan et al., “Indicators”</p></div>
-<div class="rs-item"><h3>Room for People and Systems</h3><p>Combs and Freedman explain that identity is shaped through relationships, not formed alone. Dumaresque and colleagues argue that narrative practice should be political and connect personal problems to wider unfairness.</p><p class="rs-app"><b>In This App</b>Your story can include doctors, family, work, money and institutions. If you connect your experience to wider unfairness, the AI follows you there, but it never pushes a political reading you did not offer.</p><p class="rs-cite">Combs and Freedman; Dumaresque et al.</p></div>
-<div class="rs-item"><h3>No Assumptions About Who You Are</h3><p>Abid and colleagues found GPT-3 matched “Muslim” to “terrorist” in 23% of analogy tests. Gadiraju and colleagues found that disabled people noticed subtle stereotypes in AI replies, and Jang and colleagues found autistic adults trusted AI advice that an expert found questionable. Functional symptoms are also more common among transgender people (Bradlow et al.).</p><p class="rs-app"><b>In This App</b>The AI does not assume your gender, age, culture, body, income or abilities, and does not change its answers based on who it thinks you are.</p><p class="rs-cite">Abid et al.; Gadiraju et al.; Jang et al.; Bradlow et al.</p></div>
-<div class="rs-item"><h3>No Identifying Details</h3><p>Trauma-informed design puts safety and trust first (Chen et al.). In Norihama and colleagues' mobile writing study, privacy was the main reason people chose typing over voice.</p><p class="rs-app"><b>In This App</b>The AI does not ask for names, places or other identifying details, and does not repeat them back if you share them.</p><p class="rs-cite">Chen et al.; Norihama et al.</p></div>
-<div class="rs-item"><h3>No Steering</h3><p>Zohny and colleagues showed that GPT-4 can be set to talk in the styles of different kinds of doctor, and warned that AI can quietly persuade people or reinforce what they already believe.</p><p class="rs-app"><b>In This App</b>The AI's questions open things up rather than lead you toward an answer.</p><p class="rs-cite">Zohny et al.</p></div>
-<div class="rs-item"><h3>Not Something to Lean On</h3><p>Neurodivergent people discussing AI online worried about relying on it too much and having it replace human contact (Carik et al.). Barzkar and colleagues describe a patient who began to treat ChatGPT almost like a person.</p><p class="rs-app"><b>In This App</b>The AI does not encourage you to rely on it. If you mention feeling alone, it notices the people and supports you have already written about.</p><p class="rs-cite">Carik et al.; Barzkar et al.</p></div>
-<div class="rs-item"><h3>Short, Plain and Calm</h3><p>Adults living with chronic pain disliked apps that sounded cheerful or childish (Cheng et al.). When ChatGPT simplified health texts, they still came out at about a grade 11 reading level (Ayre et al.), but with clear instructions its answers to parents averaged a grade 8.7 level (Hunter et al.). In Norihama and colleagues' study, a simple acknowledgement felt like being listened to.</p><p class="rs-app"><b>In This App</b>The AI replies in two to four plain sentences, with at most one question.</p><p class="rs-cite">Cheng et al.; Ayre et al.; Hunter et al.; Norihama et al.</p></div>
+<div class="rs-item"><h3>Taking Your Account as True</h3><p>Nettleton found that the biggest struggle for people with unexplained symptoms was being accepted as genuinely ill without a disease to point to. Scott and colleagues argue the “medically unexplained symptoms” label is no longer valid and that the cognitive behavioural treatment model often used with it rests on weak evidence. When Raile tested ChatGPT on therapy conversations, it leaned heavily on cognitive behavioural therapy and mindfulness.</p><p class="rs-app"><b>In This App</b>The AI takes what you write as true. It never suggests symptoms are stress or in your head, and it does not try to reframe your thoughts.</p><p class="rs-cite">Nettleton; Scott et al.; Raile</p></div>
+<div class="rs-item"><h3>The AI Does Not Write Your Story</h3><p>People do not feel that AI-written text is really theirs (Draxler et al.). Huang and Saksono, and Chan, both designed their tools so the AI helps but does not write.</p><p class="rs-app"><b>In This App</b>When you are looking for a word, the AI may offer two or three short options. You choose, and you type it yourself.</p><p class="rs-cite">Draxler et al.; Huang and Saksono; Chan</p></div>
+<div class="rs-item"><h3>A Writing Companion Only</h3><p>Across four studies with 556 people, Ovsyannikova and colleagues found readers rated AI replies as more caring than replies from trained crisis workers, even when they knew which was which. That makes AI warmth very convincing. Chan concluded that his narrative therapy chatbot should be a modest helper, not a source of solutions. Barzkar and colleagues describe a patient who came to treat ChatGPT almost like a person.</p><p class="rs-app"><b>In This App</b>The AI always presents itself as a writing companion.</p><p class="rs-cite">Ovsyannikova et al.; Chan; Barzkar et al.</p></div>
+<div class="rs-item"><h3>Crisis Support</h3><p>In 2025, a news report described a woman who died by suicide after relying on an AI chatbot for therapy (Whiteside). A review of mental health chatbots found the field lacked proper safety testing (Bendig et al.), and trauma-informed design puts safety first (Chen et al.).</p><p class="rs-app"><b>In This App</b>If you seem to be in danger, the AI says so gently and points you to the Need Support? button, where 9-8-8 and other lines are staffed by people.</p><p class="rs-cite">Whiteside; Bendig et al.; Chen et al.</p></div>
+<div class="rs-item"><h3>Asking Instead of Telling</h3><p>Chan's chatbot used a “not-knowing” stance, which assumes the person is the expert on their own life, and social work students valued that it centred their story instead of giving advice (Chan; Chan et al., “Our Journey”). White's narrative practice is built on asking questions rather than giving interpretations.</p><p class="rs-app"><b>In This App</b>The AI asks rather than tells.</p><p class="rs-cite">Chan; Chan et al., “Our Journey”; White, <i>Maps</i></p></div>
+<div class="rs-item"><h3>Using Your Own Words</h3><p>Nettleton's participants resisted having their experience translated into psychological terms. Rettberg shows that AI tends to flatten stories into the most common patterns it has seen. Couser argues that illness writing is how people take their body's story back from medical accounts.</p><p class="rs-app"><b>In This App</b>The AI mirrors your own language back to you instead of clinical terms or labels.</p><p class="rs-cite">Nettleton; Rettberg; Couser, <i>Recovering Bodies</i></p></div>
+<div class="rs-item"><h3>No Set Story Arc</h3><p>Frank shows that the “getting better” story is the one society wants, and that it silences people whose illness has no end. Hawkins traces how illness memoirs fall into battle and journey myths, and Couser notes that disability memoirs are often pushed into triumph stories. Gadiraju and colleagues found that AI often produced inspiration stories about disabled people.</p><p class="rs-app"><b>In This App</b>The AI does not steer your story toward recovery, a lesson or a happy ending.</p><p class="rs-cite">Frank; Hawkins; Couser, <i>Signifying Bodies</i>; Gadiraju et al.</p></div>
+<div class="rs-item"><h3>Room for Hardship</h3><p>Groenevelt found that Dutch women with contested illnesses posted mostly positive content online, with only glimpses of hardship, so they would seem legitimately ill. Sosnowy found that women blogging about multiple sclerosis felt pressure to manage their illness well.</p><p class="rs-app"><b>In This App</b>Hardship, anger and grief all belong in your story, and the AI will not ask you to look on the bright side.</p><p class="rs-cite">Groenevelt; Sosnowy</p></div>
+<div class="rs-item"><h3>No Promises About Healing</h3><p>A review of 146 studies by Frattaroli found that writing about difficult experiences has a real but small positive effect on wellbeing. That is not enough to promise anyone it will help them.</p><p class="rs-app"><b>In This App</b>The AI does not promise that writing will heal you or tell you how to feel.</p><p class="rs-cite">Frattaroli; Frank</p></div>
+<div class="rs-item"><h3>Externalizing</h3><p>In narrative therapy, externalizing means naming a problem as something outside the person (White and Epston). Madigan traces the idea to Foucault's work on how institutions shape how people see themselves. Haber and colleagues tested AI tools for externalizing, but always with a therapist in the room.</p><p class="rs-app"><b>In This App</b>Because there is no therapist here, the AI only ever offers this as an option, and never insists.</p><p class="rs-cite">White and Epston; Madigan; Haber et al.</p></div>
+<div class="rs-item"><h3>Specific Details First</h3><p>White's idea of scaffolding moves from what is close to a person's experience toward bigger ideas, one step at a time. When Ramey and colleagues coded real therapy sessions with children, most of what was said fit White's steps, and the children responded to them. Chan and colleagues use these steps to judge whether a narrative conversation is working.</p><p class="rs-app"><b>In This App</b>The AI starts with a specific moment, detail or person before asking what something meant.</p><p class="rs-cite">White, <i>Maps</i>; Ramey et al.; Chan et al., “Indicators”</p></div>
+<div class="rs-item"><h3>Writing About People and Institutions</h3><p>Combs and Freedman explain that identity is shaped through relationships, not formed alone. Dumaresque and colleagues argue that narrative practice should be political and connect personal problems to wider unfairness.</p><p class="rs-app"><b>In This App</b>Your story can include doctors, family, work, money and institutions. If you connect your experience to wider unfairness, the AI follows you there, but it never pushes a political reading you did not offer.</p><p class="rs-cite">Combs and Freedman; Dumaresque et al.</p></div>
+<div class="rs-item"><h3>No Assumptions About Identity</h3><p>Abid and colleagues found GPT-3 matched “Muslim” to “terrorist” in 23% of analogy tests. Gadiraju and colleagues found that disabled people noticed subtle stereotypes in AI replies, and Jang and colleagues found autistic adults trusted AI advice that an expert found questionable. Functional symptoms are also more common among transgender people (Bradlow et al.).</p><p class="rs-app"><b>In This App</b>The AI does not assume your gender, age, culture, body, income or abilities, and does not change its answers based on who it thinks you are.</p><p class="rs-cite">Abid et al.; Gadiraju et al.; Jang et al.; Bradlow et al.</p></div>
+<div class="rs-item"><h3>Privacy</h3><p>Trauma-informed design puts safety and trust first (Chen et al.). In Norihama and colleagues' mobile writing study, privacy was the main reason people chose typing over voice.</p><p class="rs-app"><b>In This App</b>The AI does not ask for names, places or other identifying details, and does not repeat them back if you share them.</p><p class="rs-cite">Chen et al.; Norihama et al.</p></div>
+<div class="rs-item"><h3>Open Questions</h3><p>Zohny and colleagues showed that GPT-4 can be set to talk in the styles of different kinds of doctor, and warned that AI can quietly persuade people or reinforce what they already believe.</p><p class="rs-app"><b>In This App</b>The AI's questions open things up rather than lead you toward an answer.</p><p class="rs-cite">Zohny et al.</p></div>
+<div class="rs-item"><h3>Avoiding Reliance on the AI</h3><p>Neurodivergent people discussing AI online worried about relying on it too much and having it replace human contact (Carik et al.). Barzkar and colleagues describe a patient who began to treat ChatGPT almost like a person.</p><p class="rs-app"><b>In This App</b>The AI does not encourage you to rely on it. If you mention feeling alone, it notices the people and supports you have already written about.</p><p class="rs-cite">Carik et al.; Barzkar et al.</p></div>
+<div class="rs-item"><h3>Reply Length and Language</h3><p>Adults living with chronic pain disliked apps that sounded cheerful or childish (Cheng et al.). When ChatGPT simplified health texts, they still came out at about a grade 11 reading level (Ayre et al.), but with clear instructions its answers to parents averaged a grade 8.7 level (Hunter et al.). In Norihama and colleagues' study, a simple acknowledgement felt like being listened to.</p><p class="rs-app"><b>In This App</b>The AI replies in two to four plain sentences, with at most one question.</p><p class="rs-cite">Cheng et al.; Ayre et al.; Hunter et al.; Norihama et al.</p></div>
       </div>
     </details>
     <details class="rs" id="rs-sources">
@@ -1843,17 +2154,20 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   /* ---------- routing ---------- */
   var VIEWS = ["checkin","write","story","observatory","learn","support","research"];
   var current = "checkin";
+  var recOn = false;
   function go(name){
+    if (name === "write" && !recOn){ askToRecord(); return; }
     current = name;
     VIEWS.forEach(function(v){
       document.getElementById("view-" + v).classList.toggle("is-active", v === name); });
     document.querySelectorAll(".nav__item").forEach(function(b){
-      b.classList.toggle("is-on", b.getAttribute("data-go") === (name === "research" ? "learn" : name)); });
+      b.classList.toggle("is-on", b.getAttribute("data-go") === name); });
     window.scrollTo(0,0);
     if (name === "write")       renderWrite();
     if (name === "story")       renderReadThrough();
     if (name === "observatory") showObs(obsView);
     if (name === "checkin")     renderCheckin();
+    if (name !== "write" && aiIsOpen() && !wide()) setAI(false);
   }
   document.querySelectorAll(".nav__item").forEach(function(b){
     b.addEventListener("click", function(){
@@ -1936,7 +2250,7 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     wayTimer = setInterval(function(){
       if (wayOver || document.hidden) return;
       if (Date.now() < wayHoldUntil) return;
-      if (current !== "write") return;
+      if (current !== "write" || !aiIsOpen()) return;
       if (asking) return;               /* only pause while a reply is in flight */
       turnWay(1);
     }, WAY_EVERY);
@@ -2053,10 +2367,36 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     });
     return btn;
   }
+  /* ---------- opening and closing the AI ---------- */
+  var ws = document.getElementById("workspace");
+  var AI_KEY = "undiagnosed-ai-open";
+  function wide(){ return window.matchMedia && window.matchMedia("(min-width: 960px)").matches; }
+  function aiIsOpen(){ return ws.classList.contains("ai-open"); }
+  function setAI(open, keep){
+    ws.classList.toggle("ai-open", open);
+    document.body.classList.toggle("ai-sheet", open && !wide());
+    ["ai-open-side","ai-open-bottom"].forEach(function(id){
+      document.getElementById(id).setAttribute("aria-expanded", open ? "true" : "false"); });
+    if (open){
+      if (!greetedOnce) renderThread();
+      var th = document.getElementById("thread"); th.scrollTop = th.scrollHeight;
+    }
+    if (!keep && wide()){ try { localStorage.setItem(AI_KEY, open ? "1" : "0"); } catch(e){} }
+  }
+  document.getElementById("ai-open-side").addEventListener("click", function(){ setAI(true); });
+  document.getElementById("ai-open-bottom").addEventListener("click", function(){ setAI(true); });
+  document.getElementById("ai-close").addEventListener("click", function(){ setAI(false); });
+  document.getElementById("ai-support").addEventListener("click", function(){ setAI(false); go("support"); });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && aiIsOpen() && !wide() && !document.querySelector(".reel-shell")) setAI(false); });
+  window.addEventListener("resize", function(){
+    document.body.classList.toggle("ai-sheet", aiIsOpen() && !wide()); });
+  try { if (wide() && localStorage.getItem(AI_KEY) === "1") setAI(true, true); } catch(e){}
+
   function renderThread(){
     var wrap = document.getElementById("thread");
     wrap.innerHTML = "";
-    if (!greetedOnce){
+    if (!greetedOnce && aiIsOpen()){
       greetedOnce = true;
       var g = turnEl("ai", "", { thinking:true });
       wrap.appendChild(g);
@@ -2069,6 +2409,9 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     } else {
       wrap.appendChild(turnEl("ai", GREETING));
     }
+    var ap = document.getElementById("ai-phase");
+    if (ap) ap.textContent = "Writing Companion · " + PHASES[state.active].title;
+    setOrb(document.getElementById("ai-orb"), state.active);
     state.phases[state.active].chat.forEach(function(m){
       var row = turnEl(m.role, m.text);
       if (m.role === "ai") row.querySelector(".bubble").appendChild(addToStoryBtn(m.text));
@@ -2605,9 +2948,38 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   });
 
 
+  /* ---------- screen recording (preview of the consent step and banner) ----------
+     The real recording arrives with the study's hosting. This shows how it will look
+     and behave: consent before every session, a banner the whole time it runs. */
+  var recModal = document.getElementById("rec-modal");
+  function askToRecord(){
+    recModal.hidden = false;
+    setTimeout(function(){ document.getElementById("rec-agree").focus(); }, 30);
+  }
+  function setRec(on){
+    recOn = on;
+    document.getElementById("rec-bar").hidden = !on;
+    document.body.classList.toggle("is-recording", on);
+  }
+  function toast(t){
+    var el = document.getElementById("toast");
+    el.textContent = t; el.hidden = false;
+    clearTimeout(toast.t); toast.t = setTimeout(function(){ el.hidden = true; }, 3200);
+  }
+  document.getElementById("rec-agree").addEventListener("click", function(){
+    recModal.hidden = true; setRec(true); go("write"); });
+  document.getElementById("rec-later").addEventListener("click", function(){
+    recModal.hidden = true; if (current === "write") go("checkin"); });
+  document.getElementById("rec-end").addEventListener("click", function(){
+    setRec(false); save(); go("checkin"); toast("Session ended. Your writing is saved."); });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && !recModal.hidden){ recModal.hidden = true; } });
+
   /* ---------- the research behind this app ---------- */
-  document.getElementById("research-btn").addEventListener("click", function(){ go("research"); });
-  document.getElementById("research-back").addEventListener("click", function(){ go("learn"); });
+  var researchFrom = "checkin";
+  document.getElementById("research-btn").addEventListener("click", function(){
+    researchFrom = current === "research" ? researchFrom : current; go("research"); });
+  document.getElementById("research-back").addEventListener("click", function(){ go(researchFrom); });
 
   /* ---------- voice typing ----------
      Uses the browser's own speech recognition. Typing stays the main way in;
@@ -2687,14 +3059,179 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     });
     return out.join("\n\n\n");
   }
-  function commFill(force){
-    var ta = document.getElementById("comm-text");
-    if (force || !ta.value.trim()) ta.value = commText();
-    commCheck();
+  /* ---- the copy to share: the original, plus the places the walkthrough found ---- */
+  var cBase = "", cands = [], walkAt = -1, walkStep = "ask", cEditing = false;
+  function composed(){
+    var out = "", at = 0;
+    cands.forEach(function(c){ if (c.state === "anon"){ out += cBase.slice(at, c.s) + c.repl; at = c.e; } });
+    return out + cBase.slice(at);
   }
+  var COMMON = ("I I'm I’m I've I’ve I'd I’d I'll I’ll Mom Dad Mum Mommy Daddy God OK Okay COVID MUS AI " +
+    "Monday Tuesday Wednesday Thursday Friday Saturday Sunday Christmas Easter Thanksgiving " +
+    "English French Google Tylenol Advil").split(" ");
+  var MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec";
+  function findCands(text){
+    var found = [];
+    function add(s, e, repl, kind){
+      for (var k = 0; k < found.length; k++){ if (s < found[k].e && e > found[k].s) return; }
+      if (/^[a-z]/.test(repl) && /(^|[.!?]["”]?\s+|\n\s*)$/.test(text.slice(0, s))) repl = repl.charAt(0).toUpperCase() + repl.slice(1);
+      found.push({ s:s, e:e, orig:text.slice(s, e), repl:repl, kind:kind, state:"pending" });
+    }
+    var titles = {}; PHASES.forEach(function(p){ titles[p.title] = 1; });
+    var skip = [], pos = 0;
+    text.split("\n").forEach(function(line){ if (titles[line.trim()]) skip.push([pos, pos + line.length]); pos += line.length + 1; });
+    function skipped(i){ return skip.some(function(r){ return i >= r[0] && i < r[1]; }); }
+    var m, re;
+    re = /\b(Dr|Doctor|Nurse|Mr|Mrs|Ms|Miss|Prof|Professor)\.?\s+[A-Z][A-Za-z’'-]+(?:\s+[A-Z][A-Za-z’'-]+)?/g;
+    while ((m = re.exec(text))){ var t = m[1].toLowerCase();
+      add(m.index, m.index + m[0].length, t === "dr" || t === "doctor" ? "the doctor" : t === "nurse" ? "the nurse" : "[name]", "person"); }
+    re = /\b(?:[A-Z][A-Za-z’'&.-]+\s+){1,4}(Hospital|Clinic|Centre|Center|University|College|School|Pharmacy|Street|Avenue|Road|Drive|Lab|Laboratory|Institute)\b/g;
+    while ((m = re.exec(text))){
+      var st = m.index, word = m[1].toLowerCase();
+      if (word === "center") word = "centre";
+      if (/^(street|avenue|road|drive)$/.test(word)){ add(st, st + m[0].length, "[street]", "place"); continue; }
+      var before = text.slice(Math.max(0, st - 4), st);
+      if (/the $/i.test(before)) st -= 4;
+      add(st, m.index + m[0].length, "the " + word, "place");
+    }
+    re = new RegExp("\\b(?:" + MONTHS + ")\\.?\\s+\\d{1,2}(?:st|nd|rd|th)?(?:,?\\s+\\d{4})?\\b", "g");
+    while ((m = re.exec(text))) add(m.index, m.index + m[0].length, "[date]", "date");
+    re = /\b\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}\b/g;
+    while ((m = re.exec(text))) add(m.index, m.index + m[0].length, "[date]", "date");
+    re = /\b(?:19|20)\d{2}\b/g;
+    while ((m = re.exec(text))) add(m.index, m.index + m[0].length, "[year]", "date");
+    re = /\b[A-Z][a-z]+(?:[-’'][A-Z][a-z]+)?(?:\s+[A-Z][a-z]+)*/g;
+    var proper = {};
+    while ((m = re.exec(text))){
+      if (skipped(m.index)) continue;
+      var first = m[0].split(/\s+/)[0];
+      if (COMMON.indexOf(first) > -1 || new RegExp("^(" + MONTHS + ")$").test(first)) continue;
+      var prev = text.slice(0, m.index).replace(/\s+$/, "");
+      var startOfSentence = !prev || /[.!?:"“”\n]$/.test(prev) || /\n\s*$/.test(text.slice(0, m.index));
+      var ms = m.index, mt = m[0];
+      if (startOfSentence){
+        if (mt.indexOf(" ") < 0) continue;
+        var cut = mt.indexOf(" ") + 1; ms += cut; mt = mt.slice(cut).replace(/^\s+/, "");
+        ms = m.index + m[0].length - mt.length;
+        if (COMMON.indexOf(mt.split(/\s+/)[0]) > -1) continue;
+      }
+      proper[mt] = 1;
+      var lead = /\b(in|at|to|from|near|into|of|around|outside)\s+$/i.test(text.slice(Math.max(0, ms - 9), ms));
+      add(ms, ms + mt.length, lead ? "[place]" : "[name]", lead ? "place" : "person");
+    }
+    /* the same name again at the start of a sentence */
+    Object.keys(proper).forEach(function(w){
+      var r2 = new RegExp("\\b" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "g"), x;
+      while ((x = r2.exec(text))){ if (!skipped(x.index)) add(x.index, x.index + w.length, "[name]", "person"); }
+    });
+    return found.sort(function(a, b){ return a.s - b.s; });
+  }
+  function uploadStory(){
+    cBase = commText(); cands = []; walkAt = -1; cEditing = false;
+    document.getElementById("comm-draft").hidden = false;
+    document.getElementById("comm-step-upload").hidden = true;
+    document.getElementById("comm-ok").checked = false;
+    renderCopy(); renderWalk(); commCheck();
+  }
+  function renderCopy(){
+    var pv = document.getElementById("comm-preview"), ta = document.getElementById("comm-text");
+    pv.hidden = cEditing; ta.hidden = !cEditing;
+    document.getElementById("comm-editcopy").textContent = cEditing ? "Done Editing" : "Edit The Copy Myself";
+    document.getElementById("comm-scan").disabled = cEditing;
+    if (cEditing) return;
+    pv.innerHTML = "";
+    if (!cBase.trim()){ pv.innerHTML = '<p class="comm-empty">You have not written anything yet. Your story will appear here once you have.</p>'; return; }
+    var at = 0, any = false;
+    function txt(t){ pv.appendChild(document.createTextNode(t)); }
+    cands.forEach(function(c, k){
+      txt(cBase.slice(at, c.s)); at = c.e;
+      if (c.state === "anon"){
+        any = true;
+        var b = document.createElement("button"); b.type = "button"; b.className = "anon";
+        b.textContent = c.repl; b.title = "Changed from “" + c.orig + "”. Tap to undo.";
+        b.setAttribute("aria-label", c.repl + ", changed from " + c.orig + ". Tap to undo.");
+        b.addEventListener("click", function(){ c.state = "keep"; renderCopy(); renderWalk(); commCheck(); });
+        pv.appendChild(b);
+      } else if (k === walkAt){
+        var mk = document.createElement("mark"); mk.className = "is-checking"; mk.textContent = c.orig; pv.appendChild(mk);
+      } else txt(c.orig);
+    });
+    txt(cBase.slice(at));
+    document.getElementById("comm-legend").hidden = !any;
+    var cur = pv.querySelector(".is-checking");
+    if (cur) cur.scrollIntoView({ block:"nearest", behavior:"smooth" });
+  }
+  function snippet(c){
+    var a = Math.max(0, c.s - 70), b = Math.min(cBase.length, c.e + 70);
+    var pre = cBase.slice(a, c.s), post = cBase.slice(c.e, b);
+    return (a > 0 ? "…" : "") + esc(pre.replace(/\s+/g, " ")) + "<mark>" + esc(c.state === "anon" ? c.repl : c.orig) + "</mark>" +
+      esc(post.replace(/\s+/g, " ")) + (b < cBase.length ? "…" : "");
+  }
+  function renderWalk(){
+    var w = document.getElementById("comm-walk");
+    if (walkAt < 0){ w.hidden = true; return; }
+    w.hidden = false;
+    var kindWord = { person:"name", place:"place", date:"date" };
+    if (walkAt >= cands.length){
+      var n = cands.filter(function(c){ return c.state === "anon"; }).length;
+      w.innerHTML = '<p class="walk__count">Check Finished</p><p class="walk__q">' +
+        (cands.length ? "You looked at " + cands.length + (cands.length === 1 ? " detail" : " details") + " and changed " + n + "." :
+         "No names, places or dates were found. Please still read it over before you share.") + '</p>' +
+        '<p class="walk__note">Read the copy once more before you share. You can undo any change by tapping it.</p>' +
+        '<div class="comm-actions"><button class="chip" data-w="restart" type="button">Check Again</button><button class="chip" data-w="close" type="button">Close</button></div>';
+      return;
+    }
+    var c = cands[walkAt];
+    var h = '<p class="walk__count">Possible ' + kindWord[c.kind] + ' · ' + (walkAt + 1) + ' Of ' + cands.length + '</p>' +
+      '<p class="walk__snip">' + snippet(c) + '</p>';
+    if (c.state === "anon"){
+      h += '<p class="walk__q">Changed to “' + esc(c.repl) + '”.</p><div class="comm-actions">' +
+        '<button class="btn btn--sm" data-w="next" type="button">Next</button><button class="chip" data-w="undo" type="button">Undo</button></div>';
+    } else if (walkStep === "yes"){
+      h += '<p class="walk__q">The app can change just this part to “' + esc(c.repl) + '”.</p><div class="comm-actions">' +
+        '<button class="btn btn--sm" data-w="anon" type="button">Anonymize For Me</button><button class="chip" data-w="back" type="button">Go Back</button></div>';
+    } else {
+      h += '<p class="walk__q">Does this identify someone or somewhere?</p><div class="comm-actions">' +
+        '<button class="btn btn--sm" data-w="yes" type="button">Yes</button><button class="btn btn--sm" data-w="no" type="button">No</button>' +
+        '<button class="walk__stop" data-w="close" type="button">Stop Checking</button></div>';
+    }
+    w.innerHTML = h;
+  }
+  document.getElementById("comm-walk").addEventListener("click", function(e){
+    var b = e.target.closest("[data-w]"); if (!b) return;
+    var act = b.getAttribute("data-w"), c = cands[walkAt];
+    if (act === "no"){ c.state = "keep"; walkAt++; walkStep = "ask"; }
+    else if (act === "yes") walkStep = "yes";
+    else if (act === "back") walkStep = "ask";
+    else if (act === "anon"){ c.state = "anon"; walkStep = "ask"; }
+    else if (act === "undo"){ c.state = "pending"; walkStep = "ask"; }
+    else if (act === "next"){ walkAt++; walkStep = "ask"; }
+    else if (act === "restart"){ startWalk(); return; }
+    else if (act === "close"){ walkAt = -1; }
+    renderCopy(); renderWalk(); commCheck();
+  });
+  function startWalk(){
+    var keep = {};
+    cands.forEach(function(c){ if (c.state === "anon") keep[c.s + ":" + c.e] = 1; });
+    cands = findCands(cBase);
+    cands.forEach(function(c){ if (keep[c.s + ":" + c.e]) c.state = "anon"; });
+    walkAt = 0; walkStep = "ask";
+    renderCopy(); renderWalk();
+    document.getElementById("comm-walk").scrollIntoView({ block:"nearest", behavior:"smooth" });
+  }
+  document.getElementById("comm-upload").addEventListener("click", uploadStory);
+  document.getElementById("comm-scan").addEventListener("click", startWalk);
+  document.getElementById("comm-editcopy").addEventListener("click", function(){
+    var ta = document.getElementById("comm-text");
+    if (!cEditing){ ta.value = composed(); cEditing = true; walkAt = -1; renderWalk(); renderCopy(); grow(ta); ta.focus(); }
+    else { cBase = ta.value; cands = []; cEditing = false; renderCopy(); }
+    commCheck();
+  });
+  document.getElementById("comm-text").addEventListener("input", function(){ grow(this); });
+  function commFill(){ uploadStory(); }
   function commCheck(){
     var ok = document.getElementById("comm-ok").checked;
-    var tx = document.getElementById("comm-text").value.trim();
+    var tx = (cEditing ? document.getElementById("comm-text").value : composed()).trim();
     document.getElementById("comm-share").disabled = !(ok && tx && commDb && commUid);
   }
   function commStatus(s){ document.getElementById("comm-status").textContent = s || ""; }
@@ -2716,11 +3253,14 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
       var card = document.createElement("article"); card.className = "comm-card";
       var by = document.createElement("p"); by.className = "comm-card__by";
       var when = d.sharedAt ? new Date(d.sharedAt).toLocaleDateString(undefined, { month:"long", day:"numeric", year:"numeric" }) : "";
-      by.textContent = (d.name || "Anonymous") + (d.mine ? " (You)" : "") + (when ? "  ·  " + when : "");
+      by.textContent = (d.mine ? "Yours" : "Shared") + (when ? "  ·  " + when : "");
+      var ttl = document.createElement("h3"); ttl.className = "comm-card__title";
+      ttl.textContent = d.title || d.name || "Untitled";
+      card.appendChild(ttl);
       var body = document.createElement("p"); body.className = "comm-card__text";
       var full = String(d.text || ""), long = full.length > 700;
       body.textContent = long ? full.slice(0, 700).replace(/\s+\S*$/, "") + "…" : full;
-      card.appendChild(by); card.appendChild(body);
+      card.insertBefore(by, ttl); card.appendChild(body);
       if (long){
         var more = document.createElement("button"); more.className = "chip"; more.type = "button";
         more.textContent = "Read All Of It";
@@ -2735,28 +3275,27 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     });
     document.getElementById("comm-mine").hidden = !commMine;
     document.getElementById("comm-form").hidden = !!commMine && !commEditing;
-    if (!commMine || commEditing) commFill(false);
     if (commDb === false) commStatus("Sharing is not switched on in this version of the app.");
   }
   var commEditing = false;
   document.getElementById("comm-ok").addEventListener("change", commCheck);
   document.getElementById("comm-text").addEventListener("input", commCheck);
-  document.getElementById("comm-fill").addEventListener("click", function(){ commFill(true); });
+  document.getElementById("comm-fill").addEventListener("click", function(){ commFill(); });
   document.getElementById("comm-edit").addEventListener("click", function(){
     commEditing = true;
-    document.getElementById("comm-text").value = commMine ? commMine.text : commText();
-    document.getElementById("comm-name").value = commMine ? (commMine.name || "") : "";
-    document.getElementById("comm-ok").checked = false;
+    uploadStory();
+    if (commMine){ cBase = commMine.text; cands = []; renderCopy(); }
+    document.getElementById("comm-title").value = commMine ? (commMine.title || commMine.name || "") : "";
     renderCommunity();
   });
   document.getElementById("comm-share").addEventListener("click", function(){
     var btn = this;
     if (!commDb || !commUid) return;
-    var tx = document.getElementById("comm-text").value.trim();
-    var nm = document.getElementById("comm-name").value.trim().slice(0, 40);
+    var tx = (cEditing ? document.getElementById("comm-text").value : composed()).trim();
+    var nm = document.getElementById("comm-title").value.trim().slice(0, 80);
     if (!tx || !document.getElementById("comm-ok").checked) return;
     btn.disabled = true; commStatus("Sharing");
-    commDb.doc("community/" + commUid).set({ name: nm, text: tx.slice(0, 40000), sharedAt: new Date().toISOString() })
+    commDb.doc("community/" + commUid).set({ title: nm, text: tx.slice(0, 40000), sharedAt: new Date().toISOString() })
       .then(function(){
         commEditing = false; document.getElementById("comm-ok").checked = false;
         commStatus("");
@@ -2786,7 +3325,7 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
           commReady = true; commMine = null;
           commDocs = snap.docs.map(function(d){
             var v = d.data() || {};
-            var item = { name: String(v.name || ""), text: String(v.text || ""), sharedAt: v.sharedAt, mine: d.id === commUid };
+            var item = { name: String(v.name || ""), title: String(v.title || ""), text: String(v.text || ""), sharedAt: v.sharedAt, mine: d.id === commUid };
             if (item.mine) commMine = item;
             return item;
           });
@@ -2816,7 +3355,7 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   var cached = localLoad();
   if (cached && cached.phases && cached.phases.length === 8){
     state.phases = adoptPhases(cached.phases);
-    state.active = cached.active || 0;
+    state.active = 0;                      /* every visit starts at New Moon */
     state.orbit  = cached.orbit || "";
     adoptOrder(cached.order);
   }
@@ -2985,8 +3524,8 @@ var REELS = [
         say: "And this is a very old story. The word hysteria comes from the Greek word for womb. Ancient physicians imagined a restless womb moving around the body and causing women's symptoms. By the eighteen hundreds, hysteria had become a catch-all diagnosis for almost any symptom in women that doctors couldn't explain.",
         cites: ["cleghorn"] },
       { t: "image", img: "wallpaper", theme: "wall", head: "The Rest Cure",
-        sub: "Weeks in bed. No reading. No writing.",
-        say: "The go-to treatment back then was called the rest cure. Weeks in bed, with no reading, no writing, and very few visitors. The writer Charlotte Perkins Gilman went through it, and in eighteen ninety-two she published a short story called The Yellow Wallpaper, about a woman slowly unravelling under exactly that kind of care.",
+        sub: "Charlotte Perkins Gilman was kept in bed for weeks and couldn’t read or write.",
+        say: "The go-to treatment back then was called the rest cure. The writer Charlotte Perkins Gilman went through it. She was kept in bed for weeks, and she couldn't read or write. In eighteen ninety-two, she published a short story called The Yellow Wallpaper, about a woman slowly unravelling under exactly that kind of care.",
         cites: ["gilman", "wallpaperImg", "cleghorn"] },
       { t: "type", art: "wave", head: "Still Happening.",
         sub: "Women’s pain is more often discounted, or put down to emotions.",
@@ -3169,6 +3708,9 @@ var REELS = [
       { t: "type", art: "orbit", eyebrow: "Optional Extra", head: "Put My Story In Orbit",
         sub: "Turn your writing into a clear account you can bring to an appointment.",
         say: "The second is Put My Story In Orbit. It turns what you've written into a clear, ordered account, in your own words, that you could bring to a doctor's appointment if you want to." },
+      { t: "type", art: "community", eyebrow: "Optional Extra", head: "Community Story Space",
+        sub: "Read stories from others in the study, and choose whether to share your own.",
+        say: "The third is the Community Story Space. Here you can read stories that other people in the study have chosen to share, and you can share your own if you want to. Before you share, the app walks you through your story to help you take out names and places. Sharing is always your choice, and you can take your story down at any time." },
       { t: "type", art: "calendar", head: "One Month. Your Pace.",
         sub: "Your work saves as you go. Your name stays off it.",
         say: "After these reels, the writing space is yours for one month, at your own pace. Your work saves as you go, and it's linked only to your participant ID, so your name stays off it. With your permission, your writing sessions are screen recorded, with no audio. And you can withdraw from the study up until July first, twenty twenty-seven." },
@@ -3189,7 +3731,7 @@ var REELS = [
   }
 ];
 
-var REEL_DUR = {"m1-00": 17.41, "m1-01": 22.0, "m1-02": 25.54, "m1-03": 9.73, "m1-04": 12.35, "m1-05": 23.73, "m1-06": 16.84, "m1-07": 11.14, "m1-08": 18.86, "m1-09": 10.22, "m1-10": 20.23, "m1-11": 19.78, "m1-12": 21.0, "m1-13": 17.37, "m1-14": 20.08, "m1-15": 18.14, "m1-16": 19.31, "m1-17": 22.26, "m1-18": 18.91, "m2-00": 14.7, "m2-01": 14.72, "m2-02": 14.04, "m2-03": 11.54, "m2-04": 13.48, "m2-05": 13.53, "m2-06": 13.8, "m2-07": 12.89, "m2-08": 20.98, "m2-09": 13.51, "m2-10": 10.82, "m2-11": 22.9, "m2-12": 16.54, "m2-13": 16.24, "m2-14": 19.61, "m2-15": 17.75, "m2-16": 18.01, "m2-17": 16.99, "m2-18": 17.88, "m2-19": 27.99, "m2-20": 21.38, "m2-21": 21.83, "m3-00": 10.95, "m3-01": 20.85, "m3-02": 8.62, "m3-03": 11.31, "m3-04": 17.24, "m3-05": 10.46, "m3-06": 11.8, "m3-07": 15.55, "m3-08": 8.47, "m3-09": 7.75, "m3-10": 11.95, "m3-11": 11.56, "m3-12": 10.46, "m3-13": 20.55, "m3-14": 15.06, "m3-15": 18.91, "m3-16": 14.74, "m3-17": 16.01};
+var REEL_DUR = {"m1-00": 17.41, "m1-01": 22.0, "m1-02": 25.54, "m1-03": 9.73, "m1-04": 12.35, "m1-05": 23.73, "m1-06": 16.84, "m1-07": 11.14, "m1-08": 18.86, "m1-09": 10.22, "m1-10": 20.23, "m1-11": 19.01, "m1-12": 21.0, "m1-13": 17.37, "m1-14": 20.08, "m1-15": 18.14, "m1-16": 19.31, "m1-17": 22.26, "m1-18": 18.91, "m2-00": 14.7, "m2-01": 14.72, "m2-02": 14.04, "m2-03": 11.54, "m2-04": 13.48, "m2-05": 13.53, "m2-06": 13.8, "m2-07": 12.89, "m2-08": 20.98, "m2-09": 13.51, "m2-10": 10.82, "m2-11": 22.9, "m2-12": 16.54, "m2-13": 16.24, "m2-14": 19.61, "m2-15": 17.75, "m2-16": 18.01, "m2-17": 16.99, "m2-18": 17.88, "m2-19": 27.99, "m2-20": 21.38, "m2-21": 24.34, "m3-00": 10.95, "m3-01": 20.85, "m3-02": 8.62, "m3-03": 11.31, "m3-04": 17.24, "m3-05": 10.46, "m3-06": 11.8, "m3-07": 15.55, "m3-08": 8.47, "m3-09": 7.75, "m3-10": 11.95, "m3-11": 11.56, "m3-12": 10.46, "m3-13": 19.27, "m3-14": 20.55, "m3-15": 15.06, "m3-16": 18.91, "m3-17": 14.74, "m3-18": 16.01};
 var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665};
 (function(){
   "use strict";
@@ -3486,13 +4028,15 @@ var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665
           '<g class="pc" style="--x:-26px;--y:18px;--r:-14deg;--d:1.9s"><rect x="60" y="80" width="50" height="80" class="wall"/><rect x="72" y="96" width="22" height="20" class="win"/></g>' +
           '<g class="pc" style="--x:22px;--y:12px;--r:12deg;--d:2s"><rect x="110" y="80" width="50" height="80" class="wall"/><rect x="122" y="116" width="22" height="44" class="door"/></g>' +
           '<g class="dust"><circle cx="70" cy="156" r="10"/><circle cx="110" cy="152" r="14"/><circle cx="150" cy="156" r="11"/></g></svg>';
-      case "extras": return '<div class="a-extras"><span><svg viewBox="0 0 40 40"><circle cx="8" cy="12" r="2.5"/><circle cx="20" cy="8" r="2"/><circle cx="30" cy="20" r="3"/><circle cx="14" cy="30" r="2"/><path d="M8 12 L20 8 L30 20 L14 30" fill="none"/></svg>Constellation</span><span><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="6"/><ellipse cx="20" cy="20" rx="17" ry="8" fill="none" transform="rotate(-20 20 20)"/></svg>Orbit</span></div>';
+      case "extras": return '<div class="a-extras"><span><svg viewBox="0 0 40 40"><circle cx="8" cy="12" r="2.5"/><circle cx="20" cy="8" r="2"/><circle cx="30" cy="20" r="3"/><circle cx="14" cy="30" r="2"/><path d="M8 12 L20 8 L30 20 L14 30" fill="none"/></svg>Constellation</span><span><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="6"/><ellipse cx="20" cy="20" rx="17" ry="8" fill="none" transform="rotate(-20 20 20)"/></svg>Orbit</span><span><svg viewBox="0 0 40 40">' + COMM_ICON + '</svg>Community</span></div>';
+      case "community": return '<div class="a-comm">' + [0, 1, 2].map(function(i){ return '<span class="a-comm__page" style="--i:' + i + '"><i></i><i></i><i></i><i></i></span>'; }).join("") + '</div>';
       case "orbit": return '<div class="a-orbit"><div class="moon">' + orbHTML() + '</div><span class="a-orbit__ring"><i></i></span></div>';
 
     }
     return "";
   }
 
+  var COMM_ICON = '<rect x="5" y="9" width="17" height="21" rx="2.5" fill="none"/><rect x="18" y="11" width="17" height="21" rx="2.5" fill="none"/><path d="M22 18h9M22 22h9M22 26h6" fill="none"/>';
   function open(m, at){
     close(true);
     var mod = MODS[m], list = cardList(m);
@@ -3506,7 +4050,6 @@ var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665
           '<div class="reel__meta"><span class="reel__who">' + '<span class="orb" style="--size:26px" aria-hidden="true"><img src="' + window.RING + '" alt=""><span class="orb__shade is-off"></span></span>' +
             '<b>Reel ' + mod.n + ' · ' + tc(mod.title) + '</b></span>' +
             '<button class="rbtn rbtn--cc" id="r-cc" aria-pressed="false" aria-label="Captions">CC</button>' +
-            '<button class="rbtn" id="r-voice" aria-pressed="true" aria-label="Narrator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>' +
             '<button class="rbtn" id="r-music" aria-pressed="true" aria-label="Music"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l11-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg></button>' +
             '<button class="rbtn" id="r-close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
           '</div></div>' +
@@ -3542,7 +4085,26 @@ var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665
     wire(shell);
     var start = at != null ? at : (pg(m).done || pg(m).seen < 1 ? 0 : Math.min(pg(m).seen, list.length - 1));
     go(start, true);
+    if (!soundAsked){
+      setPaused(true);
+      var gate = document.createElement("div");
+      gate.className = "reel__sound";
+      gate.innerHTML = '<div class="sound__card"><span class="sound__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></svg></span>' +
+        '<h2>Turn Your Sound On</h2><p>A narrator talks you through each reel, so you will need to hear it. Turn your volume up, and if you are on a phone, check that it is not on silent.</p>' +
+        '<p class="sound__cc">Prefer to read along too? Tap CC at the top for captions.</p>' +
+        '<button class="btn" type="button" id="r-sound-ok">My Sound Is On</button></div>';
+      cur.shell.querySelector(".reel").appendChild(gate);
+      gate.addEventListener("pointerdown", function(e){ e.stopPropagation(); });
+      gate.addEventListener("click", function(e){ e.stopPropagation(); });
+      gate.querySelector("#r-sound-ok").addEventListener("click", function(){
+        soundAsked = true; gate.remove();
+        if (musicOn) padStart(cur.m);
+        if (cur.list[cur.i].t !== "film"){ try { narr.currentTime = 0; } catch(e){} cur.t = 0; }
+        setPaused(false);
+      });
+    }
   }
+  var soundAsked = false;
 
   function close(silent){
     if (!cur) return;
@@ -3590,17 +4152,24 @@ var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665
     caption();
 
     try { narr.pause(); } catch(e){}
-    cur.t = 0; cur.last = performance.now();
+    cur.t = 0; cur.last = performance.now(); cur.endedAt = 0; cur.narrBroken = false;
+    var mb = cur.shell.querySelector("#r-music"); if (mb) mb.hidden = c.t === "film";
     if (c.t === "film") startFilm();
     else {
       var name = MODS[cur.m].id + "-" + String(i - 1).padStart(2, "0");
       var est = Math.max(4.2, 2.2 + wc((c.head || "") + " " + (c.sub || "") + " " + (c.quote || "")) * .33);
       cur.dur = voiceOn && DUR[name] ? DUR[name] + 1.0 : est;
       if (c.t === "question") cur.dur = Math.max(cur.dur, 6);
+      cur.name = name; cur.narrMode = !!(voiceOn && DUR[name]);
       if (voiceOn){
         narr.src = "" + name + ".mp3";
         narr.currentTime = 0;
-        if (!cur.paused){ var pr = narr.play(); if (pr && pr["catch"]) pr["catch"](function(){}); }
+        if (!cur.paused){ var pr = narr.play(); if (pr && pr["catch"]) pr["catch"](function(err){
+          /* the browser refused to start the voice: wait for a tap rather than moving on in silence */
+          if (cur && err && err.name === "NotAllowedError") setPaused(true);
+        }); }
+        var nx = cur.list[i + 1];
+        if (nx){ var pre = new Audio(); pre.preload = "auto"; pre.src = MODS[cur.m].id + "-" + String(i).padStart(2, "0") + ".mp3"; }
       }
       chime(cur.m);
       mixMusic();
@@ -3613,8 +4182,9 @@ var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665
     var card = cur.track.children[0], v = card.querySelector("video"), tap = card.querySelector(".film__tap");
     cur.dur = 30;
     mixMusic();
-    v.muted = !voiceOn && !musicOn;
+    v.muted = false;
     v.currentTime = 0;
+    cur.filmEndAt = 0;
     var p = v.play();
     if (p && p.then){ p.then(function(){ tap.classList.add("is-gone"); })["catch"](function(){ tap.classList.remove("is-gone"); }); }
     else tap.classList.add("is-gone");
@@ -3631,10 +4201,17 @@ var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665
       var v = cur.track.children[0].querySelector("video");
       if (cur.filmBroken){ if (!cur.paused) cur.t += dt; frac = cur.t / 8; }
       else {
-        frac = v.duration ? v.currentTime / v.duration : 0;
-        if (v.ended) frac = 1;
+        frac = v.duration ? Math.min(.999, v.currentTime / v.duration) : 0;
+        /* a breath after the film's closing question before moving on */
+        if (v.ended){ if (!cur.filmEndAt) cur.filmEndAt = now; frac = now - cur.filmEndAt > 2200 ? 1 : .999; }
       }
       caption(frac);
+    } else if (cur.narrMode && !cur.narrBroken){
+      /* the narrator sets the pace: if the audio is still loading, the card waits for it */
+      var nd = narr.duration && isFinite(narr.duration) ? narr.duration : DUR[cur.name];
+      if (cur.endedAt){ frac = now - cur.endedAt > 1000 ? 1 : .999; }
+      else frac = Math.min(.995, (narr.currentTime || 0) / (nd + 1));
+      if (c.t === "question" && frac >= 1 && cur.t < 6){ cur.t += dt; frac = .999; }
     } else {
       if (!cur.paused && !cur.hold) cur.t += dt;
       frac = cur.t / cur.dur;
@@ -3677,16 +4254,9 @@ var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665
     shell.addEventListener("click", function(e){ if (e.target === shell) close(); });
     function tog(id, fn){ var b = shell.querySelector(id); b.onclick = function(e){ e.stopPropagation(); fn(b); }; }
     tog("#r-cc", function(b){ ccOn = !ccOn; b.setAttribute("aria-pressed", ccOn); caption(); });
-    tog("#r-voice", function(b){
-      voiceOn = !voiceOn; b.setAttribute("aria-pressed", voiceOn);
-      var v = cur.track.children[0].querySelector("video"); v.muted = !voiceOn && !musicOn;
-      if (!voiceOn){ try { narr.pause(); } catch(e){} } else if (cur.i > 0) go(cur.i);
-      mixMusic();
-    });
     tog("#r-music", function(b){
       musicOn = !musicOn; b.setAttribute("aria-pressed", musicOn);
       if (musicOn) padStart(cur.m);
-      var v = cur.track.children[0].querySelector("video"); v.muted = !voiceOn && !musicOn;
       mixMusic();
     });
     tog("#r-src", function(b){
@@ -3764,7 +4334,9 @@ var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665
   });
   document.addEventListener("visibilitychange", function(){ if (document.hidden && cur && !cur.paused) setPaused(true); });
   narr = new Audio();
-  narr.addEventListener("play", mixMusic); narr.addEventListener("ended", mixMusic); narr.addEventListener("pause", mixMusic);
+  narr.addEventListener("play", mixMusic); narr.addEventListener("pause", mixMusic);
+  narr.addEventListener("ended", function(){ if (cur) cur.endedAt = performance.now(); mixMusic(); });
+  narr.addEventListener("error", function(){ if (cur && cur.list[cur.i].t !== "film" && narr.src) cur.narrBroken = true; });
 
   window.__go = function(i){ go(i); };
   renderHub();
