@@ -1528,6 +1528,7 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
       deletions and the AI's replies. It does not record your voice, your face, or anything else on your device.</p>
     <ul class="rec-list">
       <li>A banner stays at the top of the screen while recording is on.</li>
+      <li>Only the writing space is recorded. Recording stops when you tap End Session or leave the writing space.</li>
       <li>You can end the session at any time, and your writing is saved.</li>
       <li>The recording is linked only to your participant ID.</li>
     </ul>
@@ -2134,6 +2135,8 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   var recOn = false;
   function go(name){
     if (name === "write" && !recOn){ askToRecord(); return; }
+    /* recording covers the writing space only: leaving it ends the session */
+    if (name !== "write" && recOn){ setRec(false); save(); toast("Session ended. Your writing is saved."); }
     current = name;
     VIEWS.forEach(function(v){
       document.getElementById("view-" + v).classList.toggle("is-active", v === name); });
@@ -2954,7 +2957,7 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   document.getElementById("rec-later").addEventListener("click", function(){
     recModal.hidden = true; if (current === "write") go("checkin"); });
   document.getElementById("rec-end").addEventListener("click", function(){
-    setRec(false); save(); go("checkin"); toast("Session ended. Your writing is saved."); });
+    go("checkin"); });
   document.addEventListener("keydown", function(e){
     if (e.key === "Escape" && !recModal.hidden){ recModal.hidden = true; } });
 
