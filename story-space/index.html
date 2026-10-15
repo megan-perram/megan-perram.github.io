@@ -1461,6 +1461,8 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
 .toast[hidden]{ display: none; }
 </style>
 
+<script src="connect.js"></script>
+<script src="rrweb.min.js" defer></script>
 </head>
 <body>
 <div class="gate" id="gate">
@@ -1468,7 +1470,7 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
     <p class="gate__eyebrow">The Undiagnosed</p>
     <h1 class="gate__title">Story Space</h1>
     <p class="gate__note">This space is not open to everyone yet. Enter your access details to continue.</p>
-    <label class="gate__label" for="gate-user">Username</label>
+    <label class="gate__label" for="gate-user">Participant ID</label>
     <input class="gate__input" id="gate-user" type="text" autocapitalize="none"
       autocorrect="off" spellcheck="false" required>
     <label class="gate__label" for="gate-pass">Password</label>
@@ -1479,12 +1481,11 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
 </div>
 
 <script>
-/* Placeholder gate. Client side only, for look and feel while the real
-   consent and access flow is built. It is not security. */
+/* Sign in. Checks the participant ID and password with the study server
+   (connect.js). Nothing else in the app opens until this succeeds. */
 (function(){
-  var KEY = "undiagnosed-gate", USER = "1234", PASS = "1234";
-  var open = false;
-  try { open = sessionStorage.getItem(KEY) === "ok"; } catch (e) {}
+  var S = window.UndiagnosedServer;
+  var open = !!(S && S.signedIn());
   window.__gateLocked = !open;
 
   document.addEventListener("DOMContentLoaded", function(){
@@ -1496,18 +1497,16 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
 
     form.addEventListener("submit", function(e){
       e.preventDefault();
+      var btn = form.querySelector("button[type=submit]");
       var u = document.getElementById("gate-user").value.trim();
-      var p = document.getElementById("gate-pass").value.trim();
-      if (u === USER && p === PASS){
-        try { sessionStorage.setItem(KEY, "ok"); } catch (e) {}
-        gate.hidden = true;
-        window.__gateLocked = false;
-        if (typeof window.__startIntro === "function") window.__startIntro();
-      } else {
-        err.hidden = false;
+      var p = document.getElementById("gate-pass").value;
+      err.hidden = true; btn.disabled = true; btn.textContent = "Checking";
+      S.login(u, p).then(function(){ location.reload(); }, function(ex){
+        err.textContent = ex.message; err.hidden = false;
+        btn.disabled = false; btn.textContent = "Enter";
         document.getElementById("gate-pass").value = "";
         document.getElementById("gate-pass").focus();
-      }
+      });
     });
   });
 })();
@@ -1536,7 +1535,6 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
       <button class="btn" id="rec-agree" type="button">I Agree, Start Writing</button>
       <button class="chip" id="rec-later" type="button">Not Right Now</button>
     </div>
-    <p class="rec-preview">Preview: nothing is recorded in this version of the app yet.</p>
   </div>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
@@ -2934,9 +2932,9 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   });
 
 
-  /* ---------- screen recording (preview of the consent step and banner) ----------
-     The real recording arrives with the study's hosting. This shows how it will look
-     and behave: consent before every session, a banner the whole time it runs. */
+  /* ---------- screen recording ----------
+     Consent before every session, a banner the whole time it runs. The recording
+     itself (connect.js) captures this page only and sends it to the study server. */
   var recModal = document.getElementById("rec-modal");
   function askToRecord(){
     recModal.hidden = false;
@@ -2944,6 +2942,8 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
   }
   function setRec(on){
     recOn = on;
+    var R = window.__undiagnosedRec;
+    if (R){ try { on ? R.start() : R.stop(); } catch(e){} }
     document.getElementById("rec-bar").hidden = !on;
     document.body.classList.toggle("is-recording", on);
   }
