@@ -1084,6 +1084,30 @@ footer{position:relative;background-color:#101312;background-image:
   .mu-wave i,.mu-typing i{animation:none}
 }
 </style>
+<style>
+/* ===== Workshop 3 + pilot community sign-up ===== */
+.ws-sessions{display:flex;gap:10px;flex-wrap:wrap;margin:-8px 0 22px}
+.ws-sess{display:flex;flex-direction:column;align-items:center;min-width:92px;padding:10px 14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.85);font-size:12px;color:var(--muted)}
+.ws-sess b{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink)}
+.join{margin:44px 0 8px;padding:26px 26px 22px;border:1px solid var(--mint);border-radius:24px;background:linear-gradient(160deg,#fff 0%,var(--mint-wash) 100%);scroll-margin-top:100px}
+.join-kicker{display:block;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+.about-inner .join-q{font-family:var(--serif);font-size:22px;line-height:1.35;font-weight:600;color:var(--ink);margin:0 0 6px}
+.about-inner .join-sub{font-size:14.5px;margin:0 0 16px}
+.join-label{display:block;font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+.join-row{display:flex;gap:10px;flex-wrap:wrap}
+.join-row input[type=email]{flex:1;min-width:200px;font:inherit;font-size:15px;padding:12px 16px;border-radius:999px;border:1px solid #D0D0CA;background:#fff;color:var(--ink);outline:none}
+.join-row input[type=email]:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--mint-tint)}
+.join-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.join-btn{padding:12px 26px;font-size:14px}
+.join-btn[disabled]{opacity:.6;cursor:default}
+.about-inner .join-msg{font-size:13.5px;margin:10px 0 0;min-height:1em;color:#B04A3E}
+.join-done{display:flex;align-items:center;gap:14px;padding:4px 0}
+.join-done[hidden]{display:none}
+.join-check{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:var(--mint);color:var(--ink);font-weight:700;font-size:19px;display:flex;align-items:center;justify-content:center}
+.about-inner .join-done p{margin:0;font-size:15.5px;color:var(--ink)}
+.cs-case{scroll-margin-top:96px}
+@media (max-width:600px){ .join{padding:22px 18px 18px} .about-inner .join-q{font-size:19px} .join-btn{width:100%} }
+</style>
 </head>
 
 
@@ -1187,6 +1211,15 @@ footer{position:relative;background-color:#101312;background-image:
     <div class="section-kicker">Workshops</div>
     <h2 class="about-title">Workshops</h2>
     <p class="about-lede">Hands-on sessions for instructors, posted as they are scheduled.</p>
+    <button class="ws-card" data-nav="workshop3">
+      <span class="ws-ring" aria-hidden="true"><span class="d1">Oct</span><span class="d2">16</span><span class="d3">2026</span></span>
+      <span class="ws-info">
+        <span class="ws-meta">Centre for Teaching and Learning &middot; Workshop Series</span>
+        <span class="ws-name">AI &amp; Your Course</span>
+        <span class="ws-time">Sessions: October 16, November 19 &amp; December 10 &middot; 12:00-1:00</span>
+        <span class="ws-go">View workshop <svg viewBox="0 0 24 24"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></svg></span>
+      </span>
+    </button>
     <button class="ws-card" data-nav="workshop2">
       <span class="ws-ring" aria-hidden="true"><span class="d1">Oct</span><span class="d2">19</span><span class="d3">2026</span></span>
       <span class="ws-info">
@@ -1432,9 +1465,78 @@ footer{position:relative;background-color:#101312;background-image:
       </ul>
     </details>
 
+    <div class="join" id="integrityJoin">
+      <span class="join-kicker">Pilot Community</span>
+      <p class="join-q">Interested in joining a community of instructors piloting AI in their courses?</p>
+      <p class="join-sub">Leave your email and Megan will be in touch.</p>
+      <form class="join-form" data-source="How Your Students Are (Actually) Using AI" novalidate>
+        <label class="join-label" for="integrityJoinEmail">Your email</label>
+        <div class="join-row">
+          <input type="email" id="integrityJoinEmail" name="email" placeholder="you@uregina.ca" autocomplete="email" required>
+          <input type="text" name="_honey" class="join-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="cta-button join-btn">Submit</button>
+        </div>
+        <p class="join-msg" role="status" aria-live="polite"></p>
+      </form>
+      <div class="join-done" hidden>
+        <span class="join-check" aria-hidden="true">&#10003;</span>
+        <p><strong>Thank you, your email has been sent.</strong> Megan will be in touch soon.</p>
+      </div>
+    </div>
+
     <h3>Share This Page</h3>
     <p>Scan the code to open this page on your own device.</p>
     <div class="ws-qr" id="wsQr2"></div>
+
+    <div class="about-actions">
+      <button class="cta-ghost" data-nav="workshops">Back to Workshops</button>
+      <button class="cta-ghost" data-nav="home">Back to Home</button>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="view" id="view-workshop3">
+<div class="about-wrap workshops-wrap">
+  <div class="about-inner">
+    <div class="section-kicker">Workshop Series &middot; Centre for Teaching and Learning</div>
+    <h2 class="about-title">AI &amp; Your Course</h2>
+    <p class="ws-when">October 16, November 19 &amp; December 10, 2026 &middot; 12:00-1:00 &middot; Centre for Teaching and Learning</p>
+    <div class="ws-sessions" aria-label="Session dates">
+      <span class="ws-sess"><b>Oct 16</b>12:00-1:00</span>
+      <span class="ws-sess"><b>Nov 19</b>12:00-1:00</span>
+      <span class="ws-sess"><b>Dec 10</b>12:00-1:00</span>
+    </div>
+    <p>AI &amp; Your Course is a workshop series for instructors thinking through how to integrate GenAI into their courses and teaching practice. We&rsquo;ll explore questions of teaching pedagogy, course design, assignments, assessment, and what meaningful use of GenAI might look like in different disciplines and classrooms.</p>
+    <p>Come to a session with something you want to work on, a question you&rsquo;re wrestling with, an idea you&rsquo;d like to explore, or simply a desire to connect with other instructors thinking through the same things. These sessions are intended to be practical, collaborative, and hands-on. We&rsquo;ll work through ideas together rather than simply talk about AI.</p>
+    <p>Sessions are co-led by the University of Regina&rsquo;s inaugural GenAI Teaching Fellows, Alec Couros and Megan Perram.</p>
+
+    <h3>Presentation Slides</h3>
+    <div class="ws-slot" id="ws3Slides">The presentation slides will be posted here soon.</div>
+
+    <div class="join" id="aicourseJoin">
+      <span class="join-kicker">Pilot Community</span>
+      <p class="join-q">Interested in joining a community of instructors piloting AI in their courses?</p>
+      <p class="join-sub">Leave your email and Megan will be in touch.</p>
+      <form class="join-form" data-source="AI & Your Course" novalidate>
+        <label class="join-label" for="aicourseJoinEmail">Your email</label>
+        <div class="join-row">
+          <input type="email" id="aicourseJoinEmail" name="email" placeholder="you@uregina.ca" autocomplete="email" required>
+          <input type="text" name="_honey" class="join-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="cta-button join-btn">Submit</button>
+        </div>
+        <p class="join-msg" role="status" aria-live="polite"></p>
+      </form>
+      <div class="join-done" hidden>
+        <span class="join-check" aria-hidden="true">&#10003;</span>
+        <p><strong>Thank you, your email has been sent.</strong> Megan will be in touch soon.</p>
+      </div>
+    </div>
+
+
+    <h3>Share This Page</h3>
+    <p>Scan the code to open this page on your own device.</p>
+    <div class="ws-qr" id="wsQr3"></div>
 
     <div class="about-actions">
       <button class="cta-ghost" data-nav="workshops">Back to Workshops</button>
@@ -1770,7 +1872,7 @@ function navTo(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el = $('#view-'+view);
   if(el) el.classList.add('active');
-  $$('.nav-menu button').forEach(b=>b.classList.toggle('active', b.dataset.nav===view || (view==='tutor'&&b.dataset.nav==='projects') || ((view==='workshop1'||view==='workshop2')&&b.dataset.nav==='workshops')));
+  $$('.nav-menu button').forEach(b=>b.classList.toggle('active', b.dataset.nav===view || (view==='tutor'&&b.dataset.nav==='projects') || ((view==='workshop1'||view==='workshop2'||view==='workshop3')&&b.dataset.nav==='workshops')));
   $('#navMenu').classList.remove('open'); $('#menuToggle').classList.remove('open');
   window.scrollTo({top:0,behavior:'auto'});
   if(view==='projects'){ requestAnimationFrame(function(){ var h=document.querySelector('#view-projects .section-header')||document.querySelector('#view-projects .projects-grid'); if(h){ var hEl=document.getElementById('header'); var hH=hEl?hEl.getBoundingClientRect().height:64; var r=h.getBoundingClientRect(); var y=r.top+window.scrollY-hH-14; window.scrollTo({top:Math.max(0,y),behavior:'smooth'}); } }); }
@@ -4888,7 +4990,7 @@ Scope / handoff (per the hybrid-model consensus — Fakour & Imani; Orynbassarov
   /* Deep links: #workshop (or #workshop1), #workshops, #about, #projects, #tutor, #contact
      open the page directly on that view. */
   (function(){
-    const ALIAS = { workshop:'workshop1', workshop1:'workshop1', workshop2:'workshop2', integrity:'workshop2', workshops:'workshops',
+    const ALIAS = { workshop:'workshop1', workshop1:'workshop1', workshop2:'workshop2', integrity:'workshop2', workshop3:'workshop3', aicourse:'workshop3', workshops:'workshops',
                     about:'about', projects:'projects', tutor:'tutor', contact:'contact', home:'home' };
     function applyHash(){
       const h = (location.hash || '').replace('#','').toLowerCase();
@@ -5139,6 +5241,62 @@ Scope / handoff (per the hybrid-model consensus — Fakour & Imani; Orynbassarov
     frame.addEventListener('touchend',function(e){ if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) go(dx<0?1:-1); sx=null; });
     show();
   })();
+})();
+</script>
+<script>
+/* ===== Workshop 3 QR, pilot sign-up forms, and deep links ===== */
+(function(){
+  var q3=document.getElementById('wsQr3');
+  if(q3 && typeof qrcode!=='undefined'){
+    try{ var qr=qrcode(0,'M'); qr.addData('https://meganperram.com/genaifellowship/#aicourse'); qr.make();
+      q3.innerHTML=qr.createSvgTag({cellSize:10,margin:2,scalable:true});
+      var sv=q3.querySelector('svg'); if(sv){ sv.setAttribute('role','img'); sv.setAttribute('aria-label','QR code linking directly to this workshop page'); }
+    }catch(e){ q3.innerHTML='<p class="ws-qr-note">The QR code will appear here once the site is online.</p>'; }
+  }
+
+  /* Sign-up: sends the address to Megan by email through FormSubmit (no account needed). */
+  var ENDPOINT='https://formsubmit.co/ajax/mpv239@uregina.ca';
+  document.querySelectorAll('.join-form').forEach(function(f){
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var input=f.querySelector('input[type=email]'), btn=f.querySelector('button'), msg=f.querySelector('.join-msg');
+      var email=(input.value||'').trim();
+      if(f.querySelector('.join-hp').value) return;
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent='Please enter a valid email address.'; input.focus(); return; }
+      msg.textContent=''; btn.disabled=true; btn.textContent='Sending…';
+      fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({email:email,_replyto:email,workshop:f.dataset.source,_subject:'Pilot community sign-up: '+f.dataset.source,_template:'table',_captcha:'false'})})
+      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(d){
+        if(d && (d.success===true || d.success==='true')){
+          f.hidden=true; var done=f.parentNode.querySelector('.join-done'); done.hidden=false;
+        } else { throw new Error('not sent'); }
+      })
+      .catch(function(){
+        btn.disabled=false; btn.textContent='Submit';
+        msg.innerHTML='Sorry, that didn’t go through. Please try again, or email Megan at <a href="mailto:mpv239@uregina.ca">mpv239@uregina.ca</a>.';
+      });
+    });
+  });
+
+  /* Deep links: #aicourse, #aicourse-join, #integrity-join, #anna, #kay, #fatima, #emily */
+  var LINKS={ 'aicourse':['workshop3',null], 'workshop3':['workshop3',null], 'aicourse-join':['workshop3','aicourseJoin'],
+    'integrity-join':['workshop2','integrityJoin'], 'anna':['workshop2','csAnna'], 'kay':['workshop2','csKay'],
+    'fatima':['workshop2','csFatima'], 'emily':['workshop2','csEmily'] };
+  function go(){
+    var h=(location.hash||'').replace('#','').toLowerCase(), t=LINKS[h]; if(!t) return;
+    if(typeof navTo==='function') navTo(t[0]);
+    try{ history.replaceState(null,'','#'+h); }catch(e){}
+    if(!t[1]) return;
+    var el=document.getElementById(t[1]); if(!el) return;
+    if(el.tagName==='DETAILS' && !el.open) el.open=true;
+    setTimeout(function(){
+      var hd=document.getElementById('header'), off=hd?hd.getBoundingClientRect().height+14:80;
+      window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-off,behavior:'auto'});
+    },120);
+  }
+  window.addEventListener('hashchange',go);
+  if(document.readyState==='complete') go(); else window.addEventListener('load',go);
 })();
 </script>
 </body>
