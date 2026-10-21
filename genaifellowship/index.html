@@ -1126,6 +1126,191 @@ footer{position:relative;background-color:#101312;background-image:
 .em-frame #emImg{position:relative;object-fit:contain}
 .em-frame .em-num,.em-frame .em-arrow{z-index:2}
 </style>
+<style>
+#hxStage p,#hxStage h2,#hxStage h3,#hxStage blockquote,#hxStage ul{font-size:inherit;line-height:inherit;color:inherit;margin:0 0 .8em;letter-spacing:inherit}
+#hxStage a{color:inherit;font-weight:inherit;border-bottom:0}
+
+.hx-wrap{--hx-green:#005A37;--hx-green-dk:#124734;--hx-green-deep:#0B3A27;--hx-gold:#FFC629;--hx-gold-2:#FBAE40;
+  width:min(1180px,calc(100vw - 40px));margin:22px 0 10px;position:relative;left:50%;transform:translateX(-50%)}
+.hx-hint{font-size:13px;color:var(--muted);margin:0 0 10px;text-align:center}
+.hx-stage{position:relative;background:var(--hx-green);color:#fff;font-family:Arial,Helvetica,sans-serif;
+  container-type:inline-size;display:flex;flex-direction:column;overflow:hidden;border-radius:4px;
+  box-shadow:0 24px 60px -30px rgba(11,58,39,.6);outline:none;line-height:1.4}
+.hx-stage:focus-visible{box-shadow:0 0 0 3px var(--hx-gold),0 24px 60px -30px rgba(11,58,39,.6)}
+#hxStage .hx-screen{position:relative;aspect-ratio:16/9;width:100%;overflow:hidden}
+#hxStage .hx-slide{position:absolute;inset:0;padding:4.6cqw 5.6cqw 3.2cqw;font-size:2.05cqw;overflow:hidden}
+#hxStage .hx-slide.is-in{animation:hxIn .55s cubic-bezier(.2,.7,.2,1) both}
+#hxStage .hx-slide.is-in.is-back{animation-name:hxInBack}
+#hxStage .hx-slide.is-out{animation:hxOut .35s ease both;pointer-events:none}
+@keyframes hxIn{
+from{opacity:0;transform:translateX(2.5%)}
+to{opacity:1;transform:none}}
+@keyframes hxInBack{
+from{opacity:0;transform:translateX(-2.5%)}
+to{opacity:1;transform:none}}
+@keyframes hxOut{
+to{opacity:0}}
+#hxStage .hx-kicker{font-size:.62em;letter-spacing:.18em;text-transform:uppercase;color:var(--hx-gold);margin:0 0 1.1em;font-weight:700}
+#hxStage .hx-kicker--in{margin-bottom:.5em}
+#hxStage .hx-h1{font-size:2.15em;line-height:1.12;margin:0 0 .7em;font-weight:700;max-width:22ch;letter-spacing:-.01em}
+#hxStage .hx-h2{font-size:1.62em;line-height:1.15;margin:0 0 .8em;font-weight:700;letter-spacing:-.01em;max-width:34ch}
+#hxStage .hx-h3{font-size:1em;margin:1em 0 .5em;color:var(--hx-gold);font-weight:700}
+#hxStage .hx-lead{font-size:1em;margin:0 0 .8em;max-width:46ch}
+#hxStage .hx-list{margin:0;padding-left:1.1em;max-width:48ch}
+#hxStage .hx-list li{margin:0 0 .95em;padding-left:.2em}
+#hxStage .hx-list--tight li{margin-bottom:.7em}
+#hxStage .hx-list li::marker{color:var(--hx-gold)}
+#hxStage .hx-quote{margin:0 0 .7em;padding:.1em 0 .1em .9em;border-left:.22em solid var(--hx-gold);font-size:.95em;line-height:1.45}
+#hxStage .hx-quote--big{font-size:1.18em;max-width:52ch;line-height:1.42}
+#hxStage .hx-cite{display:block;font-size:.62em;color:rgba(255,255,255,.78);margin:.4em 0 0;letter-spacing:.02em}
+#hxStage .hx-li-quote{list-style:none;margin-left:-1.1em!important;padding:.2em 0 .2em .9em!important;border-left:.22em solid var(--hx-gold);max-width:52ch}
+#hxStage .hx-big{font-size:1.5em;line-height:1.25;font-weight:700;margin:.6em 0 0;max-width:30ch}
+#hxStage .hx-big--q{color:#fff;max-width:36ch;font-size:1.32em}
+#hxStage .hx-link{color:inherit;text-decoration:none;cursor:default;border:0;background:none;font:inherit;padding:0;pointer-events:none}
+#hxStage .hx-link.is-active{pointer-events:auto;cursor:pointer;text-decoration:underline;text-decoration-color:var(--hx-gold);
+  text-decoration-thickness:.16em;text-underline-offset:.18em;transition:background .2s,color .2s;border-radius:2px;
+  animation:hxPulse 2.6s ease-in-out 1.2s infinite}
+#hxStage .hx-link.is-active:hover,#hxStage .hx-link.is-active:focus-visible{background:var(--hx-gold);color:var(--hx-green-deep);outline:none;animation:none}
+@keyframes hxPulse{
+0%,100%{text-decoration-color:var(--hx-gold)}
+50%{text-decoration-color:rgba(255,198,41,.45)}}
+#hxStage .hx-link--out{pointer-events:auto;cursor:pointer;text-decoration:underline;text-decoration-color:var(--hx-gold);text-decoration-thickness:.16em;text-underline-offset:.18em}
+#hxStage .hx-link--out:hover{background:var(--hx-gold);color:var(--hx-green-deep)}
+#hxStage .hx-win .hx-link.is-active{text-decoration-color:var(--hx-gold-2)}
+#hxStage .hx-win .hx-link.is-active:hover,#hxStage .hx-win .hx-link.is-active:focus-visible{background:var(--hx-gold);color:var(--hx-green-deep)}
+#hxStage .hx-win__bar .hx-link.is-active{color:#fff}
+#hxStage .hx-slide [data-at]{display:none}
+#hxStage .hx-slide [data-at].is-shown{display:revert}
+#hxStage .hx-slide .hx-win[data-at].is-shown{display:block}
+#hxStage .hx-slide .hx-kind[data-at].is-shown{display:flex}
+#hxStage .hx-slide [data-at].is-new{animation:hxStretch .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes hxStretch{
+from{opacity:0;transform:translateY(-.4em);clip-path:inset(0 -1em 100% -2em)}
+to{opacity:1;transform:none;clip-path:inset(-1em -1em -1em -2em)}}
+#hxStage .hx-slide .hx-win[data-at].is-new{animation:hxWin .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes hxWin{
+from{opacity:0;transform:translate(1.4em,1.4em) scale(.96)}
+to{opacity:1;transform:none}}
+#hxStage .hx-split{display:grid;grid-template-columns:1.15fr .85fr;gap:3.5cqw;height:100%;align-items:start}
+#hxStage .hx-split--game{grid-template-columns:.9fr 1.1fr}
+#hxStage .hx-col--viz,#hxStage .hx-col--photo{height:100%;display:flex;align-items:center;justify-content:center}
+#hxStage .hx-col--viz .hx-viz{width:100%;height:92%}
+#hxStage .hx-col--photo img{max-width:100%;max-height:34cqw;object-fit:contain;box-shadow:0 1.2cqw 2.4cqw -1.2cqw rgba(0,0,0,.5);border:.35cqw solid #fff}
+#hxStage .hx-viz{position:relative}
+#hxStage .hx-viz canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#hxStage .hx-viz--bg{position:absolute;inset:0;opacity:.55;pointer-events:none}
+#hxStage .hx-title,#hxStage .hx-statement{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center}
+#hxStage .hx-title>*:not(.hx-viz),#hxStage .hx-statement>*:not(.hx-viz){position:relative}
+#hxStage .hx-title .hx-h1{font-size:2.3em;max-width:24ch}
+#hxStage .hx-byline{margin:0;display:flex;flex-direction:column;gap:.2em;font-size:.92em}
+#hxStage .hx-byline span{color:var(--hx-gold);font-size:.8em;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+#hxStage .hx-statement .hx-h1{font-size:2.6em;max-width:18ch}
+#hxStage .hx-desk{position:relative;height:72%;margin-top:.2em}
+#hxStage .hx-win{position:absolute;left:var(--x,0);top:var(--y,0);width:var(--w,58%);background:#fff;color:#1d2b24;
+  border-top:.35cqw solid var(--hx-gold);box-shadow:0 1.6cqw 3.2cqw -1cqw rgba(0,0,0,.45);transition:filter .4s}
+#hxStage .hx-win__bar{background:var(--hx-green-dk);color:#fff;font-size:.6em;letter-spacing:.12em;text-transform:uppercase;padding:.55em .9em}
+#hxStage .hx-win__bar b{color:var(--hx-gold)}
+#hxStage .hx-win__bar .hx-link{letter-spacing:.12em}
+#hxStage .hx-win__body{padding:1em 1.2em 1.1em;font-size:1.05em;line-height:1.4}
+#hxStage .hx-win__body p{margin:0}
+#hxStage .hx-win__body .hx-quote{border-left-color:var(--hx-gold-2);font-size:.86em}
+#hxStage .hx-win__body .hx-cite{color:#55615b}
+#hxStage .hx-win.is-behind{filter:brightness(.82) saturate(.7)}
+#hxStage .hx-win--img .hx-win__body{padding:0;background:#f2f2ee}
+#hxStage .hx-win--img img{display:block;width:100%;height:auto;max-height:30cqw;object-fit:contain}
+#hxStage .hx-desk--anthropy{height:78%}
+#hxStage .hx-desk--anthropy .hx-win--img img{max-height:27cqw}
+#hxStage .hx-desk--coover .hx-win--img img{max-height:29cqw}
+#hxStage .hx-desk--news .hx-win--img img{max-height:22cqw}
+#hxStage .hx-units{display:flex;gap:.5em;margin-top:.7em}
+#hxStage .hx-units span{font-size:.7em;padding:.3em .8em;border:1px solid #c9d3cd;border-radius:999px;color:#124734;animation:hxWin .5s both}
+#hxStage .hx-units span:nth-child(2){animation-delay:.18s}
+#hxStage .hx-units span:nth-child(3){animation-delay:.36s}
+#hxStage .hx-kinds{display:grid;grid-template-columns:repeat(5,1fr);gap:1.6cqw;margin:1em 0 1.4em;min-height:15cqw}
+#hxStage .hx-kind{flex-direction:column;gap:.5em}
+#hxStage .hx-kind__lab{font-size:.6em;letter-spacing:.16em;text-transform:uppercase;color:var(--hx-gold);font-weight:700}
+#hxStage .hx-kind__box{height:12cqw;border:.2cqw solid rgba(255,255,255,.35);background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;
+  overflow:hidden;padding:0;color:#fff;font:inherit;border-radius:3px}
+#hxStage .hx-kind__box--text p{margin:0;font-size:.95em}
+#hxStage .hx-media{cursor:default;pointer-events:none}
+#hxStage .hx-media img,#hxStage .hx-media video{width:100%;height:100%;object-fit:cover;display:block}
+#hxStage .hx-media.is-active{pointer-events:auto;cursor:pointer;border-color:var(--hx-gold);box-shadow:0 0 0 .3cqw rgba(255,198,41,.35);animation:hxGlow 2.2s ease-in-out infinite}
+#hxStage .hx-media.is-active:hover,#hxStage .hx-media.is-active:focus-visible{outline:none;box-shadow:0 0 0 .5cqw var(--hx-gold)}
+@keyframes hxGlow{
+50%{box-shadow:0 0 0 .7cqw rgba(255,198,41,.15)}}
+#hxStage .hx-sound svg{width:42%;height:42%;fill:#fff;color:#fff}
+#hxStage .hx-sound.is-playing svg{color:var(--hx-gold);fill:var(--hx-gold)}
+#hxStage .hx-timer{position:relative}
+#hxStage .hx-timer svg{width:60%;height:60%;transform:rotate(-90deg)}
+#hxStage .hx-timer circle{fill:none;stroke:rgba(255,255,255,.25);stroke-width:3}
+#hxStage .hx-timer .hx-timer__arc{stroke:var(--hx-gold);stroke-dasharray:100.5;stroke-dashoffset:0;stroke-linecap:round}
+#hxStage .hx-timer.is-running .hx-timer__arc{transition:stroke-dashoffset linear;stroke-dashoffset:100.5}
+#hxStage .hx-timer__n{position:absolute;font-size:1.4em}
+#hxStage .hx-col--wiki,#hxStage .hx-col--game{height:100%}
+#hxStage .hx-wiki,#hxStage .hx-game{height:100%;display:flex;flex-direction:column;background:#fff;border-top:.35cqw solid var(--hx-gold);box-shadow:0 1.6cqw 3.2cqw -1cqw rgba(0,0,0,.45)}
+#hxStage .hx-wiki__bar,#hxStage .hx-game__bar{display:flex;justify-content:space-between;gap:1em;align-items:center;background:var(--hx-green-dk);color:#fff;font-size:.52em;padding:.6em .9em;letter-spacing:.04em}
+#hxStage .hx-wiki__bar a,#hxStage .hx-game__bar a{color:var(--hx-gold);text-decoration:none;font-weight:700;white-space:nowrap}
+#hxStage .hx-wiki iframe,#hxStage .hx-game iframe{flex:1;width:100%;border:0;background:#fff}
+#hxStage .hx-game__frame{position:relative;flex:1;display:flex;background:var(--hx-green-deep)}
+#hxStage .hx-game__frame:not(.is-live) iframe{visibility:hidden}
+#hxStage .hx-game__play{position:absolute;inset:0;margin:auto;width:max-content;height:max-content;padding:.7em 1.4em;font:700 .8em Arial,sans-serif;
+  background:var(--hx-gold);color:var(--hx-green-deep);border:0;border-radius:999px;cursor:pointer}
+#hxStage .hx-game__frame.is-live .hx-game__play{display:none}
+#hxStage .hx-viz--belt{position:absolute;left:0;right:0;bottom:0;height:34%}
+#hxStage .hx-viz--cocreate{position:absolute;left:5.6cqw;right:5.6cqw;bottom:2cqw;height:38%}
+#hxStage .hx-try{height:100%;display:grid;grid-template-columns:1.2fr .8fr;gap:4cqw;align-items:center}
+#hxStage .hx-try .hx-h1{font-size:2.5em}
+#hxStage .hx-url{margin:0;font-size:.8em;color:rgba(255,255,255,.8)}
+#hxStage .hx-qr{background:#fff;padding:1.4cqw;border-radius:4px;width:24cqw;justify-self:center}
+#hxStage .hx-qr svg{display:block;width:100%;height:auto}
+#hxStage .hx-band{display:flex;min-height:4.6cqw}
+#hxStage .hx-band__gold{flex:1;background:var(--hx-gold);color:var(--hx-green-deep);display:flex;align-items:center;padding:0 2cqw;
+  font-weight:700;font-size:max(11px,1.05cqw);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hxStage .hx-band__white{flex:1;background:#fff;color:var(--hx-green-dk);display:flex;align-items:center;justify-content:flex-end;gap:.6em;padding:0 1.2cqw}
+.hx-stage::after{content:"";display:block;height:1cqw;min-height:6px;background:var(--hx-green-dk)}
+#hxStage .hx-btn{display:inline-flex;align-items:center;gap:.35em;border:1px solid #cdd6d1;background:#fff;color:var(--hx-green-dk);
+  font:700 max(12px,1cqw)/1 Arial,sans-serif;padding:.55em .9em;border-radius:999px;cursor:pointer}
+#hxStage .hx-btn:hover:not([disabled]){background:var(--hx-green-dk);color:#fff;border-color:var(--hx-green-dk)}
+#hxStage .hx-btn[disabled]{opacity:.35;cursor:default}
+#hxStage .hx-btn svg{width:1.1em;height:1.1em;fill:currentColor}
+#hxStage .hx-btn--icon{padding:.5em}
+#hxStage .hx-count{font:700 max(11px,.95cqw) Arial,sans-serif;color:var(--hx-green-dk);min-width:4.5em;text-align:center;letter-spacing:.04em}
+#hxStage .hx-map{display:flex;align-items:center;gap:0;margin-right:auto;padding-left:.4em}
+#hxStage .hx-map button{width:max(8px,.75cqw);height:max(8px,.75cqw);border-radius:50%;border:2px solid var(--hx-green);background:#fff;padding:0;margin:0 max(2px,.22cqw);cursor:pointer}
+#hxStage .hx-map button.seen{background:rgba(0,90,55,.35)}
+#hxStage .hx-map button.here{background:var(--hx-gold);border-color:var(--hx-green-dk);transform:scale(1.25)}
+.hx-stage:fullscreen{width:100vw;height:100vh;justify-content:center;background:var(--hx-green-deep);border-radius:0}
+.hx-stage:fullscreen .hx-screen,.hx-stage:fullscreen .hx-band{width:min(100vw,calc((100vh - 7vh) * 16 / 9));margin:0 auto}
+.hx-stage:fullscreen::after{width:min(100vw,calc((100vh - 7vh) * 16 / 9));margin:0 auto}
+.hx-stage:-webkit-full-screen{width:100vw;height:100vh;justify-content:center;background:var(--hx-green-deep)}
+
+@media (prefers-reduced-motion:reduce){
+#hxStage .hx-slide,#hxStage .hx-slide *,#hxStage .hx-link{animation:none!important;transition:none!important}}
+
+
+@media (max-width:720px){
+.hx-wrap{width:calc(100vw - 24px)}
+#hxStage .hx-screen{aspect-ratio:auto;min-height:118vw}
+#hxStage .hx-slide{position:relative;inset:auto;font-size:15px;padding:22px 18px 20px}
+#hxStage .hx-slide.is-out{position:absolute;inset:0}
+#hxStage .hx-split,#hxStage .hx-split--game,#hxStage .hx-try{grid-template-columns:1fr;height:auto;gap:16px}
+#hxStage .hx-col--viz .hx-viz{height:180px}
+#hxStage .hx-col--photo img{max-height:260px}
+#hxStage .hx-desk{height:auto}
+#hxStage .hx-win{position:relative;left:0!important;top:0!important;width:100%!important;margin-bottom:12px}
+#hxStage .hx-win--img img,#hxStage .hx-desk--news .hx-win--img img{max-height:260px}
+#hxStage .hx-kinds{grid-template-columns:repeat(3,1fr);gap:10px}
+#hxStage .hx-kind__box{height:78px}
+#hxStage .hx-col--wiki,#hxStage .hx-col--game{height:380px}
+#hxStage .hx-viz--belt,#hxStage .hx-viz--cocreate{position:relative;left:auto;right:auto;bottom:auto;height:150px;margin-top:10px}
+#hxStage .hx-qr{width:200px}
+#hxStage .hx-band{flex-direction:column}
+#hxStage .hx-band__gold{padding:10px 14px}
+#hxStage .hx-band__white{padding:8px 10px;justify-content:space-between}
+#hxStage .hx-map{display:none}
+}
+
+</style>
 </head>
 
 
@@ -1214,10 +1399,14 @@ footer{position:relative;background-color:#101312;background-image:
           <span class="project-name">A Socratic Study Partner for Your Course</span>
           <span class="project-desc">A dialogue-first study companion for ENGL 110: Digital Literature &amp; New Media.</span>
         </button>
+        <a class="project-card" href="coauthor/" id="project2Card" style="text-decoration:none;color:inherit">
+          <span class="project-tag">Reflective Writing</span>
+          <span class="project-name">The AI Co-Author Companion</span>
+          <span class="project-desc">A weekly reflective journal where students stay the authors. The AI helps them start, find words and think further, but it can only suggest.</span>
+        </a>
         <div class="project-card soon"><span class="project-tag">Writing</span><span class="project-name">The Three-Story Thesis Companion</span><span class="project-desc"></span><span class="soon-badge">Coming Soon</span></div>
         <div class="project-card soon"><span class="project-tag">Game-Based Learning</span><span class="project-name">Building Table-Top Games for Learning</span><span class="project-desc"></span><span class="soon-badge">Coming Soon</span></div>
-        <div class="project-card soon"><span class="project-tag">Interactive Fiction</span><span class="project-name">Hypertext, GenAI and Choice-Based Learning</span><span class="project-desc"></span><span class="soon-badge">Coming Soon</span></div>
-      </div>
+              </div>
     </div>
   </div>
 </section>
@@ -1229,6 +1418,15 @@ footer{position:relative;background-color:#101312;background-image:
     <div class="section-kicker">Workshops</div>
     <h2 class="about-title">Workshops</h2>
     <p class="about-lede">Hands-on sessions for instructors, posted as they are scheduled.</p>
+    <button class="ws-card" data-nav="workshop4">
+      <span class="ws-ring" aria-hidden="true"><span class="d1">Oct</span><span class="d2">27</span><span class="d3">2026</span></span>
+      <span class="ws-info">
+        <span class="ws-meta">Centre for Teaching and Learning &middot; October 27, 2026</span>
+        <span class="ws-name">Before GenAI, There Was Hypertext: What Happened to the Promise of Democratized Learning?</span>
+        <span class="ws-time">Session: October 27 &middot; 10:00 a.m.</span>
+        <span class="ws-go">View workshop <svg viewBox="0 0 24 24"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></svg></span>
+      </span>
+    </button>
     <button class="ws-card" data-nav="workshop3">
       <span class="ws-ring" aria-hidden="true"><span class="d1">Oct</span><span class="d2">16</span><span class="d3">2026</span></span>
       <span class="ws-info">
@@ -1587,6 +1785,66 @@ footer{position:relative;background-color:#101312;background-image:
 </div>
 </section>
 
+<section class="view" id="view-workshop4">
+<div class="about-wrap workshops-wrap">
+  <div class="about-inner">
+    <div class="section-kicker">Workshop &middot; Centre for Teaching and Learning</div>
+    <h2 class="about-title">Before GenAI, There Was Hypertext: What Happened to the Promise of Democratized Learning?</h2>
+    <p class="ws-when">October 27, 2026 &middot; 10:00 a.m. &middot; Centre for Teaching and Learning</p>
+    <p>More than fifty years ago, Ted Nelson imagined hypertext as a technology that would transform how humans access and organize knowledge. Rather than encountering information as a fixed, linear sequence, readers could follow branching, rhizomatic pathways and make choices about where their reading took them. Nelson imagined this structure as more closely aligned with the way knowledge itself develops, ultimately presenting a world where: &ldquo;everybody who could read&rdquo; would be able to &ldquo;read everything&rdquo; (<em>Computer Lib / Dream Machines</em> 59).</p>
+    <p>So what happened?</p>
+    <p>This talk looks backward to hypertext&rsquo;s early promises of democratized knowledge and transformed learning and asks what became of them. From there, we will consider GenAI within a longer history of technologies that have promised to change how we access knowledge. Ultimately, what has changed now that we can, in fact, read everything?</p>
+
+    <h3>The Presentation</h3>
+    <p>This presentation is written in hypertext. To move through it, click the one link underlined in gold, or use the Back and Next buttons.</p>
+    <div class="hx-wrap">
+      <div class="hx-stage" id="hxStage" tabindex="0" role="region" aria-roledescription="presentation" aria-label="Presentation: Before GenAI, There Was Hypertext. Click the gold underlined link or use the arrow keys to move through it.">
+        <div class="hx-screen" aria-live="polite"></div>
+        <div class="hx-band">
+          <div class="hx-band__gold">Before GenAI, There Was Hypertext</div>
+          <div class="hx-band__white">
+            <div class="hx-map" id="hxMap" aria-label="Slides"></div>
+            <button class="hx-btn" id="hxPrev" type="button" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 7.4L14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg>Back</button>
+            <span class="hx-count" id="hxCount" aria-live="polite">1 / 23</span>
+            <button class="hx-btn" id="hxNext" type="button" aria-label="Next">Next<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.6 16.6L10 18l6-6-6-6-1.4 1.4 4.6 4.6z"/></svg></button>
+            <button class="hx-btn hx-btn--icon" id="hxFull" type="button" aria-label="Present full screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3m-2-4h2V7h3V5H5v5m12 7h-3v2h5v-5h-2v3M14 5v2h3v3h2V5h-5z"/></svg><span>Present</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Research</h3>
+    <details class="ws-sources"><summary>Sources cited in the presentation</summary>
+      <ul class="pub-list ws-pub">
+<li>Anthropy, Anna. <em>Queers in Love at the End of the World</em>. 2013. <em>itch.io</em>, <a href="https://w.itch.io/end-of-the-world" target="_blank" rel="noopener">w.itch.io/end-of-the-world</a>.</li>
+<li>Anthropy, Anna. <em>Rise of the Videogame Zinesters: How Freaks, Normals, Amateurs, Artists, Dreamers, Drop-outs, Queers, Housewives, and People Like You Are Taking Back an Art Form</em>. Seven Stories Press, 2012.</li>
+<li>Barthes, Roland. &ldquo;The Death of the Author.&rdquo; <em>Image, Music, Text</em>, translated by Stephen Heath, Hill and Wang, 1977, pp. 142&ndash;48.</li>
+<li>Bolter, Jay David. <em>Writing Space: The Computer, Hypertext, and the History of Writing</em>. Lawrence Erlbaum Associates, 1991.</li>
+<li>Coover, Robert. &ldquo;The End of Books.&rdquo; <em>The New York Times Book Review</em>, 21 June 1992, p. 1.</li>
+<li>Deleuze, Gilles, and F&eacute;lix Guattari. <em>A Thousand Plateaus: Capitalism and Schizophrenia</em>. Translated by Brian Massumi, U of Minnesota P, 1987.</li>
+<li>Ensslin, Astrid. <em>Canonizing Hypertext: Explorations and Constructions</em>. Continuum, 2007.</li>
+<li>Ensslin, Astrid, and R. Lyle Skains. &ldquo;Hypertext: Storyspace to Twine.&rdquo; <em>The Bloomsbury Handbook of Electronic Literature</em>, edited by Joseph Tabbi, Bloomsbury, 2017, pp. 293&ndash;307.</li>
+<li>Hayles, N. Katherine. &ldquo;Electronic Literature: What Is It?&rdquo; <em>Electronic Literature Organization</em>, 2 Jan. 2007, <a href="https://eliterature.org/pad/elp.html" target="_blank" rel="noopener">eliterature.org/pad/elp.html</a>.</li>
+<li>Hulick, Kathryn. &ldquo;Have We Entered a New Age of AI-Enabled Scientific Discovery?&rdquo; <em>Science News</em>, 18 Feb. 2026.</li>
+<li>Landow, George P. <em>Hypertext: The Convergence of Contemporary Critical Theory and Technology</em>. Johns Hopkins UP, 1992.</li>
+<li>Mbuqe, Ronnie. &ldquo;AI Is Already Changing How We Learn.&rdquo; <em>ExplainItSimply</em>, 1 Aug. 2026.</li>
+<li>Nelson, Theodor H. <em>Computer Lib / Dream Machines</em>. Rev. ed., Tempus Books of Microsoft Press, 1987.</li>
+<li>Salter, Anastasia, and Stuart Moulthrop. <em>Twining: Critical and Creative Approaches to Hypertext Narratives</em>. Amherst College Press, 2021, <a href="https://doi.org/10.3998/mpub.12255695" target="_blank" rel="noopener">doi.org/10.3998/mpub.12255695</a>.</li>
+      </ul>
+    </details>
+
+    <h3>Share This Page</h3>
+    <p>Scan the code to open this page on your own device.</p>
+    <div class="ws-qr" id="wsQr4"></div>
+
+    <div class="about-actions">
+      <button class="cta-ghost" data-nav="workshops">Back to Workshops</button>
+      <button class="cta-ghost" data-nav="home">Back to Home</button>
+    </div>
+  </div>
+</div>
+</section>
+
 <section class="view" id="view-contact">
 <div class="about-wrap contact-wrap">
   <div class="about-inner">
@@ -1913,7 +2171,7 @@ function navTo(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el = $('#view-'+view);
   if(el) el.classList.add('active');
-  $$('.nav-menu button').forEach(b=>b.classList.toggle('active', b.dataset.nav===view || (view==='tutor'&&b.dataset.nav==='projects') || ((view==='workshop1'||view==='workshop2'||view==='workshop3')&&b.dataset.nav==='workshops')));
+  $$('.nav-menu button').forEach(b=>b.classList.toggle('active', b.dataset.nav===view || (view==='tutor'&&b.dataset.nav==='projects') || ((view==='workshop1'||view==='workshop2'||view==='workshop3'||view==='workshop4')&&b.dataset.nav==='workshops')));
   $('#navMenu').classList.remove('open'); $('#menuToggle').classList.remove('open');
   window.scrollTo({top:0,behavior:'auto'});
   if(view==='projects'){ requestAnimationFrame(function(){ var h=document.querySelector('#view-projects .section-header')||document.querySelector('#view-projects .projects-grid'); if(h){ var hEl=document.getElementById('header'); var hH=hEl?hEl.getBoundingClientRect().height:64; var r=h.getBoundingClientRect(); var y=r.top+window.scrollY-hH-14; window.scrollTo({top:Math.max(0,y),behavior:'smooth'}); } }); }
@@ -5031,7 +5289,7 @@ Scope / handoff (per the hybrid-model consensus — Fakour & Imani; Orynbassarov
   /* Deep links: #workshop (or #workshop1), #workshops, #about, #projects, #tutor, #contact
      open the page directly on that view. */
   (function(){
-    const ALIAS = { workshop:'workshop1', workshop1:'workshop1', workshop2:'workshop2', integrity:'workshop2', workshop3:'workshop3', aicourse:'workshop3', workshops:'workshops',
+    const ALIAS = { workshop:'workshop1', workshop1:'workshop1', workshop2:'workshop2', integrity:'workshop2', workshop3:'workshop3', aicourse:'workshop3', workshop4:'workshop4', hypertext:'workshop4', workshops:'workshops',
                     about:'about', projects:'projects', tutor:'tutor', contact:'contact', home:'home' };
     function applyHash(){
       const h = (location.hash || '').replace('#','').toLowerCase();
@@ -5356,6 +5614,373 @@ Scope / handoff (per the hybrid-model consensus — Fakour & Imani; Orynbassarov
   }
   deck('ws2Slides','integrity',["Slide 1 of 18: HOW YOUR STUDENTS ARE (ACTUALLY) USING AI: DEMYSTIFYING GENAI AND ACADEMIC INTEGRITY Dr. Megan Perram Assistant Professor of English GenAI", "Slide 2 of 18: HOW OFTEN ARE STUDENTS USING AI? Academica Group, 2026: “How are Canadian postsecondary students using generative AI today?” Surveyed 1,134", "Slide 3 of 18: THE EROSION OF TRUST Luo, Jiahui (Jess). “How Does GenAI Affect Trust in Teacher-Student Relationships? Insights from Students’ Assessment", "Slide 4 of 18: EPISTEMIC CONFIDENCE Platz, Monika. \"Trust Between Teacher and Student in Academic Education at School.\" Journal of Philosophy of", "Slide 5 of 18: COMPOSITE STUDENT CASE STUDIES", "Slide 6 of 18: AI POLICY FROM GENAI HUB Completely Prohibited: The assessments in this course have been created with specific learning objectives in mind.", "Slide 7 of 18: MEET ANNA Anna is studying for her biology exam. She used AI to help her build a small study app that turns her course notes into", "Slide 8 of 18: TEST OUT ANNA'S STUDY APP You’re the instructor of Anna's biology course. Recall your AI policy reads: \"Therefore, the use of GenAI", "Slide 9 of 18: MEET KAY Kay is taking an introductory philosophy course and wants to get better at distinguishing between competing philosophical", "Slide 10 of 18: CHECK OUT KAY'S AI PODCAST You’re the instructor of Kay's philosophy course. Recall your AI policy reads: \"Therefore, the use of GenAI", "Slide 11 of 18: MEET FATIMA Fatima is taking ENGL 100, where students submit weekly, low-stakes, pass/fail reflections on UR Courses to demonstrate", "Slide 12 of 18: CHECK OUT FATIMA'S AGENT You’re the instructor of Fatima's English course. Recall your AI policy reads: \"Therefore, the use of GenAI", "Slide 13 of 18: MEET EMILY Emily is taking a Classics course and preparing for her final essay. She also runs a popular Instagram account with over 40,000", "Slide 14 of 18: CHECK OUT EMILY'S INSTAGRAM You’re the instructor of Emily's Classics course. Recall your AI policy reads: \"Therefore, the use of GenAI", "Slide 15 of 18: DISCUSSION Drawing on Platz (2021), epistemic confidence refers to a person's ability to accurately assess their own knowledge and", "Slide 16 of 18: THE ARCHER LIBRARY & ARCHIVES' AI LITERACY BADGE • The library workshops offer practical skills and critical thinking about using AI in", "Slide 17 of 18: Interested in joining a community of instructors piloting AI in their courses? https://meganperram.com/genaifellowship/", "Slide 18 of 18: QUESTIONS?"]);
   deck('ws3Slides','aicourse',["Slide 1 of 19: AI & YOUR COURSE A hands-on working session for instructors Bring something to work on, or come curious Dr. Alec Couros & Dr. Megan Perram", "Slide 2 of 19: U OF R GENAI HUB https://www.uregina.ca/generative-ai-hub/index.html The U of R GenAI Hub encourages instructors to think through four", "Slide 3 of 19: FIVE PRACTICAL QUESTIONS The Hub gives us a simple place to start: 1. What are the learning objectives? 2. Which uses of GenAI might", "Slide 4 of 19: LET'S TURN TO SOME CASE STUDIES", "Slide 5 of 19: CASE STUDY 1 A UK university tested whether AI- generated work could make it through university assessment. Researchers submitted 100% AI-", "Slide 6 of 19: LET'S DISCUSS If fully AI-written work could pass in your course, what would that tell you about what your assessment is really measuring?", "Slide 7 of 19: CASE STUDY 2 At Monash University, undergraduate students worked with academics to design, test, and refine custom GPTs for specific", "Slide 8 of 19: LET'S DISCUSS What would students need to understand about your discipline in order to design a useful AI tutor for your course? After case", "Slide 9 of 19: CASE STUDY 3 In a University of Toronto recruitment course, students use AI to generate a custom organizational case and draft job", "Slide 10 of 19: LET'S DISCUSS What could you ask AI to produce in your course that students could then verify, critique, or “beat” using their disciplinary", "Slide 11 of 19: AI-MODIFIED ASSIGNMENT FRAMEWORK Alec and Megan will circulate", "Slide 12 of 19: STEP 1 Choose your focus: ONE ASSIGNMENT or YOUR WHOLE COURSE What should students learn or practice? • Write 2–3 goals: “By the end of", "Slide 13 of 19: STEP 2 Look at each step: Where could GenAI enter the student experience? Ask: • What could AI support? • What could AI change? • Where", "Slide 14 of 19: STEP 2: AI ASSIGNMENT MENU AI as… Students could… Critic Evaluate and respond to AI feedback Debate partner Explore competing perspectives", "Slide 15 of 19: STEP 3 Decide what AI use makes sense for your learning goals. Consider: • Permitted: What AI use will you encourage or allow? •", "Slide 16 of 19: STEP 4 Ask how you will know students have actually learned what you identified in Step 1. Consider: • What will students produce, explain,", "Slide 17 of 19: COME BACK TOGETHER What did you notice? • What did you work on? • What changed as you thought it through? • What questions are still open?", "Slide 18 of 19: THE ARCHER LIBRARY & ARCHIVES' AI LITERACY BADGE • The library workshops offer practical skills and critical thinking about using AI in", "Slide 19 of 19: Interested in joining a community of instructors piloting AI in their courses? https://meganperram.com/genaifellowship/"]);
+})();
+</script>
+<script>
+/* ===== Workshop 4 slides: generated from deck.py, edit there ===== */
+var HX_SLIDES = [{"title": "Before GenAI, There Was Hypertext", "mode": "title", "levels": 1, "html": "<div class=\"hx-title\">\n  <div class=\"hx-viz hx-viz--bg\" data-viz=\"network\" aria-hidden=\"true\"><\/div>\n  <p class=\"hx-kicker\">Centre for Teaching and Learning<\/p>\n  <h2 class=\"hx-h1\">Before GenAI, There Was <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">Hypertext<\/a>: What Happened to the Promise of Democratized Learning?<\/h2>\n  <p class=\"hx-byline\"><b>Dr. Megan Perram<\/b><span>GenAI Teaching Fellow<\/span><\/p>\n<\/div>"}, {"title": "A Flood of Worthless Drivel", "mode": "lexia", "levels": 1, "html": "<h2 class=\"hx-h2\">A Flood of Worthless Drivel<\/h2>\n<blockquote class=\"hx-quote hx-quote--big\">“Will the dissemination mechanisms of the Internet and World Wide Web, by opening publication to everyone, result in a flood of worthless drivel? Is literary quality possible in digital media, or is electronic literature demonstrably inferior to the print canon? What large-scale social and cultural changes are bound up with the spread of digital culture, and what do they portend for the <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">future of writing<\/a>?”<\/blockquote>\n<p class=\"hx-cite\">N. Katherine Hayles, “Electronic Literature: What Is It?” (2007), para. 2<\/p>"}, {"title": "What Is Hypertext?", "mode": "stretch", "levels": 2, "html": "<div class=\"hx-split\">\n <div class=\"hx-col\">\n  <h2 class=\"hx-h2\">What Is Hypertext?<\/h2>\n  <ul class=\"hx-list\">\n   <li><b>Hypertext<\/b> is digital data interconnected by a reader’s <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">click<\/a> or finger tap.<\/li>\n   <li data-at=\"1\">The term combines the Greek <i>hypér<\/i>, meaning “over” or “beyond,” and the Latin <i>texere<\/i>, meaning “<a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">to weave<\/a>.”<\/li>\n  <\/ul>\n <\/div>\n <div class=\"hx-col hx-col--viz\"><div class=\"hx-viz\" data-viz=\"network\" role=\"img\" aria-label=\"A moving network of connected nodes\"><\/div><\/div>\n<\/div>"}, {"title": "Nodes, Lexias, Tweets, Posts, Texts...", "mode": "stack", "levels": 3, "html": "<h2 class=\"hx-h2\">Nodes, Lexias, Tweets, Posts, Texts...<\/h2>\n<div class=\"hx-desk\">\n <div class=\"hx-win\" data-at=\"0\" style=\"--x:0%;--y:0%\"><div class=\"hx-win__bar\"><b>01<\/b> · Node<\/div>\n  <div class=\"hx-win__body\"><p><b><a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">Node<\/a>:<\/b> an individual unit of information within a network.<\/p><\/div><\/div>\n <div class=\"hx-win\" data-at=\"1\" style=\"--x:13%;--y:20%\"><div class=\"hx-win__bar\"><b>02<\/b> · Lexia<\/div>\n  <div class=\"hx-win__body\"><p><b><a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">Lexia<\/a>:<\/b> a segment of text connected to other segments, a term popularized by hypertext theorist George P. Landow.<\/p><\/div><\/div>\n <div class=\"hx-win\" data-at=\"2\" style=\"--x:26%;--y:40%\"><div class=\"hx-win__bar\"><b>03<\/b> · Tweet, post, text<\/div>\n  <div class=\"hx-win__body\"><p><b>Tweet, post, text:<\/b> newer labels for individual units of <a class=\"hx-link\" data-link=\"2\" role=\"button\" tabindex=\"-1\">digital content<\/a>.<\/p>\n  <div class=\"hx-units\" aria-hidden=\"true\"><span>tweet<\/span><span>post<\/span><span>text<\/span><\/div><\/div><\/div>\n<\/div>\n<p class=\"hx-cite\">Moulthrop and Salter, p. 51<\/p>"}, {"title": "Beyond Text and Links", "mode": "links", "levels": 6, "html": "<h2 class=\"hx-h2\">Beyond Text and Links<\/h2>\n<div class=\"hx-kinds\">\n <div class=\"hx-kind\" data-at=\"0\"><span class=\"hx-kind__lab\">Text<\/span><div class=\"hx-kind__box hx-kind__box--text\"><p>Follow this <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">link<\/a><\/p><\/div><\/div>\n <div class=\"hx-kind\" data-at=\"1\"><span class=\"hx-kind__lab\">Image<\/span><button class=\"hx-kind__box hx-media\" data-link=\"1\" tabindex=\"-1\" aria-label=\"Image link\"><img src=\"slides/hypertext/weave-poster.jpg\" alt=\"Woven green, gold and white threads\"><\/button><\/div>\n <div class=\"hx-kind\" data-at=\"2\"><span class=\"hx-kind__lab\">Video<\/span><button class=\"hx-kind__box hx-media\" data-link=\"2\" tabindex=\"-1\" aria-label=\"Video link\"><video src=\"slides/hypertext/weave-loop.mp4\" poster=\"slides/hypertext/weave-poster.jpg\" muted loop playsinline preload=\"none\"><\/video><\/button><\/div>\n <div class=\"hx-kind\" data-at=\"3\"><span class=\"hx-kind__lab\">Sound<\/span><button class=\"hx-kind__box hx-media hx-sound\" data-link=\"3\" data-sound=\"1\" tabindex=\"-1\" aria-label=\"Sound link\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 9v6h4l5 4V5L8 9H4z\"/><path d=\"M16 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><\/svg><\/button><\/div>\n <div class=\"hx-kind\" data-at=\"4\"><span class=\"hx-kind__lab\">Timer<\/span><div class=\"hx-kind__box hx-timer\" data-timer=\"4\" data-seconds=\"5\"><svg viewBox=\"0 0 40 40\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"20\" r=\"16\"/><circle class=\"hx-timer__arc\" cx=\"20\" cy=\"20\" r=\"16\"/><\/svg><b class=\"hx-timer__n\">5<\/b><\/div><\/div>\n<\/div>\n<p class=\"hx-lead\" data-at=\"5\">For hypertext, a link triggers an action that makes a change. Typically by moving us to a new <a class=\"hx-link\" data-link=\"5\" role=\"button\" tabindex=\"-1\">virtual space<\/a>.<\/p>\n<p class=\"hx-cite\" data-at=\"5\">Moulthrop and Salter, p. 53<\/p>"}, {"title": "Hypertext Is Everywhere", "mode": "stretch", "levels": 2, "html": "<div class=\"hx-split\">\n <div class=\"hx-col\">\n  <h2 class=\"hx-h2\">Hypertext Is Everywhere<\/h2>\n  <ul class=\"hx-list\">\n   <li>Interconnected data forms networks of information across the internet.<\/li>\n   <li>These networks underpin everyday digital tools, including <b>social media, search engines, and email<\/b>.<\/li>\n   <li><b>Example: <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">Wikipedia<\/a><\/b>, where hyperlinks connect articles, references, and <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">topics<\/a>.<\/li>\n  <\/ul>\n <\/div>\n <div class=\"hx-col hx-col--wiki\" data-at=\"1\">\n  <div class=\"hx-wiki\">\n   <div class=\"hx-wiki__bar\"><span>en.wikipedia.org/wiki/Hypertext<\/span><a href=\"https://en.wikipedia.org/wiki/Hypertext\" target=\"_blank\" rel=\"noopener\">Open in a new tab ↗<\/a><\/div>\n   <iframe data-src=\"https://en.wikipedia.org/wiki/Hypertext\" title=\"Wikipedia article on hypertext, live\" loading=\"lazy\" referrerpolicy=\"no-referrer\"><\/iframe>\n  <\/div>\n <\/div>\n<\/div>"}, {"title": "Digital-Born Art", "mode": "stretch", "levels": 3, "html": "<h2 class=\"hx-h2\">Digital-Born Art<\/h2>\n<ul class=\"hx-list\">\n <li>Hypertext has a long history as a tool for creating <b>digital art and <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">literature<\/a><\/b>.<\/li>\n <li data-at=\"1\"><b>Literary hypertext<\/b> invites readers to participate in a story by selecting links that <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">branch<\/a> the narrative in different directions.<\/li>\n <li data-at=\"2\" class=\"hx-li-quote\">“Electronic literature, generally considered to exclude print literature that has been digitized, is by contrast ‘<a class=\"hx-link\" data-link=\"2\" role=\"button\" tabindex=\"-1\">digital born<\/a>,’ a first-generation digital object created on a computer and (usually) meant to be read on a computer.”\n  <span class=\"hx-cite\">N. Katherine Hayles, “Electronic Literature: What Is It?” (2007)<\/span><\/li>\n<\/ul>"}, {"title": "Democratizing Potential", "mode": "stack", "levels": 2, "html": "<h2 class=\"hx-h2\">Democratizing <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">Potential<\/a><\/h2>\n<div class=\"hx-desk hx-desk--anthropy\">\n <div class=\"hx-win hx-win--img\" data-at=\"0\" style=\"--x:0%;--y:0%;--w:30%\"><div class=\"hx-win__bar\"><b>01<\/b> · Rise of the Videogame Zinesters<\/div>\n  <div class=\"hx-win__body\"><img src=\"slides/hypertext/anthropy-zinesters.jpg\" alt=\"Cover of Rise of the Videogame Zinesters by Anna Anthropy\"><\/div><\/div>\n <div class=\"hx-win\" data-at=\"1\" style=\"--x:27%;--y:9%;--w:70%\"><div class=\"hx-win__bar\"><b>02<\/b> · Anthropy, p. 161<\/div>\n  <div class=\"hx-win__body\"><blockquote class=\"hx-quote\"><b>“There’s nothing to stop us from making our voices heard now. And there will be plenty of voices. Among those voices heard, there will be plenty of mediocrity, and plenty of games that have no meaning to anyone outside the author and maybe her friends...Imagine what we’ll gain; real diversity, a plethora of voices and experiences, and a new avenue for human beings to tell their stories and <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">connect<\/a> with other human beings. Are you excited?” (161)<\/b><\/blockquote>\n  <p class=\"hx-cite\">Anna Anthropy, <i>Rise of the Videogame Zinesters<\/i> (2012), p. 161<\/p><\/div><\/div>\n<\/div>"}, {"title": "Queers in Love at the End of the World", "mode": "stretch", "levels": 3, "html": "<div class=\"hx-split hx-split--game\">\n <div class=\"hx-col\">\n  <h2 class=\"hx-h2\"><i>Queers in Love at the End of the World<\/i><\/h2>\n  <ul class=\"hx-list hx-list--tight\">\n   <li>Anna Anthropy’s digital fiction tells a story that lasts just <b>ten seconds<\/b>.<\/li>\n   <li>Readers choose how to spend those final moments with a lover before the world is <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">wiped away<\/a>.<\/li>\n   <li data-at=\"1\">A countdown creates urgency, while hypertext choices shape the reader’s <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">experience<\/a>.<\/li>\n   <li data-at=\"2\">The work blurs the boundary between <b>author and <a class=\"hx-link\" data-link=\"2\" role=\"button\" tabindex=\"-1\">reader<\/a><\/b> by giving readers agency within the narrative.<\/li>\n  <\/ul>\n <\/div>\n <div class=\"hx-col hx-col--game\">\n  <div class=\"hx-game\">\n   <div class=\"hx-game__bar\"><span>Anna Anthropy · itch.io<\/span><a href=\"https://w.itch.io/end-of-the-world\" target=\"_blank\" rel=\"noopener\">Open on itch.io ↗<\/a><\/div>\n   <div class=\"hx-game__frame\">\n    <iframe data-src=\"https://html-classic.itch.zone/html/163871/index.html\" title=\"Queers in Love at the End of the World by Anna Anthropy, playable\" allow=\"autoplay; fullscreen\"><\/iframe>\n    <button class=\"hx-game__play\" type=\"button\">Play it live<\/button>\n   <\/div>\n  <\/div>\n <\/div>\n<\/div>"}, {"title": "Origins of Hypertext and Original Hype", "mode": "stretch", "levels": 2, "html": "<div class=\"hx-split\">\n <div class=\"hx-col\">\n  <h2 class=\"hx-h2\">Origins of Hypertext and Original Hype<\/h2>\n  <p class=\"hx-lead\">In 1965, information technology scholar <b>Theodor Nelson<\/b> <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">coined<\/a> the term <i>hypertext<\/i> during lectures at Vassar College.<\/p>\n  <div data-at=\"1\">\n   <p class=\"hx-lead\">He described it as:<\/p>\n   <blockquote class=\"hx-quote\">“Non-sequential writing, text that branches and allows choices to the reader, best read at an interactive screen. As popularly conceived, this is a series of text chunks connected by links which offer the reader different <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">pathways<\/a>.”<\/blockquote>\n   <p class=\"hx-cite\">Astrid Ensslin, “Hypertext Theory,” p. 2<\/p>\n  <\/div>\n <\/div>\n <div class=\"hx-col hx-col--photo\"><img src=\"slides/hypertext/ted-nelson.jpg\" alt=\"Photograph of Theodor (Ted) Nelson\"><\/div>\n<\/div>"}, {"title": "Hypertext and the Rhizome", "mode": "stretch", "levels": 2, "html": "<div class=\"hx-split\">\n <div class=\"hx-col\">\n  <h2 class=\"hx-h2\">Hypertext and the Rhizome<\/h2>\n  <blockquote class=\"hx-quote\">“Essentially, the abstract idea of ‘hyper-text’ is based on the <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">rhizome<\/a> metaphor (Deleuze and Guattari, 1987), characterized by a ramifying, horizontally organized root structure, which is, unlike arborescent structures, decentralized, i.e. there is no core, or ‘trunk’, and no visible hierarchy.”<\/blockquote>\n  <p class=\"hx-cite\">Astrid Ensslin, <i>Canonizing Hypertext<\/i>, p. 11<\/p>\n  <div data-at=\"1\">\n   <h3 class=\"hx-h3\">Key features of hypertext fiction<\/h3>\n   <ul class=\"hx-list hx-list--tight\">\n    <li><b>Rhizomatic structure:<\/b> narratives branch out through interconnected pathways, often with multiple beginnings or endings.<\/li>\n    <li><b>Reader agency:<\/b> the reader’s choices shape the path through the <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">narrative<\/a>.<\/li>\n   <\/ul>\n  <\/div>\n <\/div>\n <div class=\"hx-col hx-col--viz\"><div class=\"hx-viz\" data-viz=\"rhizome\" role=\"img\" aria-label=\"A rhizome root system growing sideways in many directions\"><\/div><\/div>\n<\/div>"}, {"title": "Origins of Hypertext and Original Hype: The Promise", "mode": "stretch", "levels": 4, "html": "<h2 class=\"hx-h2\">Origins of Hypertext and Original Hype<\/h2>\n<h3 class=\"hx-h3\">The promise: Transforming how we learn<\/h3>\n<ul class=\"hx-list\">\n <li><b>Theodor Nelson<\/b> imagined hypertext as a new foundation for <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">learning<\/a> and knowledge.<\/li>\n <li data-at=\"1\">Its branching structure reflected how humans make <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">connections<\/a> and develop ideas.<\/li>\n <li data-at=\"2\">Hypertext could dissolve disciplinary boundaries and make knowledge more <a class=\"hx-link\" data-link=\"2\" role=\"button\" tabindex=\"-1\">accessible<\/a>.<\/li>\n<\/ul>\n<p class=\"hx-big\" data-at=\"3\">“all those who can read would be able to read <a class=\"hx-link\" data-link=\"3\" role=\"button\" tabindex=\"-1\">everything<\/a>”<\/p>"}, {"title": "The End of Books? Hypertext and the Future of Literacy", "mode": "stack", "levels": 2, "html": "<h2 class=\"hx-h2\">The End of Books? Hypertext and the Future of <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">Literacy<\/a><\/h2>\n<div class=\"hx-desk hx-desk--coover\">\n <div class=\"hx-win hx-win--img\" data-at=\"0\" style=\"--x:0%;--y:0%;--w:34%\"><div class=\"hx-win__bar\"><b>01<\/b> · <i>The New York Times<\/i>, 1992<\/div>\n  <div class=\"hx-win__body\"><img src=\"slides/hypertext/coover-end-of-books.jpg\" alt=\"Front page of The New York Times Book Review, June 21, 1992, with Robert Coover's article The End of Books\"><\/div><\/div>\n <div class=\"hx-win\" data-at=\"1\" style=\"--x:30%;--y:14%;--w:66%\"><div class=\"hx-win__bar\"><b>02<\/b> · Coover<\/div>\n  <div class=\"hx-win__body\"><p>In his 1992 <i>New York Times<\/i> article, <b>“The End of Books,”<\/b> Robert Coover outlines the potentiality of learning with hypertext and describes the championing of its supporters: “You will often hear them proclaim, quite seriously, that there have been three great events in the history of literacy: the invention of writing, the invention of movable type and the invention of <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">hypertext<\/a>” (Coover).<\/p><\/div><\/div>\n<\/div>"}, {"title": "First Wave: Hypertext and Reader Empowerment", "mode": "stretch", "levels": 2, "html": "<div class=\"hx-split\">\n <div class=\"hx-col\">\n  <h2 class=\"hx-h2\">First Wave: Hypertext and Reader <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">Empowerment<\/a><\/h2>\n  <p class=\"hx-lead\" data-at=\"1\">During this first wave, hypertext became much more than an information-organizing tool. It was positioned as a technology capable of democratizing knowledge and changing everything about how we <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">learn<\/a>.<\/p>\n <\/div>\n <div class=\"hx-col hx-col--photo\"><img src=\"slides/hypertext/barthes-death-of-the-author.jpg\" alt=\"Cover of a Macat analysis of Roland Barthes's The Death of the Author\"><\/div>\n<\/div>"}, {"title": "Are We in the First Wave of GenAI Hype?", "mode": "stack", "levels": 5, "html": "<p class=\"hx-kicker hx-kicker--in\">A Familiar Promise of Revolution<\/p>\n<h2 class=\"hx-h2\">Are We in the First Wave of GenAI <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">Hype<\/a>?<\/h2>\n<div class=\"hx-desk hx-desk--news\">\n <div class=\"hx-win hx-win--img\" data-at=\"1\" style=\"--x:0%;--y:0%;--w:42%\"><div class=\"hx-win__bar\"><b>01<\/b> · <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">The Wall Street Journal<\/a><\/div>\n  <div class=\"hx-win__body\"><img src=\"slides/hypertext/headline-1.jpg\" alt=\"Wall Street Journal: Why AI's deepest mind believes the world is about to change radically\"><\/div><\/div>\n <div class=\"hx-win hx-win--img\" data-at=\"2\" style=\"--x:30%;--y:6%;--w:56%\"><div class=\"hx-win__bar\"><b>02<\/b> · <a class=\"hx-link\" data-link=\"2\" role=\"button\" tabindex=\"-1\">Chris Horn<\/a><\/div>\n  <div class=\"hx-win__body\"><img src=\"slides/hypertext/headline-2.jpg\" alt=\"Headline: AI will change everything. Is human critical thinking up to the challenge?\"><\/div><\/div>\n <div class=\"hx-win hx-win--img\" data-at=\"3\" style=\"--x:10%;--y:34%;--w:52%\"><div class=\"hx-win__bar\"><b>03<\/b> · <a class=\"hx-link\" data-link=\"3\" role=\"button\" tabindex=\"-1\">ExplainItSimply<\/a><\/div>\n  <div class=\"hx-win__body\"><img src=\"slides/hypertext/headline-3.jpg\" alt=\"Headline: AI Is Already Changing How We Learn\"><\/div><\/div>\n <div class=\"hx-win hx-win--img\" data-at=\"4\" style=\"--x:44%;--y:30%;--w:50%\"><div class=\"hx-win__bar\"><b>04<\/b> · <a class=\"hx-link\" data-link=\"4\" role=\"button\" tabindex=\"-1\">Science News<\/a><\/div>\n  <div class=\"hx-win__body\"><img src=\"slides/hypertext/headline-4.jpg\" alt=\"Headline: Have we entered a new age of AI-enabled scientific discovery?\"><\/div><\/div>\n<\/div>"}, {"title": "Second Wave: The Limits of Reader Choice", "mode": "stretch", "levels": 2, "html": "<h2 class=\"hx-h2\">Second Wave: The Limits of Reader Choice<\/h2>\n<ul class=\"hx-list\">\n <li>From the 2000s onward, scholars began questioning hypertext’s <b>inherently liberating <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">potential<\/a><\/b>.<\/li>\n <li data-at=\"1\">Readers could choose where to go next, but <b>the writer still designed the available <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">pathways<\/a><\/b>.<\/li>\n<\/ul>\n<div class=\"hx-viz hx-viz--belt\" data-viz=\"conveyor\" data-at=\"1\" role=\"img\" aria-label=\"A conveyor belt carrying blocks of text along\"><\/div>"}, {"title": "Second Wave: When Choice Becomes Overwhelming", "mode": "stretch", "levels": 3, "html": "<h2 class=\"hx-h2\">Second Wave: When Choice Becomes Overwhelming<\/h2>\n<ul class=\"hx-list\">\n <li>Hypertext could create <b>confusion and cognitive <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">overload<\/a><\/b> rather than empower readers.<\/li>\n <li data-at=\"1\">Ensslin and Skains describe its potential “delimiting rather than empowering function” for readers, leading to “confusion, <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">serendipity<\/a> and cognitive overload” (5).<\/li>\n <li data-at=\"2\"><b>More choice does not necessarily mean greater <a class=\"hx-link\" data-link=\"2\" role=\"button\" tabindex=\"-1\">agency<\/a>.<\/b><\/li>\n<\/ul>"}, {"title": "Second Wave: The Value of Rereading", "mode": "stretch", "levels": 3, "html": "<h2 class=\"hx-h2\">Second Wave: The Value of Rereading<\/h2>\n<blockquote class=\"hx-quote\">We must “embrace the fact that hypertexts are never read the same way twice and that their typically fluid and personalized meanings rely on multiple <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">re-readings<\/a> on the part of the reader-analyst” (“Hypertext Theory” 4).<\/blockquote>\n<p class=\"hx-lead\" data-at=\"1\">When we read literature, poetry, or theory, we might spend TIME grappling with one sentence. We reread it, question it, and gradually develop our <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">understanding<\/a>.<\/p>\n<p class=\"hx-big hx-big--q\" data-at=\"2\">What happens to learning when we stop making space for that kind of sustained <a class=\"hx-link\" data-link=\"2\" role=\"button\" tabindex=\"-1\">engagement<\/a>?<\/p>"}, {"title": "Rethinking Hypertext's Emancipatory Potential", "mode": "lexia", "levels": 1, "html": "<h2 class=\"hx-h2\">Rethinking Hypertext’s Emancipatory Potential<\/h2>\n<ul class=\"hx-list\">\n <li>Hypertext’s emancipatory potential is found in <b>Co-creation<\/b> which allows readers to participate in the creation of texts which blurs the boundaries between reader and <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">writer<\/a> (Ensslin and Skains 5).<\/li>\n<\/ul>\n<div class=\"hx-viz hx-viz--cocreate\" data-viz=\"cocreate\" role=\"img\" aria-label=\"Two threads labelled reader and writer weaving into one\"><\/div>"}, {"title": "What Hypertext Can Teach Us About GenAI", "mode": "stretch", "levels": 4, "html": "<h2 class=\"hx-h2\">What Hypertext Can Teach Us About <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">GenAI<\/a><\/h2>\n<ul class=\"hx-list\">\n <li data-at=\"1\"><b>Revolutionary promises require critical scrutiny.<\/b> New technologies rarely deliver on their most ambitious claims <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">automatically<\/a>.<\/li>\n <li data-at=\"2\"><b>More choice does not guarantee more agency.<\/b> We need to consider who shapes the possibilities and who controls the <a class=\"hx-link\" data-link=\"2\" role=\"button\" tabindex=\"-1\">outcomes<\/a>.<\/li>\n <li data-at=\"3\"><b>Emancipatory potential depends on practice.<\/b> How we design, use, and engage with a technology matters as much as its <a class=\"hx-link\" data-link=\"3\" role=\"button\" tabindex=\"-1\">capabilities<\/a>.<\/li>\n<\/ul>"}, {"title": "From Hypertext Theory to GenAI Practice", "mode": "lexia", "levels": 1, "html": "<div class=\"hx-statement\">\n <div class=\"hx-viz hx-viz--bg\" data-viz=\"network\" aria-hidden=\"true\"><\/div>\n <h2 class=\"hx-h1\">From Hypertext Theory to GenAI <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">Practice<\/a><\/h2>\n<\/div>"}, {"title": "Designing for Student Agency", "mode": "stretch", "levels": 4, "html": "<h2 class=\"hx-h2\">Designing for Student Agency<\/h2>\n<ul class=\"hx-list\">\n <li><b>You remain the author.<\/b> Your writing stays yours, and you control what gets <a class=\"hx-link\" data-link=\"0\" role=\"button\" tabindex=\"-1\">added<\/a>.<\/li>\n <li data-at=\"1\"><b>AI supports the process.<\/b> It can help you get started, brainstorm, or find words when you’re <a class=\"hx-link\" data-link=\"1\" role=\"button\" tabindex=\"-1\">stuck<\/a>.<\/li>\n <li data-at=\"2\"><b>Your ideas stay central.<\/b> The tool works with your own thinking rather than <a class=\"hx-link\" data-link=\"2\" role=\"button\" tabindex=\"-1\">replacing<\/a> it.<\/li>\n <li data-at=\"3\"><b>You decide what to use.<\/b> AI suggestions require your active choice before entering your <a class=\"hx-link\" data-link=\"3\" role=\"button\" tabindex=\"-1\">reflection<\/a>.<\/li>\n<\/ul>"}, {"title": "Try out the AI Co-Author Companion", "mode": "lexia", "levels": 1, "html": "<div class=\"hx-try\">\n <div class=\"hx-try__txt\">\n  <h2 class=\"hx-h1\">Try out the <a class=\"hx-link hx-link--out\" href=\"coauthor/\" target=\"_blank\" rel=\"noopener\">AI Co-Author Companion<\/a><\/h2>\n  <p class=\"hx-url\">meganperram.com/genaifellowship/coauthor<\/p>\n <\/div>\n <div class=\"hx-qr\" id=\"hxQr\" role=\"img\" aria-label=\"QR code linking to the AI Co-Author Companion\"><\/div>\n<\/div>"}];
+/* ===== Workshop 4: hypertext presentation engine =====
+   Every click is one step. Exactly one gold-underlined link is live per step;
+   clicking it, the Next button, or the right arrow / Page Down key moves forward.
+   Back, the left arrow or Page Up steps back. Slides come from HX_SLIDES. */
+(function(){
+  var root = document.getElementById('hxStage'); if(!root || typeof HX_SLIDES === 'undefined') return;
+  var screen = root.querySelector('.hx-screen');
+  var prevB = document.getElementById('hxPrev'), nextB = document.getElementById('hxNext'),
+      countEl = document.getElementById('hxCount'), mapEl = document.getElementById('hxMap'),
+      fsB = document.getElementById('hxFull');
+  var STEPS = [];
+  HX_SLIDES.forEach(function(s, si){ for (var l = 0; l < s.levels; l++) STEPS.push([si, l]); });
+  var idx = 0, curSlide = -1, curEl = null, timerT = null, seen = {};
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* slide map (one dot per slide) */
+  HX_SLIDES.forEach(function(s, si){
+    var b = document.createElement('button'); b.type = 'button';
+    b.setAttribute('aria-label', 'Go to slide ' + (si + 1) + ': ' + s.title);
+    b.title = (si + 1) + '. ' + s.title;
+    b.addEventListener('click', function(){ for (var k = 0; k < STEPS.length; k++) if (STEPS[k][0] === si){ go(k); break; } });
+    mapEl.appendChild(b);
+  });
+
+  function build(si){
+    var el = document.createElement('div');
+    el.className = 'hx-slide hx-slide--' + HX_SLIDES[si].mode;
+    el.setAttribute('role', 'group');
+    el.setAttribute('aria-roledescription', 'slide');
+    el.setAttribute('aria-label', (si + 1) + ' of ' + HX_SLIDES.length + ': ' + HX_SLIDES[si].title);
+    el.innerHTML = HX_SLIDES[si].html;
+    return el;
+  }
+
+  function go(n, opts){
+    if (n < 0 || n >= STEPS.length) return;
+    var back = n < idx;
+    idx = n;
+    var si = STEPS[n][0], lv = STEPS[n][1];
+    clearTimeout(timerT);
+    if (si !== curSlide){
+      var old = curEl;
+      if (old){ stopViz(old); old.classList.add('is-out'); setTimeout(function(){ old.remove(); }, 360); }
+      curEl = build(si);
+      curEl.classList.add('is-in'); if (back) curEl.classList.add('is-back');
+      screen.appendChild(curEl);
+      curSlide = si;
+      startViz(curEl);
+      if (si === HX_SLIDES.length - 1) drawQr();
+      apply(lv, true);
+    } else {
+      apply(lv, false);
+    }
+    seen[si] = 1;
+    [].forEach.call(mapEl.children, function(d, k){ d.classList.toggle('here', k === si); d.classList.toggle('seen', !!seen[k] && k !== si); });
+    countEl.textContent = (si + 1) + ' / ' + HX_SLIDES.length;
+    prevB.disabled = n === 0;
+    nextB.disabled = n === STEPS.length - 1;
+    if (!(opts && opts.keepFocus) && document.activeElement && root.contains(document.activeElement) &&
+        document.activeElement.classList.contains('hx-link')) root.focus({ preventScroll: true });
+  }
+
+  function apply(lv, fresh){
+    curEl.querySelectorAll('[data-at]').forEach(function(e){
+      var at = +e.getAttribute('data-at'), show = at <= lv;
+      var was = e.classList.contains('is-shown');
+      e.classList.toggle('is-shown', show);
+      e.classList.toggle('is-new', show && !was && !fresh);
+      if (show && !was){ wake(e); running.forEach(function(v){ if (e === v.box || e.contains(v.box)) size(v); }); }
+    });
+    curEl.querySelectorAll('.hx-win').forEach(function(w){
+      var at = +w.getAttribute('data-at');
+      w.classList.toggle('is-behind', at < lv && w.parentNode.querySelector('.hx-win[data-at="' + lv + '"]') !== null);
+      w.style.zIndex = at + 1;
+    });
+    curEl.querySelectorAll('[data-link]').forEach(function(a){
+      var k = +a.getAttribute('data-link');
+      a.classList.toggle('is-active', k === lv);
+      a.classList.toggle('is-past', k < lv);
+      a.tabIndex = k === lv ? 0 : -1;
+    });
+    var t = curEl.querySelector('[data-timer="' + lv + '"]');
+    curEl.querySelectorAll('.hx-timer').forEach(function(x){ x.classList.remove('is-running'); x.querySelector('.hx-timer__n').textContent = x.getAttribute('data-seconds'); x.querySelector('.hx-timer__arc').style.transitionDuration = '0s'; });
+    if (t) runTimer(t);
+    var v = curEl.querySelector('video');
+    if (v && v.closest('[data-at]').classList.contains('is-shown')){ try { v.play(); } catch(e){} }
+  }
+
+  /* load iframes and video only when they come into view */
+  function wake(e){
+    e.querySelectorAll('iframe[data-src]').forEach(function(f){
+      if (f.closest('.hx-game__frame')) return;
+      f.src = f.getAttribute('data-src'); f.removeAttribute('data-src');
+    });
+  }
+
+  function runTimer(t){
+    var secs = +t.getAttribute('data-seconds') || 5, n = secs, at = idx;
+    var arc = t.querySelector('.hx-timer__arc'), num = t.querySelector('.hx-timer__n');
+    arc.style.transitionDuration = '0s'; t.classList.remove('is-running');
+    void t.offsetWidth;
+    arc.style.transitionDuration = secs + 's'; t.classList.add('is-running');
+    (function tick(){
+      num.textContent = n;
+      if (n <= 0){ if (idx === at) go(idx + 1); return; }
+      n--; timerT = setTimeout(tick, 1000);
+    })();
+  }
+
+  var ac = null;
+  function chime(){
+    try {
+      ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+      var now = ac.currentTime;
+      [523.25, 659.25, 783.99].forEach(function(f, i){
+        var o = ac.createOscillator(), g = ac.createGain();
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0, now + i * .12);
+        g.gain.linearRampToValueAtTime(.18, now + i * .12 + .02);
+        g.gain.exponentialRampToValueAtTime(.001, now + i * .12 + 1.1);
+        o.connect(g); g.connect(ac.destination); o.start(now + i * .12); o.stop(now + i * .12 + 1.2);
+      });
+    } catch(e){}
+  }
+
+  function next(){ go(idx + 1); }
+  function prev(){ go(idx - 1); }
+
+  root.addEventListener('click', function(e){
+    var play = e.target.closest('.hx-game__play');
+    if (play){
+      var fr = play.parentNode, f = fr.querySelector('iframe');
+      if (f && f.getAttribute('data-src')){ f.src = f.getAttribute('data-src'); f.removeAttribute('data-src'); }
+      fr.classList.add('is-live'); return;
+    }
+    var a = e.target.closest('[data-link]');
+    if (!a || !a.classList.contains('is-active')) return;
+    e.preventDefault();
+    if (a.hasAttribute('data-sound')){ a.classList.add('is-playing'); chime(); setTimeout(next, 650); return; }
+    next();
+  });
+  root.addEventListener('keydown', function(e){
+    if (e.target.closest && e.target.closest('[data-link].is-active') && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); e.target.click(); return; }
+    if (e.target.closest && e.target.closest('.hx-band button')) { if (e.key === 'Enter' || e.key === ' ') return; }
+    if (['ArrowRight','PageDown',' '].indexOf(e.key) >= 0){ e.preventDefault(); next(); }
+    else if (['ArrowLeft','PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); prev(); }
+    else if (e.key === 'Home'){ e.preventDefault(); go(0); }
+    else if (e.key === 'End'){ e.preventDefault(); go(STEPS.length - 1); }
+  });
+  /* presentation clickers send Page Down / Page Up: accept them anywhere while this view is open */
+  document.addEventListener('keydown', function(e){
+    if (root.contains(e.target)) return;
+    var view = document.getElementById('view-workshop4');
+    if (!view || !view.classList.contains('active')) return;
+    var t = e.target, tag = t && t.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
+    if (e.key === 'PageDown'){ e.preventDefault(); next(); }
+    else if (e.key === 'PageUp'){ e.preventDefault(); prev(); }
+  });
+  prevB.addEventListener('click', prev);
+  nextB.addEventListener('click', next);
+  fsB.addEventListener('click', function(){
+    var d = document;
+    if (d.fullscreenElement || d.webkitFullscreenElement){ (d.exitFullscreen || d.webkitExitFullscreen).call(d); }
+    else { var r = root.requestFullscreen || root.webkitRequestFullscreen; if (r) r.call(root); root.focus({ preventScroll: true }); }
+  });
+  document.addEventListener('fullscreenchange', function(){
+    fsB.setAttribute('aria-label', document.fullscreenElement ? 'Exit full screen' : 'Present full screen');
+    fsB.querySelector('span').textContent = document.fullscreenElement ? 'Exit' : 'Present';
+    resizeViz();
+  });
+
+  /* ---------- QR on the last slide ---------- */
+  function drawQr(){
+    var h = curEl.querySelector('#hxQr'); if (!h || h.firstChild) return;
+    try {
+      var qr = qrcode(0, 'M'); qr.addData('https://meganperram.com/genaifellowship/coauthor/'); qr.make();
+      h.innerHTML = qr.createSvgTag({ cellSize: 10, margin: 1, scalable: true });
+    } catch(e){ h.innerHTML = '<p style="color:#124734;font-size:13px;margin:0">meganperram.com/genaifellowship/coauthor</p>'; }
+  }
+
+  /* ---------- moving visuals (canvas) ---------- */
+  var running = [];
+  function startViz(el){
+    el.querySelectorAll('[data-viz]').forEach(function(box){
+      var c = document.createElement('canvas'); box.appendChild(c);
+      var kind = box.getAttribute('data-viz');
+      var v = { box: box, c: c, ctx: c.getContext('2d'), kind: kind, t0: performance.now(), raf: 0, st: null };
+      size(v);
+      running.push(v);
+      (function frame(now){
+        if (running.indexOf(v) < 0) return;
+        if (box.offsetParent !== null || document.fullscreenElement){
+          if (Math.abs(box.clientWidth - v.w) > 2 || Math.abs(box.clientHeight - v.h) > 2){ size(v); v.st = null; }
+          VIZ[kind](v, (now - v.t0) / 1000);
+        }
+        v.raf = requestAnimationFrame(frame);
+      })(performance.now());
+    });
+  }
+  function stopViz(el){
+    running = running.filter(function(v){ if (el.contains(v.box)){ cancelAnimationFrame(v.raf); return false; } return true; });
+  }
+  function size(v){
+    var r = v.box.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
+    v.w = Math.max(10, r.width); v.h = Math.max(10, r.height);
+    v.c.width = v.w * d; v.c.height = v.h * d; v.ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function resizeViz(){ setTimeout(function(){ running.forEach(size); }, 80); }
+  window.addEventListener('resize', resizeViz);
+
+  var GOLD = '255,198,41', MINT = '124,224,203', WHITE = '255,255,255';
+  function rnd(a){ var s = a || 1; return function(){ s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
+
+  var VIZ = {
+    network: function(v, t){
+      var x = v.ctx, w = v.w, h = v.h;
+      if (!v.st){
+        var R = rnd(7), n = Math.round(Math.min(34, Math.max(16, w * h / 9000)));
+        v.st = { nodes: [] };
+        for (var i = 0; i < n; i++) v.st.nodes.push({ x: R() * w, y: R() * h, a: R() * 6.28, s: .15 + R() * .35, r: 2 + R() * 3.5, g: R() < .22 });
+      }
+      x.clearRect(0, 0, w, h);
+      var N = v.st.nodes, k, j, link = Math.min(w, h) * .32;
+      N.forEach(function(p, i){
+        p.x = (p.x + Math.cos(p.a + t * .2) * p.s + w) % w;
+        p.y = (p.y + Math.sin(p.a * 1.3 + t * .17) * p.s + h) % h;
+      });
+      for (k = 0; k < N.length; k++) for (j = k + 1; j < N.length; j++){
+        var dx = N[k].x - N[j].x, dy = N[k].y - N[j].y, d = Math.sqrt(dx * dx + dy * dy);
+        if (d < link){
+          var al = (1 - d / link) * .55;
+          x.strokeStyle = 'rgba(' + WHITE + ',' + al + ')'; x.lineWidth = 1;
+          x.beginPath(); x.moveTo(N[k].x, N[k].y); x.lineTo(N[j].x, N[j].y); x.stroke();
+          if ((k + j) % 7 === 0){
+            var f = (t * .35 + k * .13) % 1;
+            x.fillStyle = 'rgba(' + GOLD + ',' + (al * 1.6) + ')';
+            x.beginPath(); x.arc(N[k].x - dx * f, N[k].y - dy * f, 2.2, 0, 6.29); x.fill();
+          }
+        }
+      }
+      N.forEach(function(p){
+        x.fillStyle = p.g ? 'rgba(' + GOLD + ',.95)' : 'rgba(' + WHITE + ',.9)';
+        x.beginPath(); x.arc(p.x, p.y, p.r, 0, 6.29); x.fill();
+      });
+    },
+
+    rhizome: function(v, t){
+      var x = v.ctx, w = v.w, h = v.h, ground = h * .28, cyc = 18, tt = t % cyc, grow = Math.min(1, tt / 10);
+      if (!v.st || v.st.w !== w || v.st.h !== h){
+        var R = rnd(5), segs = [], dots = [];
+        /* a few long stems running sideways; each node sends a root down and sometimes a shoot up */
+        function stem(x0, y0, dir, n, len, depth, born){
+          var px = x0, py = y0, drift = (R() - .5) * .3;
+          for (var i = 0; i < n; i++){
+            var nx = px + dir * len * (.8 + R() * .4);
+            var ny = Math.max(ground + h * .1, Math.min(h * .82, py + (drift + (R() - .5) * .5) * len * .5));
+            var b = born + i * (.9 / 10);
+            segs.push({ k: 'stem', d: depth, x1: px, y1: py, x2: nx, y2: ny, b: b });
+            dots.push({ x: nx, y: ny, b: b + .06, d: depth });
+            segs.push({ k: 'root', x1: nx, y1: ny, x2: nx + (R() - .5) * len * .5, y2: ny + h * (.05 + R() * .08), b: b + .05 });
+            if (depth === 0 && i % 2 === 1) segs.push({ k: 'shoot', x1: nx, y1: ny, x2: nx + (R() - .5) * 8, y2: ground - h * (.04 + R() * .09), b: b + .08 });
+            if (depth === 0 && (i === 1 || i === 3)) stem(nx, ny, dir, 3, len * .8, 1, b + .04);
+            if (depth === 0 && i === 2) stem(nx, ny, -dir * .0 + dir, 2, len * .7, 1, b + .06);
+            px = nx; py = ny;
+          }
+        }
+        var cx = w * .5, cy = ground + h * .2, L = w * .085;
+        stem(cx, cy, 1, 5, L, 0, 0);
+        stem(cx, cy, -1, 5, L, 0, .02);
+        stem(cx + L * .3, cy + h * .14, 1, 4, L * .85, 1, .25);
+        stem(cx - L * .3, cy - h * .06, -1, 4, L * .85, 1, .3);
+        v.st = { w: w, h: h, segs: segs, dots: dots };
+      }
+      x.clearRect(0, 0, w, h);
+      x.strokeStyle = 'rgba(' + WHITE + ',.35)'; x.lineWidth = 1; x.setLineDash([4, 6]);
+      x.beginPath(); x.moveTo(0, ground); x.lineTo(w, ground); x.stroke(); x.setLineDash([]);
+      var fade = tt > cyc - 1.2 ? (cyc - tt) / 1.2 : 1;
+      x.lineCap = 'round';
+      v.st.segs.forEach(function(s){
+        var p = Math.max(0, Math.min(1, (grow - s.b) / .09)); if (p <= 0) return;
+        var ex = s.x1 + (s.x2 - s.x1) * p, ey = s.y1 + (s.y2 - s.y1) * p;
+        if (s.k === 'shoot'){ x.strokeStyle = 'rgba(' + MINT + ',' + .9 * fade + ')'; x.lineWidth = 2; }
+        else if (s.k === 'root'){ x.strokeStyle = 'rgba(' + WHITE + ',' + .4 * fade + ')'; x.lineWidth = 1; }
+        else { x.strokeStyle = 'rgba(' + GOLD + ',' + (s.d ? .75 : 1) * fade + ')'; x.lineWidth = s.d ? 3 : 5; }
+        x.beginPath(); x.moveTo(s.x1, s.y1); x.lineTo(ex, ey); x.stroke();
+        if (s.k === 'shoot' && p >= 1){
+          x.fillStyle = 'rgba(' + MINT + ',' + .9 * fade + ')';
+          x.beginPath(); x.ellipse(s.x2 + 5, s.y2 + 2, 6, 2.6, -.5, 0, 6.29); x.fill();
+          x.beginPath(); x.ellipse(s.x2 - 5, s.y2 + 6, 6, 2.6, .5, 0, 6.29); x.fill();
+        }
+      });
+      v.st.dots.forEach(function(d){
+        if (grow < d.b) return;
+        x.fillStyle = 'rgba(' + GOLD + ',' + fade + ')';
+        x.beginPath(); x.arc(d.x, d.y, (d.d ? 3.5 : 5.5) + Math.sin(t * 2 + d.x) * .7, 0, 6.29); x.fill();
+      });
+    },
+
+    conveyor: function(v, t){
+      var x = v.ctx, w = v.w, h = v.h, beltY = h * .62, bh = h * .14, speed = w * .06;
+      x.clearRect(0, 0, w, h);
+      /* belt */
+      x.fillStyle = 'rgba(11,58,39,.85)'; x.fillRect(0, beltY, w, bh);
+      x.strokeStyle = 'rgba(' + GOLD + ',.8)'; x.lineWidth = 2;
+      x.beginPath(); x.moveTo(0, beltY); x.lineTo(w, beltY); x.moveTo(0, beltY + bh); x.lineTo(w, beltY + bh); x.stroke();
+      var gap = bh * 1.6, off = (t * speed) % gap;
+      x.strokeStyle = 'rgba(' + WHITE + ',.22)'; x.lineWidth = 1;
+      for (var gx = -gap + off; gx < w; gx += gap){ x.beginPath(); x.moveTo(gx, beltY + 2); x.lineTo(gx + bh * .5, beltY + bh - 2); x.stroke(); }
+      /* rollers */
+      var rr = bh * .42;
+      for (var rx = rr * 2; rx < w; rx += w / 9){
+        x.fillStyle = 'rgba(' + WHITE + ',.15)'; x.beginPath(); x.arc(rx, beltY + bh + rr + 3, rr, 0, 6.29); x.fill();
+        var ang = t * speed / rr;
+        x.strokeStyle = 'rgba(' + GOLD + ',.6)'; x.beginPath(); x.moveTo(rx, beltY + bh + rr + 3); x.lineTo(rx + Math.cos(ang) * rr, beltY + bh + rr + 3 + Math.sin(ang) * rr); x.stroke();
+      }
+      /* text blocks */
+      var bw = Math.min(150, w * .14), bhh = beltY - h * .12, sp = bw * 1.55, o2 = (t * speed) % sp;
+      for (var i = -1; i < w / sp + 1; i++){
+        var bx = i * sp + o2 - bw, by = beltY - bhh;
+        x.fillStyle = '#fff'; x.fillRect(bx, by, bw, bhh);
+        x.fillStyle = 'rgba(' + GOLD + ',1)'; x.fillRect(bx, by, bw, 3);
+        x.fillStyle = 'rgba(18,71,52,.55)';
+        var lines = Math.max(3, Math.floor(bhh / 12));
+        for (var L = 0; L < lines; L++){
+          var lw = bw * (.55 + ((i * 31 + L * 17) % 40) / 100);
+          x.fillRect(bx + 8, by + 10 + L * ((bhh - 16) / lines), Math.min(lw, bw - 16), 3);
+        }
+      }
+    },
+
+    cocreate: function(v, t){
+      var x = v.ctx, w = v.w, h = v.h, mid = h * .5;
+      x.clearRect(0, 0, w, h);
+      function thread(col, ph, label){
+        x.strokeStyle = col; x.lineWidth = 3; x.lineCap = 'round'; x.beginPath();
+        for (var px = 0; px <= w; px += 4){
+          var p = px / w, amp = h * .34 * Math.pow(1 - p, 1.6) + h * .07;
+          var y = mid + Math.sin(px / (w * .07) - t * 1.6 + ph) * amp * (p < .5 ? 1 : 1) + (ph ? -1 : 1) * h * .28 * Math.pow(1 - p, 3);
+          if (px === 0) x.moveTo(px, y); else x.lineTo(px, y);
+        }
+        x.stroke();
+      }
+      thread('rgba(' + GOLD + ',.95)', 0);
+      thread('rgba(' + WHITE + ',.95)', Math.PI);
+      x.font = '700 ' + Math.max(11, h * .1) + 'px Arial'; x.textBaseline = 'middle';
+      x.fillStyle = 'rgba(' + GOLD + ',1)'; x.fillText('reader', 0, mid + h * .42);
+      x.fillStyle = 'rgba(' + WHITE + ',1)'; x.fillText('writer', 0, mid - h * .42);
+    }
+  };
+
+  go(0);
+})();
+
+(function(){
+  var h=document.getElementById('wsQr4');
+  if(h && typeof qrcode!=='undefined'){
+    try{ var qr=qrcode(0,'M'); qr.addData('https://meganperram.com/genaifellowship/#hypertext'); qr.make();
+      h.innerHTML=qr.createSvgTag({cellSize:10,margin:2,scalable:true});
+      var sv=h.querySelector('svg'); if(sv){ sv.setAttribute('role','img'); sv.setAttribute('aria-label','QR code linking directly to this workshop page'); }
+    }catch(e){ h.innerHTML='<p class="ws-qr-note">The QR code will appear here once the site is online.</p>'; }
+  }
 })();
 </script>
 </body>
