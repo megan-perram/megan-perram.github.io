@@ -212,11 +212,8 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
     <ol class="asks">
       <li><b class="n">1</b><br>Which idea from this week changed or complicated how you think about technology and learning? Point to a specific moment, quote or example from the presentation.</li>
       <li><b class="n">2</b><br>Think of a time you clicked through links, searched online or used a chatbot. Did it feel like real choice, or a &ldquo;facade of choice&rdquo;? Who or what shaped the paths that were open to you?</li>
-      <li><b class="n">3</b><br>Ensslin argues that hypertext&rsquo;s potential lies in co-creation. What would working with GenAI need to look like for you to stay the author of your own learning?</li>
+      <li><b class="n">3</b><br>Second-wave hypertext authors argue that hypertext&rsquo;s potential lies in co-creation. What would working with GenAI need to look like for you to stay the author of your own learning?</li>
     </ol>
-    <div class="week__foot">
-      <p class="week__note">Aim for about 300 words. There is no right answer, and you can write it messy first.</p>
-    </div>
   </div>
 
   <p class="notice">This is a test version. Your writing is saved only in this browser on this device. When you ask the AI for help, your reflection is sent to Claude, an AI made by Anthropic, so it can reply.</p>
@@ -248,9 +245,8 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
         </div>
       </div>
       <div class="foot">
-        <span class="foot__hint">The AI can&rsquo;t type into your reflection. Its words only go in when you accept them.</span>
-        <button class="btn btn--ghost btn--sm" type="button" id="copy-btn">Copy My Reflection</button>
-        <button class="btn btn--ghost btn--sm" type="button" id="dl-btn">Download</button>
+        <span class="foot__hint" id="submit-msg" role="status" aria-live="polite"></span>
+        <button class="btn" type="button" id="submit-btn">Submit</button>
       </div>
     </div>
 
@@ -263,7 +259,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
     <aside class="ai" id="ai-panel" aria-label="The Co-Author Companion">
       <div class="ai__head">
         <span class="spark" aria-hidden="true"></span>
-        <span class="t"><b>The Co-Author Companion</b><small>Writing support only</small></span>
+        <span class="t"><b>The Co-Author Companion</b></span>
         <button class="icon-btn" id="ai-close" type="button" aria-label="Close the companion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </div>
       <div class="ways">
@@ -278,7 +274,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
         <textarea id="ask-input" rows="1" placeholder="Ask a question about your reflection"></textarea>
         <button class="send" id="ask-send" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
       </div>
-      <p class="ai__note">The companion can make mistakes. It will not write your reflection for you.</p>
+      <p class="ai__note">The companion can make mistakes. Check its suggestions before you use them.</p>
     </aside>
   </div>
 </section>
@@ -402,23 +398,9 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
   if (window.ResizeObserver) new ResizeObserver(function(){ marks.style.height = mine.offsetHeight + 'px'; }).observe(mine);
   updateCount(); paint();
 
-  /* ---------- copy / download ---------- */
-  document.getElementById('copy-btn').addEventListener('click', function(){
-    var b = this, t = mine.value;
-    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function(){ b.textContent = 'Copied'; },
-      function(){ mine.select(); try { document.execCommand('copy'); b.textContent = 'Copied'; } catch(e){} })
-      .then(function(){ setTimeout(function(){ b.textContent = 'Copy My Reflection'; }, 1600); });
-  });
-  document.getElementById('dl-btn').addEventListener('click', function(){
-    var t = mine.value, sp = tidy(state.ai || [], t.length), out = '', at = 0;
-    sp.forEach(function(r){ out += t.slice(at, r[0]) + '[AI: ' + t.slice(r[0], r[1]) + ']'; at = r[1]; });
-    out += t.slice(at);
-    var body = 'Weekly Reflection: Before GenAI, There Was Hypertext\n' +
-      (sp.length ? 'Words in [AI: ...] were suggested by the AI and accepted by me.\n' : '') + '\n' + out + '\n';
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([body], { type: 'text/plain' }));
-    a.download = 'my-reflection.txt'; document.body.appendChild(a); a.click();
-    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  /* ---------- submit (test version: nothing is sent) ---------- */
+  document.getElementById('submit-btn').addEventListener('click', function(){
+    document.getElementById('submit-msg').textContent = 'This is a test version, so nothing was submitted. Your writing is still here.';
   });
 
   /* ---------- reviewing a suggested change ---------- */
@@ -521,7 +503,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
     ['Push My Thinking Further', 'deeper'],
     ['Connect It To This Week', 'connect'],
     ['What Am I Leaving Out?', 'missing'],
-    ['What Should I Not Worry About?', 'worry']
+    ['Does It Need To Be Polished?', 'worry']
   ];
   var wayAt = 0;
   function renderWays(){
@@ -622,7 +604,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
 'DEEPER (Push My Thinking Further). Pick one point they made and ask one question that takes it a step further (why, what it would change, or a case where it might not hold). Never supply the answer.',
 'CONNECT (Connect It To This Week). Find one place in their text that touches an idea from this week, name the idea in a few words and where in their text it connects, then ask one question about the link. Do not explain the idea at length. If nothing connects yet, suggest which of the three questions to try.',
 'MISSING (What Am I Leaving Out?). Compare their text with the three questions. Name one question, or one concrete detail, a reader would not yet know about. Suggest it as an option, not a requirement.',
-'WORRY (What Should I Not Worry About?). Tell them plainly what does not matter in a first draft of a reflection: spelling, grammar, order, sounding academic, having a firm conclusion, whether others would agree. No questions.',
+'WORRY (Does It Need To Be Polished?). Tell them plainly what does not matter in a first draft of a reflection: spelling, grammar, order, sounding academic, having a firm conclusion, whether others would agree. No questions.',
 'WORDING (Suggest The Wording). Sent after one of your earlier replies, which is included. Offer wording for the single change that reply was about: one word, a short phrase, or at most one sentence. Build it from their own words wherever you can. Do not add opinions, examples or ideas they have not written. Nothing goes into their reflection unless they accept it. This mode replaces Module 8 format rules: reply with one JSON object and nothing else, in this shape: {"text": "the wording", "action": "replace" or "insert" or "end", "target": "exact words copied from their text"}. Use replace when the wording should take the place of words already in their text, and set target to exactly those words. Use insert when it should go in the middle of their text, and set target to the exact words it should come right after. Use end when it belongs after their last sentence, and set target to an empty string. If they selected words, those are usually the target. Copy target character for character, as short as possible while still unique. For replace, target must be only the few words your wording replaces, never a whole paragraph. If your wording is a new sentence or a sentence starter, use insert or end, never replace. Modules 2 and 7 still apply.',
 '',
 'MODULE 7. SAFETY',
@@ -646,7 +628,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
 
   var ASKS = '1. Which idea from this week changed or complicated how you think about technology and learning? Point to a specific moment, quote or example from the presentation.\n' +
     '2. Think of a time you clicked through links, searched online or used a chatbot. Did it feel like real choice, or a "facade of choice"? Who or what shaped the paths that were open to you?\n' +
-    '3. Ensslin argues that hypertext\'s potential lies in co-creation. What would working with GenAI need to look like for you to stay the author of your own learning?';
+    '3. Second-wave hypertext authors argue that hypertext\'s potential lies in co-creation. What would working with GenAI need to look like for you to stay the author of your own learning?';
 
   /* ---------- talking to Claude through the proxy ---------- */
   function callClaude(userText){
