@@ -652,7 +652,12 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
   function errText(e){
     if (e && e.status === 429) return 'Too many requests just now. Try again in a minute.';
     if (!CONFIG.proxyUrl) return 'The companion is not connected yet. You can keep writing on your own.';
-    return 'That did not come through. Try again when you like, or keep writing on your own. Nothing here depends on me.';
+    var why = (e && e.status) ? 'the AI server answered with error ' + e.status
+            : (e && e.name === 'AbortError') ? 'the reply took too long'
+            : (e && e.message === 'empty') ? 'the reply came back empty'
+            : (location.protocol === 'file:') ? 'this page was opened as a file on your computer, so it cannot reach the AI. Open it from meganperram.com instead'
+            : 'the AI server could not be reached (check the internet connection, or turn off ad blockers for this page)';
+    return 'That did not come through, because ' + why + '. Try again when you like, or keep writing on your own.';
   }
 
   var asking = false;
