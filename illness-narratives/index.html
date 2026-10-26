@@ -31,14 +31,17 @@ main{max-width:760px;margin:0 auto;padding:40px 24px 90px}
 .kicker{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink);background:var(--mint);border-radius:999px;padding:6px 14px;margin:0 0 22px}
 h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.6vw,46px);line-height:1.15;letter-spacing:-.5px;margin:0 0 12px}
 .sub{font-family:var(--serif);font-size:clamp(19px,2.4vw,24px);line-height:1.35;color:var(--ink-soft);margin:0 0 30px}
-.cta{display:inline-flex;align-items:center;gap:10px;background:var(--mint);color:var(--ink);text-decoration:none;font-weight:700;font-size:15px;border-radius:999px;padding:14px 26px;box-shadow:0 12px 30px -16px rgba(46,107,118,.6);transition:background .2s,transform .2s}
-.cta:hover{background:var(--mint-hover);transform:translateY(-2px)}
+.cta{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#0C0C0E;font-weight:500;font-size:15px;border-radius:999px;padding:14px 26px;
+  border:1px solid #D6D6D4;background:linear-gradient(170deg,#FFFFFF 0%,#FDFDFC 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,1),inset 0 -6px 11px -7px rgba(10,69,87,.14),0 1px 1px rgba(10,69,87,.07),0 7px 15px -8px rgba(10,69,87,.26);
+  transition:background .22s ease,border-color .22s ease,box-shadow .22s ease,transform .13s ease}
+.cta:hover{background:linear-gradient(115deg,#F4E2B6 0%,#ECE6D8 36%,#D5E2E8 72%,#B9CFDA 100%);border-color:#CDBF98;transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,1),inset 0 -8px 14px -7px rgba(10,69,87,.26),0 2px 2px rgba(10,69,87,.09),0 12px 22px -10px rgba(10,69,87,.42)}
 .cta svg{width:18px;height:18px}
-.cta-wrap{margin:0 0 46px}
+.cta-wrap{margin:0 0 46px;text-align:center}
 .body{background:#fff;border:1px solid var(--line);border-radius:28px;padding:clamp(24px,4vw,44px);box-shadow:0 14px 40px -24px rgba(18,20,21,.2)}
 .body p{font-size:16.5px;color:rgba(18,20,21,.86);margin:0 0 20px}
 .body p:last-child{margin-bottom:0}
-.end{text-align:center;margin-top:40px}
 footer{text-align:center;font-size:12.5px;color:var(--muted);padding:0 20px 40px}
 @media (max-width:560px){ main{padding-top:20px} .cta{width:100%;justify-content:center} }
 </style>
@@ -54,7 +57,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:0 20px 40px
   <p class="sub">Insights from Women Experiencing Medically Unexplained Symptoms</p>
 
   <div class="cta-wrap">
-    <a class="cta" href="/story-space/">The Undiagnosed: Story Space <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></svg></a>
+    <a class="cta" href="/story-space/">The Undiagnosed Story Space App <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></svg></a>
   </div>
 
   <div class="body">
@@ -65,9 +68,6 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:0 20px 40px
     <p>This research will be an innovative and novel contribution to the fields of health humanities, digital humanities, and electronic literature that will stand as preliminary research to inform how marginalized communities can demand ethical relationships with AI and the healthcare systems they come into contact with.</p>
   </div>
 
-  <div class="end">
-    <a class="cta" href="/story-space/">The Undiagnosed: Story Space <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></svg></a>
-  </div>
 </main>
 
 <footer>Dr. Megan Perram &middot; Campion College, University of Regina</footer>
