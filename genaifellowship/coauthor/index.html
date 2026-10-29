@@ -216,7 +216,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
     </ol>
   </div>
 
-  <p class="notice">This is a test version. Your writing is saved only in this browser on this device. When you ask the AI for help, your reflection is sent to Claude, an AI made by Anthropic, so it can reply.</p>
+  <p class="notice">Your writing is saved only in this browser on this device. When you ask the AI for help, your reflection is sent to Claude, an AI made by Anthropic, so it can reply.</p>
 
   <div class="workspace" id="workspace">
     <div class="panel">
@@ -324,7 +324,8 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
      forwards { system, messages, max_tokens } to the Anthropic Messages API, returning its JSON.
      This uses the same worker as the Socratic Study Partner. Change it here to use a different one. */
   var CONFIG = {
-    proxyUrl: 'https://study-partner.mmjperram.workers.dev',
+    proxyUrl: 'https://ai.meganperram.com',
+    fallbackUrl: 'https://study-partner.mmjperram.workers.dev',
     maxTokens: 400,
     timeoutMs: 45000
   };
@@ -400,7 +401,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
 
   /* ---------- submit (test version: nothing is sent) ---------- */
   document.getElementById('submit-btn').addEventListener('click', function(){
-    document.getElementById('submit-msg').textContent = 'This is a test version, so nothing was submitted. Your writing is still here.';
+    document.getElementById('submit-msg').textContent = 'Submitting is not switched on yet. Your writing is still here, saved in this browser.';
   });
 
   /* ---------- reviewing a suggested change ---------- */
@@ -631,10 +632,26 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
     '3. Second-wave hypertext authors argue that hypertext\'s potential lies in co-creation. What would working with GenAI need to look like for you to stay the author of your own learning?';
 
   /* ---------- talking to Claude through the proxy ---------- */
+
+  /* Try ai.meganperram.com first, then the workers.dev address. A network
+     failure (blocked or not set up yet) moves on to the next address;
+     whichever one works is tried first from then on. */
+  var PROXIES = [CONFIG.proxyUrl, CONFIG.fallbackUrl].filter(Boolean);
+  function fetchProxy(opts, i){
+    i = i || 0;
+    return fetch(PROXIES[i], opts).then(function(r){
+      if (i > 0) PROXIES.unshift(PROXIES.splice(i, 1)[0]);
+      return r;
+    }, function(e){
+      if (e && e.name === 'AbortError') throw e;
+      if (i + 1 < PROXIES.length) return fetchProxy(opts, i + 1);
+      throw e;
+    });
+  }
   function callClaude(userText){
     var ctrl = window.AbortController ? new AbortController() : null;
     var timer = setTimeout(function(){ if (ctrl) ctrl.abort(); }, CONFIG.timeoutMs);
-    return fetch(CONFIG.proxyUrl, {
+    return fetchProxy({
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ system: RULES, messages: [{ role: 'user', content: userText }], max_tokens: CONFIG.maxTokens }),
       signal: ctrl ? ctrl.signal : undefined
@@ -656,7 +673,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
             : (e && e.name === 'AbortError') ? 'the reply took too long'
             : (e && e.message === 'empty') ? 'the reply came back empty'
             : (location.protocol === 'file:') ? 'this page was opened as a file on your computer, so it cannot reach the AI. Open it from meganperram.com instead'
-            : 'the AI server could not be reached (check the internet connection, or turn off ad blockers for this page)';
+            : 'something on this device or network is blocking the AI (often a work computer\'s security settings, a school or office network, or an ad blocker). Try a personal device, or your phone on mobile data';
     return 'That did not come through, because ' + why + '. Try again when you like, or keep writing on your own.';
   }
 

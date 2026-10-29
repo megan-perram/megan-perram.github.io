@@ -2316,7 +2316,8 @@ const Tutor = (() => {
      proxyUrl: the address of your Cloudflare Worker (see SETUP-GUIDE.md).
      backupUrl: the published Claude artifact, offered as a fallback. */
   const CONFIG = {
-    proxyUrl: 'https://study-partner.mmjperram.workers.dev',
+    proxyUrl: 'https://ai.meganperram.com',
+    fallbackUrl: 'https://study-partner.mmjperram.workers.dev',
     backupUrl: 'https://claude.ai/public/artifacts/7fa61fcc-56ac-4fb3-9c0c-17af9ca0bb54',
     instructor: 'Dr. Megan Perram',
     unitTopic: 'Full course, Weeks 1 to 13',
@@ -2613,6 +2614,22 @@ ${kbText()}`;
     return !!(err && err.retryable);
   }
 
+  /* Try ai.meganperram.com first, then the workers.dev address. A network
+     failure (blocked or not set up yet) moves on to the next address;
+     whichever one works is tried first from then on. */
+  var PROXIES = [CONFIG.proxyUrl, CONFIG.fallbackUrl].filter(Boolean);
+  function fetchProxy(opts, i){
+    i = i || 0;
+    return fetch(PROXIES[i], opts).then(function(r){
+      if (i > 0) PROXIES.unshift(PROXIES.splice(i, 1)[0]);
+      return r;
+    }, function(e){
+      if (e && e.name === 'AbortError') throw e;
+      if (i + 1 < PROXIES.length) return fetchProxy(opts, i + 1);
+      throw e;
+    });
+  }
+
   /* A single POST, with a hard timeout so a stalled request cannot leave the
      typing indicator spinning forever. Returns the parsed response object. */
   async function postOnce(messages) {
@@ -2620,7 +2637,7 @@ ${kbText()}`;
     const timer = setTimeout(() => ctrl.abort(), CONFIG.requestTimeoutMs);
     let res, raw;
     try {
-      res = await fetch(CONFIG.proxyUrl, {
+      res = await fetchProxy({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -2723,7 +2740,7 @@ ${kbText()}`;
     let lead;
     if (timedOut) lead = 'That reply took too long to come back, so I stopped waiting.';
     else if (busyUp) lead = 'The study partner service is busy right now.';
-    else lead = 'I could not reach the study partner service just now.';
+    else lead = 'I could not reach the study partner. Something on this device or network may be blocking it (often a work computer\'s security settings, a school or office network, or an ad blocker). Try a personal device, or your phone on mobile data.';
 
     const d = document.createElement('div');
     d.className = 'sp-msg partner';
