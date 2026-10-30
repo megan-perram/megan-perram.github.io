@@ -1349,6 +1349,16 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
   color: var(--night-ink-2); border: 1px solid var(--night-line); background: var(--night-3);
   transition: background .2s ease, color .2s ease; }
 .ai-icon svg{ width: 17px; height: 17px; }
+.ai-clear{ flex: none; height: 32px; padding: 0 12px; border-radius: 16px; border: 1px solid var(--night-line); background: var(--night-3); color: var(--night-ink-2); font: inherit; font-size: .72rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.ai-clear:hover{ color: var(--night-ink); }
+.ai-clear--armed, .ai-clear--armed:hover{ background: var(--lunar); color: var(--ink); border-color: transparent; }
+.ai-clear-note{ margin: 10px 14px 0; padding: 12px 14px; border-radius: 14px; background: var(--night-3); border: 1px solid var(--night-line); }
+.ai-clear-note[hidden]{ display: none; }
+.ai-clear-note p{ margin: 0 0 10px; font-size: .78rem; line-height: 1.45; color: var(--night-ink); }
+.ai-clear-note__btns{ display: flex; gap: 8px; justify-content: flex-end; }
+.ai-clear-note button{ height: 30px; padding: 0 12px; border-radius: 15px; font: inherit; font-size: .72rem; font-weight: 700; cursor: pointer; border: 1px solid var(--night-line); background: transparent; color: var(--night-ink-2); }
+.ai-clear-note button:hover{ color: var(--night-ink); }
+.ai-clear-note .ai-clear-note__yes{ background: var(--lunar); color: var(--ink); border-color: transparent; }
 .ai-icon:hover{ background: var(--lunar); color: var(--ink); border-color: transparent; }
 
 .panel--ai .ways{ padding-top: 16px; }
@@ -1694,6 +1704,7 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
             <b>The Undiagnosed AI</b>
             <small id="ai-phase">Writing Companion</small>
           </span>
+          <button class="ai-clear" id="ai-clear" type="button" >Clear Chat</button>
           <button class="ai-icon ai-only-sheet" id="ai-support" type="button" aria-label="Need Support?">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.3A4 4 0 0 1 12 8a4 4 0 0 1 7 2.7C19 15.6 12 20 12 20z"/></svg>
           </button>
@@ -1701,6 +1712,13 @@ body.is-recording .workspace.ai-open .panel--ai{ top: 36px; }
             <svg class="ai-only-wide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
             <svg class="ai-only-sheet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
           </button>
+        </div>
+        <div class="ai-clear-note" id="ai-clear-note" role="alertdialog" aria-labelledby="ai-clear-msg" hidden>
+          <p id="ai-clear-msg">This clears the chat from your screen. It is still kept as part of your study record.</p>
+          <div class="ai-clear-note__btns">
+            <button type="button" id="ai-clear-no">Cancel</button>
+            <button type="button" class="ai-clear-note__yes" id="ai-clear-yes">Clear Chat</button>
+          </div>
         </div>
         <div class="ways">
           <button class="way-arrow" id="way-prev" aria-label="Previous Way In">
@@ -2611,7 +2629,39 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     document.body.classList.toggle("ai-sheet", aiIsOpen() && !wide()); });
   try { if (wide() && localStorage.getItem(AI_KEY) === "1") setAI(true, true); } catch(e){}
 
+  /* Clear Chat: the first tap opens a short note explaining what clearing
+     means; the participant confirms with a second button (or cancels). It
+     clears the current part's conversation from the screen. The cleared
+     conversation is kept in clearedChat so it stays in the study record (the
+     AI never sees past messages, so clearing does not change its replies). */
+  (function(){
+    var btn = document.getElementById("ai-clear"), note = document.getElementById("ai-clear-note");
+    if (!btn || !note) return;
+    function busy(){ var way = document.getElementById("way-current"); return !!(sample && way && way.disabled); }
+    function close(){ note.hidden = true; btn.classList.remove("ai-clear--armed"); btn.setAttribute("aria-expanded", "false"); }
+    btn.setAttribute("aria-expanded", "false");
+    btn.addEventListener("click", function(){
+      if (!note.hidden){ close(); return; }
+      var ph = state.phases[state.active];
+      if (busy() || !ph || !ph.chat || !ph.chat.length) return;
+      note.hidden = false; btn.classList.add("ai-clear--armed"); btn.setAttribute("aria-expanded", "true");
+      document.getElementById("ai-clear-yes").focus();
+    });
+    document.getElementById("ai-clear-no").addEventListener("click", function(){ close(); btn.focus(); });
+    document.getElementById("ai-clear-yes").addEventListener("click", function(){
+      close();
+      if (busy()) return;
+      var ph = state.phases[state.active];
+      if (!ph || !ph.chat || !ph.chat.length) return;
+      (ph.clearedChat = ph.clearedChat || []).push({ at: new Date().toISOString(), chat: ph.chat });
+      ph.chat = [];
+      save(); renderThread();
+    });
+    window.__closeClearNote = close;
+  })();
+
   function renderThread(){
+    if (window.__closeClearNote) window.__closeClearNote();
     var wrap = document.getElementById("thread");
     wrap.innerHTML = "";
     if (!greetedOnce && aiIsOpen()){
@@ -4389,8 +4439,19 @@ var FILM_DUR = {"m1": 43.028, "m2": 25.749333333333333, "m3": 31.742666666666665
     v.muted = false;
     v.currentTime = 0;
     cur.filmEndAt = 0;
+    /* The big play button follows what the video is actually doing: it hides
+       whenever the film is playing (however it started) and only shows when
+       the browser refused to start it, with the controls showing Play to match. */
+    v.onplaying = function(){
+      tap.classList.add("is-gone");
+      if (cur && cur.paused){ cur.paused = false; playIcon(); cur.shell.querySelector(".reel").classList.remove("is-paused"); }
+    };
     var p = v.play();
-    if (p && p.then){ p.then(function(){ tap.classList.add("is-gone"); })["catch"](function(){ tap.classList.remove("is-gone"); }); }
+    if (p && p.then){ p.then(function(){ tap.classList.add("is-gone"); })["catch"](function(){
+      if (!v.paused) return;                       /* it started anyway */
+      tap.classList.remove("is-gone");
+      if (cur){ cur.paused = true; playIcon(); }
+    }); }
     else tap.classList.add("is-gone");
     tap.querySelector("button").onclick = function(e){ e.stopPropagation(); v.play(); tap.classList.add("is-gone"); setPaused(false); };
     v.onerror = function(){ cur && (cur.filmBroken = true); };
