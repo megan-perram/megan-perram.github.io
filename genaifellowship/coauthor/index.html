@@ -143,6 +143,10 @@ main{max-width:1240px;margin:0 auto;padding:26px 20px 70px}
 .send{width:40px;height:40px;border-radius:50%;border:0;background:var(--aurora);color:#10292D;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .send[disabled]{opacity:.5;cursor:default}
 .send svg{width:18px;height:18px}
+.ai-clear{background:transparent;border:1px solid var(--night-line);color:#CFE3DE;border-radius:999px;padding:6px 11px;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.ai-clear:hover{border-color:#9FC9C0;color:#fff}
+.ai-clear.is-confirm,.btn.is-confirm{background:#B3261E;border-color:#B3261E;color:#fff}
+.foot__btns{display:flex;gap:8px;align-items:center}
 .ai__note{font-size:11.5px;color:#8FB3AC;padding:0 14px 12px;margin:0}
 
 /* research view */
@@ -246,7 +250,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
       </div>
       <div class="foot">
         <span class="foot__hint" id="submit-msg" role="status" aria-live="polite"></span>
-        <button class="btn" type="button" id="submit-btn">Submit</button>
+        <span class="foot__btns"><button class="btn btn--ghost" type="button" id="clear-writing">Clear My Writing</button><button class="btn" type="button" id="submit-btn">Submit</button></span>
       </div>
     </div>
 
@@ -260,6 +264,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
       <div class="ai__head">
         <span class="spark" aria-hidden="true"></span>
         <span class="t"><b>The Co-Author Companion</b></span>
+        <button class="ai-clear" id="ai-clear" type="button">Clear Chat</button>
         <button class="icon-btn" id="ai-close" type="button" aria-label="Close the companion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </div>
       <div class="ways">
@@ -326,7 +331,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
   var CONFIG = {
     proxyUrl: 'https://ai.meganperram.com',
     fallbackUrl: 'https://study-partner.mmjperram.workers.dev',
-    maxTokens: 400,
+    maxTokens: 2048,
     timeoutMs: 45000
   };
 
@@ -398,6 +403,27 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
   mine.addEventListener('scroll', function(){ marks.scrollTop = mine.scrollTop; });
   if (window.ResizeObserver) new ResizeObserver(function(){ marks.style.height = mine.offsetHeight + 'px'; }).observe(mine);
   updateCount(); paint();
+
+  /* ---------- clear buttons: tap once, then tap again within 4 seconds to confirm ---------- */
+  function twoTap(btn, ask, run){
+    var label = btn.textContent, t = null;
+    btn.addEventListener('click', function(){
+      if (!btn.classList.contains('is-confirm')){
+        btn.classList.add('is-confirm'); btn.textContent = ask;
+        t = setTimeout(function(){ btn.classList.remove('is-confirm'); btn.textContent = label; }, 4000);
+        return;
+      }
+      clearTimeout(t); btn.classList.remove('is-confirm'); btn.textContent = label;
+      run();
+    });
+  }
+  twoTap(document.getElementById('clear-writing'), 'Tap again to clear', function(){
+    exitReview();
+    mine.value = ''; before = ''; state.text = ''; state.ai = [];
+    updateCount(); paint(); save();
+    document.getElementById('submit-msg').textContent = 'Your writing was cleared.';
+    mine.focus();
+  });
 
   /* ---------- submit (test version: nothing is sent) ---------- */
   document.getElementById('submit-btn').addEventListener('click', function(){
@@ -551,6 +577,11 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
       bubble.appendChild(document.createElement('br')); bubble.appendChild(sg);
     }
   }
+  twoTap(document.getElementById('ai-clear'), 'Tap again', function(){
+    if (asking) return;
+    exitReview();
+    state.chat = []; save(); renderThread();
+  });
   function renderThread(){
     var th = document.getElementById('thread'); th.innerHTML = '';
     th.appendChild(turnEl('ai', GREETING));
@@ -648,7 +679,8 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
       throw e;
     });
   }
-  function callClaude(userText){
+  function callClaude(userText, tries){
+    tries = tries || 0;
     var ctrl = window.AbortController ? new AbortController() : null;
     var timer = setTimeout(function(){ if (ctrl) ctrl.abort(); }, CONFIG.timeoutMs);
     return fetchProxy({
@@ -661,7 +693,7 @@ footer{text-align:center;font-size:12.5px;color:var(--muted);padding:10px 20px 4
         var d = null; try { d = JSON.parse(raw); } catch(e){}
         if (!r.ok || !d || d.type === 'error'){ var err = new Error('proxy'); err.status = r.status; throw err; }
         var text = Array.isArray(d.content) ? d.content.map(function(b){ return b && b.type === 'text' ? b.text : ''; }).join('').trim() : '';
-        if (!text) throw new Error('empty');
+        if (!text){ if (tries < 1) return callClaude(userText, tries + 1); throw new Error('empty'); }
         return text;
       });
     }, function(e){ clearTimeout(timer); throw e; });
