@@ -1352,13 +1352,17 @@ textarea.field{ font-family: var(--serif); font-size: 1rem; line-height: 1.65; r
 .ai-clear{ flex: none; height: 32px; padding: 0 12px; border-radius: 16px; border: 1px solid var(--night-line); background: var(--night-3); color: var(--night-ink-2); font: inherit; font-size: .72rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .ai-clear:hover{ color: var(--night-ink); }
 .ai-clear--armed, .ai-clear--armed:hover{ background: var(--lunar); color: var(--ink); border-color: transparent; }
-.ai-clear-note{ margin: 10px 14px 0; padding: 12px 14px; border-radius: 14px; background: var(--night-3); border: 1px solid var(--night-line); }
+.ai-clear-note{ position: relative; z-index: 3; margin: 12px 14px 0; padding: 14px 16px; border-radius: 16px; background: var(--paper, #FDFDFC); border: 0; box-shadow: 0 10px 30px rgba(0,0,0,.45), 0 0 0 2px var(--lunar-line); animation: clearNoteIn .22s ease-out; }
+@keyframes clearNoteIn{ from{ opacity: 0; transform: translateY(-6px) scale(.98); } to{ opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce){ .ai-clear-note{ animation: none; } }
+.panel--ai.is-clearing .ways, .panel--ai.is-clearing .way-dots, .panel--ai.is-clearing .thread, .panel--ai.is-clearing .ask-wrap{ opacity: .3; pointer-events: none; transition: opacity .2s ease; }
 .ai-clear-note[hidden]{ display: none; }
-.ai-clear-note p{ margin: 0 0 10px; font-size: .78rem; line-height: 1.45; color: var(--night-ink); }
+.ai-clear-note p{ margin: 0 0 12px; font-size: .84rem; line-height: 1.45; color: var(--ink); font-weight: 600; }
 .ai-clear-note__btns{ display: flex; gap: 8px; justify-content: flex-end; }
-.ai-clear-note button{ height: 30px; padding: 0 12px; border-radius: 15px; font: inherit; font-size: .72rem; font-weight: 700; cursor: pointer; border: 1px solid var(--night-line); background: transparent; color: var(--night-ink-2); }
-.ai-clear-note button:hover{ color: var(--night-ink); }
-.ai-clear-note .ai-clear-note__yes{ background: var(--lunar); color: var(--ink); border-color: transparent; }
+.ai-clear-note button{ height: 34px; padding: 0 14px; border-radius: 17px; font: inherit; font-size: .76rem; font-weight: 700; cursor: pointer; border: 1px solid rgba(0,0,0,.18); background: transparent; color: var(--ink); }
+.ai-clear-note button:hover{ border-color: rgba(0,0,0,.4); }
+.ai-clear-note .ai-clear-note__yes{ background: var(--night); color: #fff; border-color: transparent; }
+.ai-clear-note .ai-clear-note__yes:hover{ background: var(--night-3); }
 .ai-icon:hover{ background: var(--lunar); color: var(--ink); border-color: transparent; }
 
 .panel--ai .ways{ padding-top: 16px; }
@@ -2638,13 +2642,14 @@ var RING = "data:image/webp;base64,UklGRvyjAABXRUJQVlA4WAoAAAAQAAAAfwIAfwIAQUxQS
     var btn = document.getElementById("ai-clear"), note = document.getElementById("ai-clear-note");
     if (!btn || !note) return;
     function busy(){ var way = document.getElementById("way-current"); return !!(sample && way && way.disabled); }
-    function close(){ note.hidden = true; btn.classList.remove("ai-clear--armed"); btn.setAttribute("aria-expanded", "false"); }
+    var panel = document.getElementById("ai-panel");
+    function close(){ note.hidden = true; panel.classList.remove("is-clearing"); btn.classList.remove("ai-clear--armed"); btn.setAttribute("aria-expanded", "false"); }
     btn.setAttribute("aria-expanded", "false");
     btn.addEventListener("click", function(){
       if (!note.hidden){ close(); return; }
       var ph = state.phases[state.active];
       if (busy() || !ph || !ph.chat || !ph.chat.length) return;
-      note.hidden = false; btn.classList.add("ai-clear--armed"); btn.setAttribute("aria-expanded", "true");
+      note.hidden = false; panel.classList.add("is-clearing"); btn.classList.add("ai-clear--armed"); btn.setAttribute("aria-expanded", "true");
       document.getElementById("ai-clear-yes").focus();
     });
     document.getElementById("ai-clear-no").addEventListener("click", function(){ close(); btn.focus(); });
