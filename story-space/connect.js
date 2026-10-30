@@ -9,8 +9,22 @@
   >>> After Step 4, put the server's web address on the line below. <<<
 */
 (function () {
-  var API = "https://undiagnosed-server-w2inq.ondigitalocean.app";
-  if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) API = "http://localhost:8080";
+  /* The study server's own address comes first; the DigitalOcean address is the
+     backup if the first cannot be reached (blocked, or not set up yet).
+     Whichever one works is used first from then on. */
+  var APIS = ["https://study.meganperram.com", "https://undiagnosed-server-w2inq.ondigitalocean.app"];
+  if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) APIS = ["http://localhost:8080"];
+  var API = APIS[0];
+  function apiFetch(path, init, i) {
+    i = i || 0;
+    return fetch(APIS[i] + path, init).then(function (r) {
+      if (i > 0) { APIS.unshift(APIS.splice(i, 1)[0]); API = APIS[0]; }
+      return r;
+    }, function (e) {
+      if (i + 1 < APIS.length) return apiFetch(path, init, i + 1);
+      throw e;
+    });
+  }
 
   var TOKEN_KEY = "undiagnosed-token", WHO_KEY = "undiagnosed-who",
       STORE = "undiagnosed-story-space-v6";
@@ -30,7 +44,7 @@
     opts = opts || {};
     var headers = { "Authorization": "Bearer " + (ss(TOKEN_KEY) || "") };
     if (body !== undefined && !opts.raw) headers["Content-Type"] = "application/json";
-    return fetch(API + path, {
+    return apiFetch(path, {
       method: method, headers: headers, keepalive: !!opts.keepalive,
       body: body === undefined ? undefined : (opts.raw ? body : JSON.stringify(body))
     }).then(function (r) {
@@ -47,7 +61,7 @@
 
   /* ---------- sign in ---------- */
   function login(id, password) {
-    return fetch(API + "/api/login", {
+    return apiFetch("/api/login", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: id, password: password })
     }).then(function (r) {
@@ -59,7 +73,7 @@
         ss(TOKEN_KEY, v.token); ss(WHO_KEY, v.id);
         return v.id;
       });
-    }, function () { throw new Error("The study server could not be reached. Check your connection and try again."); });
+    }, function () { throw new Error("The study server could not be reached. Check your internet connection. If it keeps happening, something on this device or network (such as a work computer\u2019s security settings) may be blocking it: try a personal device or your phone on mobile data."); });
   }
 
   /* ---------- the AI ---------- */
@@ -89,7 +103,7 @@
       });
     }, function (e) {
       if (e && e.code) throw e;
-      throw { code: "network", text: "The writing companion could not be reached. Check your connection and try again." };
+      throw { code: "network", text: "The writing companion could not be reached. Check your internet connection. If it keeps happening, something on this device or network may be blocking it: try a personal device or your phone on mobile data." };
     });
   }
 
@@ -198,5 +212,5 @@
     }
   });
 
-  window.UndiagnosedServer = { login: login, signOut: signOut, signedIn: function () { return signedIn; }, who: function () { return who; }, api: API };
+  window.UndiagnosedServer = { login: login, signOut: signOut, signedIn: function () { return signedIn; }, who: function () { return who; }, get api() { return API; } };
 })();
