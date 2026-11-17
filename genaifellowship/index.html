@@ -875,6 +875,11 @@ footer{position:relative;background-color:#101312;background-image:
 .ws-ring .d1{font-size:11px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--teal)}
 .ws-ring .d2{font-family:var(--serif);font-size:34px;font-weight:600;color:var(--ink);line-height:1.05}
 .ws-ring .d3{font-size:10.5px;font-weight:600;letter-spacing:1.4px;color:var(--muted)}
+.ws-ring.multi{gap:3px}
+.ws-ring.multi .d1{font-size:10px;letter-spacing:1.8px}
+.ws-ring .dl{display:flex;flex-direction:column;align-items:center;gap:1px;margin:2px 0}
+.ws-ring .dl span{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);line-height:1.15;white-space:nowrap}
+.ws-ring.multi.two .dl span{font-size:19px}
 @keyframes wsBreathe{0%,100%{border-radius:56% 44% 43% 57%/41% 59% 40% 60%}50%{border-radius:43% 57% 57% 43%/58% 43% 56% 42%}}
 .ws-info{display:flex;flex-direction:column;min-width:0}
 .ws-meta{font-size:11.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
@@ -1426,7 +1431,7 @@ to{opacity:1;transform:none}}
       </span>
     </button>
     <button class="ws-card" data-nav="workshop3">
-      <span class="ws-ring" aria-hidden="true"><span class="d1">Oct</span><span class="d2">16</span><span class="d3">2026</span></span>
+      <span class="ws-ring multi" aria-hidden="true"><span class="d1">3 Sessions</span><span class="dl"><span>Oct 16</span><span>Nov 19</span><span>Dec 10</span></span><span class="d3">2026</span></span>
       <span class="ws-info">
         <span class="ws-meta">Centre for Teaching and Learning &middot; Workshop Series</span>
         <span class="ws-name">AI &amp; Your Course</span>
@@ -1435,11 +1440,11 @@ to{opacity:1;transform:none}}
       </span>
     </button>
     <button class="ws-card" data-nav="workshop2">
-      <span class="ws-ring" aria-hidden="true"><span class="d1">Oct</span><span class="d2">19</span><span class="d3">2026</span></span>
+      <span class="ws-ring multi two" aria-hidden="true"><span class="d1">2 Sessions</span><span class="dl"><span>Oct 19</span><span>Nov 25</span></span><span class="d3">2026</span></span>
       <span class="ws-info">
-        <span class="ws-meta">U of R Academic Integrity Week &middot; October 19, 2026</span>
+        <span class="ws-meta">Academic Integrity Week &amp; U of R Library</span>
         <span class="ws-name">How Your Students Are (Actually) Using AI: Demystifying GenAI and Academic Integrity</span>
-        <span class="ws-time">Session: October 19 &middot; 10:00-11:00</span>
+        <span class="ws-time">Sessions: October 19 &middot; 10:00-11:00 (Academic Integrity Week) &amp; November 25 &middot; 10:30-11:00 (Library Faculty and Staff Meeting)</span>
         <span class="ws-go">View workshop <svg viewBox="0 0 24 24"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></svg></span>
       </span>
     </button>
@@ -1562,9 +1567,13 @@ to{opacity:1;transform:none}}
 <section class="view" id="view-workshop2">
 <div class="about-wrap workshops-wrap">
   <div class="about-inner">
-    <div class="section-kicker">Workshop &middot; U of R Academic Integrity Week</div>
+    <div class="section-kicker">Talk &middot; Academic Integrity Week &amp; U of R Library</div>
     <h2 class="about-title">How Your Students Are (Actually) Using AI: Demystifying GenAI and Academic Integrity</h2>
-    <p class="ws-when">October 19, 2026 &middot; 10:00-11:00 &middot; University of Regina Academic Integrity Week</p>
+    <p class="ws-when">October 19 &amp; November 25, 2026 &middot; University of Regina</p>
+    <div class="ws-sessions" aria-label="Session dates">
+      <span class="ws-sess"><b>Oct 19</b>10:00-11:00 &middot; Academic Integrity Week</span>
+      <span class="ws-sess"><b>Nov 25</b>10:30-11:00 &middot; U of R Library Faculty and Staff Meeting</span>
+    </div>
     <p>As instructors, we are navigating a rapidly changing landscape of academic integrity, and this is often without a clear sense of how our students are using AI to support their coursework. For students, this landscape is new and can be anxiety-inducing, particularly as expectations around appropriate and inappropriate AI use continue to evolve.</p>
     <p>At a time when trust and relationships with students matter more than ever, one place to start is by demystifying what students are actually doing with GenAI. This talk examines a series of composite case studies of students using AI in their coursework, from turning course notes into a daily podcast to creating interactive research environments. Together, we will consider each case and ask: Would this violate your AI policy? The goal is to explore where our existing policies provide clarity, where they leave room for interpretation, and how we might approach AI use in ways that support academic integrity while maintaining trust with our students.</p>
 
@@ -5573,7 +5582,23 @@ Scope / handoff (per the hybrid-model consensus — Fakour & Imani; Orynbassarov
   }
 
   /* Sign-up: sends the address to Megan by email through FormSubmit (no account needed). */
-  var ENDPOINT='https://formsubmit.co/ajax/b8a3e3b03e1de306de60e4b6b07e7924';
+  var CODE='b8a3e3b03e1de306de60e4b6b07e7924';
+  var ENDPOINT='https://formsubmit.co/ajax/'+CODE;
+  function fields(f,email){
+    return {email:email,_replyto:email,workshop:f.dataset.source,_subject:'Pilot community sign-up: '+f.dataset.source,_template:'table',_captcha:'false'};
+  }
+  /* Plan B: an ordinary form post to FormSubmit, which then sends the person back here. */
+  function classicPost(f,email){
+    var wrap=f.closest('.join'), back=location.origin+location.pathname+'#'+(wrap?wrap.id:'')+'-thanks';
+    var data=fields(f,email); data._next=back;
+    var hf=document.createElement('form'); hf.method='POST'; hf.action='https://formsubmit.co/'+CODE; hf.style.display='none';
+    Object.keys(data).forEach(function(k){ var i=document.createElement('input'); i.type='hidden'; i.name=k; i.value=data[k]; hf.appendChild(i); });
+    document.body.appendChild(hf); hf.submit();
+  }
+  function showDone(wrap){
+    if(!wrap) return; var f=wrap.querySelector('.join-form'), d=wrap.querySelector('.join-done');
+    if(f) f.hidden=true; if(d) d.hidden=false;
+  }
   document.querySelectorAll('.join-form').forEach(function(f){
     f.addEventListener('submit',function(e){
       e.preventDefault();
@@ -5582,20 +5607,38 @@ Scope / handoff (per the hybrid-model consensus — Fakour & Imani; Orynbassarov
       if(f.querySelector('.join-hp').value) return;
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent='Please enter a valid email address.'; input.focus(); return; }
       msg.textContent=''; btn.disabled=true; btn.textContent='Sending…';
-      fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({email:email,_replyto:email,workshop:f.dataset.source,_subject:'Pilot community sign-up: '+f.dataset.source,_template:'table',_captcha:'false'})})
-      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      /* Sent as plain form data (no JSON) so browsers and campus networks don't need an extra permission check first. */
+      var fd=new FormData(), data=fields(f,email); Object.keys(data).forEach(function(k){ fd.append(k,data[k]); });
+      var ctrl=('AbortController' in window)?new AbortController():null, timer=setTimeout(function(){ if(ctrl) ctrl.abort(); },15000);
+      fetch(ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:fd,signal:ctrl?ctrl.signal:undefined})
+      .then(function(r){ return r.text().then(function(t){ var d={}; try{ d=JSON.parse(t); }catch(x){} d._status=r.status; return d; }); })
       .then(function(d){
-        if(d && (d.success===true || d.success==='true')){
-          f.hidden=true; var done=f.parentNode.querySelector('.join-done'); done.hidden=false;
-        } else { throw new Error('not sent'); }
+        clearTimeout(timer);
+        if(d && (d.success===true || d.success==='true')){ showDone(f.closest('.join')); }
+        else { console.warn('Sign-up: FormSubmit said', d); throw new Error('not sent'); }
       })
-      .catch(function(){
-        btn.disabled=false; btn.textContent='Submit';
-        msg.innerHTML='Sorry, that didn’t go through. Please try again, or email Megan at <a href="mailto:mpv239@uregina.ca">mpv239@uregina.ca</a>.';
+      .catch(function(err){
+        clearTimeout(timer); console.warn('Sign-up: falling back to a regular form post', err);
+        msg.textContent='One moment…';
+        try{ classicPost(f,email); }
+        catch(x){
+          btn.disabled=false; btn.textContent='Submit';
+          msg.innerHTML='Sorry, that didn’t go through. Please try again, or email Megan at <a href="mailto:mpv239@uregina.ca">mpv239@uregina.ca</a>.';
+        }
       });
     });
   });
+  /* Coming back from Plan B: #integrityJoin-thanks or #aicourseJoin-thanks */
+  (function(){
+    var m=(location.hash||'').match(/^#(integrityJoin|aicourseJoin)-thanks$/); if(!m) return;
+    var view={integrityJoin:'workshop2',aicourseJoin:'workshop3'}[m[1]];
+    function back(){
+      if(typeof navTo==='function') navTo(view);
+      var w=document.getElementById(m[1]); showDone(w);
+      setTimeout(function(){ if(w){ var hd=document.getElementById('header'), off=hd?hd.getBoundingClientRect().height+14:80; window.scrollTo({top:w.getBoundingClientRect().top+window.scrollY-off}); } },150);
+    }
+    if(document.readyState==='complete') back(); else window.addEventListener('load',back);
+  })();
 
   /* Deep links: #aicourse, #aicourse-join, #integrity-join, #anna, #kay, #fatima, #emily */
   var LINKS={ 'aicourse':['workshop3',null], 'workshop3':['workshop3',null], 'aicourse-join':['workshop3','aicourseJoin'],
