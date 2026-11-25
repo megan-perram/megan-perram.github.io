@@ -214,6 +214,21 @@ nav{max-width:1400px;margin:0 auto;padding:0 30px;display:flex;justify-content:s
 .ws-backup-url{font-size:13.5px;font-weight:600;color:var(--teal-deep);word-break:break-all}
 
 /* --- Workshop slide carousel --- */
+.lb-deck{margin:6px 0 8px;outline:none}
+.lb-deck:focus-visible .lb-frame{box-shadow:0 0 0 3px var(--mint)}
+.lb-frame{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#fff;line-height:0;aspect-ratio:16/9}
+.lb-frame img{width:100%;height:100%;object-fit:contain;display:block}
+.lb-next{position:absolute;top:1.6%;right:1.4%;border:none;border-radius:999px;background:#FFC629;color:#00412A;font:700 clamp(11px,1.25vw,20px)/1 inherit;font-family:inherit;padding:.55em 1.05em .6em;cursor:pointer;box-shadow:0 4px 14px -6px rgba(0,0,0,.45);transition:transform .15s ease,background .15s ease}
+.lb-next:hover{background:#FFD45A;transform:translateY(-1px)}
+.lb-next[hidden]{display:none}
+.lb-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:12px;flex-wrap:wrap}
+.lb-count{font-size:12.5px;font-weight:700;letter-spacing:1.2px;color:var(--muted)}
+.lb-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 16px;font:600 13px/1 inherit;font-family:inherit;cursor:pointer;color:var(--ink)}
+.lb-btn:hover{background:var(--mint)}
+.lb-sync{font-size:12px;font-weight:700;color:#005A37;margin-left:10px}
+.lb-sync::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#2BA36B;margin-right:6px;vertical-align:1px}
+.lb-frame:fullscreen{border:none;border-radius:0;background:#000;aspect-ratio:auto;width:100vw;height:100vh}
+.lb-frame:fullscreen .lb-next{font-size:clamp(14px,1.3vw,24px)}
 .ws-slides{margin:6px 0 8px;outline:none}
 .ws-slides:focus-visible .ws-slide-frame{box-shadow:0 0 0 3px var(--mint)}
 .ws-slide-frame{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--grey-tint);line-height:0}
@@ -1590,6 +1605,17 @@ to{opacity:1;transform:none}}
       </div>
     </div>
 
+    <h3 id="libDeckHead">Library Faculty and Staff Meeting Slides (November 25)</h3>
+    <div class="lb-deck" id="libDeck" tabindex="0" role="group" aria-roledescription="slide deck" aria-label="Library Faculty and Staff Meeting slides, 16 slides. Use the Next button or the arrow keys.">
+      <div class="lb-frame">
+        <img id="lbImg" src="slides/library/s-01.jpg" alt="Slide 1 of 16" width="1920" height="1080">
+        <button class="lb-next" id="lbNext" aria-label="Next slide">Next &#8250;</button>
+      </div>
+      <div class="lb-bar">
+        <span class="lb-count" id="lbCount" aria-live="polite">1 / 16</span>
+        <button class="lb-btn" id="lbFull">Present</button>
+      </div>
+    </div>
     <h3>The Case Studies</h3>
     <p>Each student below is a composite, built from the kinds of AI use students describe. Open a case to read it and try a small recreation of what the student made. Nothing on this page connects to an AI. Then ask yourself: would this violate your AI policy?</p>
 
@@ -5643,7 +5669,7 @@ Scope / handoff (per the hybrid-model consensus — Fakour & Imani; Orynbassarov
   /* Deep links: #aicourse, #aicourse-join, #integrity-join, #anna, #kay, #fatima, #emily */
   var LINKS={ 'aicourse':['workshop3',null], 'workshop3':['workshop3',null], 'aicourse-join':['workshop3','aicourseJoin'],
     'integrity-join':['workshop2','integrityJoin'], 'anna':['workshop2','csAnna'], 'kay':['workshop2','csKay'],
-    'fatima':['workshop2','csFatima'], 'emily':['workshop2','csEmily'] };
+    'fatima':['workshop2','csFatima'], 'emily':['workshop2','csEmily'], 'library':['workshop2','libDeckHead'] };
   function go(){
     var h=(location.hash||'').replace('#','').toLowerCase(), t=LINKS[h]; if(!t) return;
     if(typeof navTo==='function') navTo(t[0]);
@@ -6065,6 +6091,36 @@ var HX_SLIDES = [{"title": "Before GenAI, There Was Hypertext", "mode": "title",
       var sv=h.querySelector('svg'); if(sv){ sv.setAttribute('role','img'); sv.setAttribute('aria-label','QR code linking directly to this workshop page'); }
     }catch(e){ h.innerHTML='<p class="ws-qr-note">The QR code will appear here once the site is online.</p>'; }
   }
+})();
+
+/* Library Faculty and Staff Meeting deck (Nov 25): slide images, Next button top right.
+   Open with ?sync=CODE and each slide number is sent to the speaking-notes page through
+   ntfy.sh (topic perram-library-CODE). Only the slide number is sent. */
+(function(){
+  var deck=document.getElementById('libDeck'); if(!deck) return;
+  var N=16, i=0, img=document.getElementById('lbImg'), nx=document.getElementById('lbNext'),
+      cnt=document.getElementById('lbCount'), fb=document.getElementById('lbFull'), frame=deck.querySelector('.lb-frame');
+  var src=function(n){ return 'slides/library/s-'+(n<9?'0':'')+(n+1)+'.jpg'; };
+  for(var p=1;p<N;p++){ var pre=new Image(); pre.src=src(p); }
+  var SYNC=(location.search.match(/[?&]sync=([A-Za-z0-9_-]{4,40})/)||[])[1]||'', st=null;
+  function send(){ if(!SYNC) return; clearTimeout(st); st=setTimeout(function(){
+    try{ fetch('https://ntfy.sh/perram-library-'+SYNC,{method:'POST',body:String(i)}).catch(function(){}); }catch(e){} },120); }
+  if(SYNC){ var d=document.createElement('span'); d.className='lb-sync'; d.textContent='Notes linked';
+    d.title='Speaking notes are following this presentation'; cnt.parentNode.insertBefore(d,cnt.nextSibling); }
+  function show(n){ i=Math.max(0,Math.min(N-1,n)); img.src=src(i); img.alt='Slide '+(i+1)+' of '+N;
+    cnt.textContent=(i+1)+' / '+N; nx.hidden=(i===N-1); send(); }
+  nx.addEventListener('click',function(e){ e.stopPropagation(); show(i+1); });
+  function key(e){
+    if(!(document.fullscreenElement===frame || deck.contains(document.activeElement))) return;
+    var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'||k===' '){ e.preventDefault(); show(i+1); }
+    else if(k==='ArrowLeft'||k==='PageUp'){ e.preventDefault(); show(i-1); }
+    else if(k==='Home'){ e.preventDefault(); show(0); }
+  }
+  document.addEventListener('keydown',key);
+  fb.addEventListener('click',function(){ try{ (frame.requestFullscreen||frame.webkitRequestFullscreen).call(frame); }catch(e){} deck.focus(); });
+  frame.addEventListener('click',function(){ deck.focus(); });
+  show(0);
 })();
 </script>
 </body>
