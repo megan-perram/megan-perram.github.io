@@ -218,7 +218,9 @@ nav{max-width:1400px;margin:0 auto;padding:0 30px;display:flex;justify-content:s
 .lb-deck:focus-visible .lb-frame{box-shadow:0 0 0 3px var(--mint)}
 .lb-frame{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#fff;line-height:0;aspect-ratio:16/9}
 .lb-frame img{width:100%;height:100%;object-fit:contain;display:block}
-.lb-next{position:absolute;top:1.6%;right:1.4%;border:none;border-radius:999px;background:#FFC629;color:#00412A;font:700 clamp(11px,1.25vw,20px)/1 inherit;font-family:inherit;padding:.55em 1.05em .6em;cursor:pointer;box-shadow:0 4px 14px -6px rgba(0,0,0,.45);transition:transform .15s ease,background .15s ease}
+.lb-nav{position:absolute;top:1.6%;right:1.4%;display:flex;gap:.5vw;line-height:1}
+.lb-back{background:#fff!important;color:#005A37!important}
+.lb-next{border:none;border-radius:999px;background:#FFC629;color:#00412A;font:700 clamp(11px,1.25vw,20px)/1 inherit;font-family:inherit;padding:.55em 1.05em .6em;cursor:pointer;box-shadow:0 4px 14px -6px rgba(0,0,0,.45);transition:transform .15s ease,background .15s ease}
 .lb-next:hover{background:#FFD45A;transform:translateY(-1px)}
 .lb-next[hidden]{display:none}
 .lb-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:12px;flex-wrap:wrap}
@@ -1609,7 +1611,7 @@ to{opacity:1;transform:none}}
     <div class="lb-deck" id="libDeck" tabindex="0" role="group" aria-roledescription="slide deck" aria-label="Library Faculty and Staff Meeting slides, 16 slides. Use the Next button or the arrow keys.">
       <div class="lb-frame">
         <img id="lbImg" src="slides/library/s-01.jpg" alt="Slide 1 of 16" width="1920" height="1080">
-        <button class="lb-next" id="lbNext" aria-label="Next slide">Next &#8250;</button>
+        <span class="lb-nav"><button class="lb-next lb-back" id="lbBack" aria-label="Previous slide">&#8249; Back</button><button class="lb-next" id="lbNext" aria-label="Next slide">Next &#8250;</button></span>
       </div>
       <div class="lb-bar">
         <span class="lb-count" id="lbCount" aria-live="polite">1 / 16</span>
@@ -6098,7 +6100,7 @@ var HX_SLIDES = [{"title": "Before GenAI, There Was Hypertext", "mode": "title",
    ntfy.sh (topic perram-library-CODE). Only the slide number is sent. */
 (function(){
   var deck=document.getElementById('libDeck'); if(!deck) return;
-  var N=16, i=0, img=document.getElementById('lbImg'), nx=document.getElementById('lbNext'),
+  var N=16, i=0, img=document.getElementById('lbImg'), nx=document.getElementById('lbNext'), bk=document.getElementById('lbBack'),
       cnt=document.getElementById('lbCount'), fb=document.getElementById('lbFull'), frame=deck.querySelector('.lb-frame');
   var src=function(n){ return 'slides/library/s-'+(n<9?'0':'')+(n+1)+'.jpg'; };
   for(var p=1;p<N;p++){ var pre=new Image(); pre.src=src(p); }
@@ -6108,8 +6110,9 @@ var HX_SLIDES = [{"title": "Before GenAI, There Was Hypertext", "mode": "title",
   if(SYNC){ var d=document.createElement('span'); d.className='lb-sync'; d.textContent='Notes linked';
     d.title='Speaking notes are following this presentation'; cnt.parentNode.insertBefore(d,cnt.nextSibling); }
   function show(n){ i=Math.max(0,Math.min(N-1,n)); img.src=src(i); img.alt='Slide '+(i+1)+' of '+N;
-    cnt.textContent=(i+1)+' / '+N; nx.hidden=(i===N-1); send(); }
+    cnt.textContent=(i+1)+' / '+N; nx.hidden=(i===N-1); bk.hidden=(i===0); send(); }
   nx.addEventListener('click',function(e){ e.stopPropagation(); show(i+1); });
+  bk.addEventListener('click',function(e){ e.stopPropagation(); show(i-1); });
   function key(e){
     if(!(document.fullscreenElement===frame || deck.contains(document.activeElement))) return;
     var k=e.key;
